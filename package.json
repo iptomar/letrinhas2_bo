@@ -1,0 +1,19 @@
+{
+  "name": "letrinhas",
+  "version": "0.0.1",
+  "homepage": "http://ipt.pt",
+  "description": "Letrinhas backoffice",
+  "dependencies": {
+    "express": "*",
+    "colors": "*",
+    "nano": "*",
+    "body-parser": "*"
+  },
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "Pedro Dias <petermdias@gmail.com>",
+  "maintainers": [
+    "apocas <petermdias@gmail.com>"
+  ]
+}
