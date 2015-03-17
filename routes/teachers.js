@@ -1,18 +1,61 @@
 require('colors');
 
-var nano = require('nano');
+var nano = require('nano')('http://ince.pt:5984');
+var db = nano.use('professores');
 
-exports.new = function (req, res) {
+
+exports.new = function(req, res) {
   console.log('teachers new'.green);
-  res.json({});
+
+  var file;
+  if(req.files) file = req.files.file;
+
+  var imgData = require('fs').readFileSync(file.path);
+
+  db.multipart.insert(req.body, [{
+    name: 'prof.png',
+    data: imgData,
+    content_type: 'image/png'
+  }], req.body.email, function(err, body) {
+    if (err) {
+      return res.status(500).json({
+        'result': 'nok',
+        'message': err
+      });
+    }
+
+    res.json(body);
+  });
 };
 
-exports.getAll = function (req, res) {
+exports.getAll = function(req, res) {
   console.log('teachers getAll'.green);
-  res.json([]);
+
+  db.list(function(err, body) {
+    if (err) {
+      return res.status(500).json({
+        'result': 'nok',
+        'message': err
+      });
+    }
+
+    res.json(body.rows);
+  });
 };
 
-exports.get = function (req, res) {
+exports.get = function(req, res) {
+  var id = req.params.id;
+
   console.log('teachers get'.green);
-  res.json({});
+
+  db.get(id, function(err, body) {
+    if (err) {
+      return res.status(500).json({
+        'result': 'nok',
+        'message': err
+      });
+    }
+
+    res.json(body);
+  });
 };

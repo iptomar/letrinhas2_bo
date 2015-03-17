@@ -4,10 +4,9 @@
   "homepage": "http://ipt.pt",
   "description": "Letrinhas backoffice",
   "dependencies": {
-    "express": "*",
+    "express": "3.x.x",
     "colors": "*",
-    "nano": "*",
-    "body-parser": "*"
+    "nano": "*"
   },
   "scripts": {
     "start": "node main.js"
