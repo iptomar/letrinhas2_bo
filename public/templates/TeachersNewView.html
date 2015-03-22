@@ -10,17 +10,19 @@
   <form role="form" method="POST" action="/teachers" enctype="multipart/form-data">
     <div class="form-group">
       <label for="InputNome" >Nome</label>
-      <input type="text" class="form-control" id="InputEmail1" placeholder="Nome" name="nome">
+      <input type="text" class="form-control" id="InputNome" placeholder="Nome" name="nome">
       <label for="InputEmail">Email</label>
-      <input type="text" class="form-control" id="InputEmail" placeholder="Email" name="email">
+      <input type="email" class="form-control" id="InputEmail" placeholder="Email" name="email">
+        <label for="InputPassword">Password</label>
+      <input type="text" class="form-control" id="InputEmail" placeholder="Password" name="password">
         <label for="InputPin">Pin</label>
-        <input type="pin" class="form-control" id="inputPin" placeholder="4 dígitos">
+        <input type="number" min="0000" max="9999" class="form-control" id="inputPin" placeholder="4 dígitos" name="pin">
         <span class="help-block">(acesso aplicação móvel) </span>
         <label for="InputTelefone">Telefone</label>
-      <input type="text" class="form-control" id="InputTelefone" placeholder="Telefone" name="telefone">
+      <input type="number" min="0" max="999999999" class="form-control" id="InputTelefone" placeholder="Telefone" name="telefone">
         <label for="select" >Estado</label>
       
-        <select class="form-control" id="select">
+        <select class="form-control" id="select" name="estado">
           <option>Ativo</option>
           <option>Não Ativo</option>
         </select>

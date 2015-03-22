@@ -9,6 +9,9 @@ var Teacher = Backbone.Model.extend({
       function (json) {
         self.set("nome", json.nome);
         self.set("telefone", json.telefone);
+        self.set("password", json.password);
+        self.set("pin", json.pin);
+        self.set("estado",json.true);
 
         after_fetch();
       },
