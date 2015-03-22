@@ -1,17 +1,19 @@
 
-window.LoginView = Backbone.View.extend({
+
+window.MenuPrincipalView = Backbone.View.extend({
   events:{
-        "click #buttonEntrar": "buttonEntrar",
+        //"click #buttonEntrar": "buttonEntrar",
   },
   initialize: function () {
   },
     
-    
+    /*
     buttonEntrar: function(e) {
     app.navigate('/MenuPrincipal', {
         trigger: true
       });
     },
+    */
     
   render: function () {
     $(this.el).html(this.template());
@@ -19,4 +21,3 @@ window.LoginView = Backbone.View.extend({
   }
 
 });
-

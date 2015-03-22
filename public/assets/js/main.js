@@ -34,7 +34,8 @@ var Router = Backbone.Router.extend({
     "tests/:id": "testsInfo",
     "submissions": "submissions",
     "submissions/:id": "submissionsInfo",
-
+    "MenuPrincipal": "MenuPrincipal",
+    "man":"man",  
     "login": "login",
     "": "index"
   },
@@ -99,6 +100,42 @@ var Router = Backbone.Router.extend({
       }
     );
   },
+    // Manutenção
+    man: function() {
+    var self = this;
+
+    templateLoader.load(["manView"],
+      function() {
+        var v = new manView({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+    
+    
+    
+    //Menu Principal
+    MenuPrincipal: function() {
+    var self = this;
+
+    templateLoader.load(["MenuPrincipalView"],
+      function() {
+        var v = new MenuPrincipalView({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   studentsNew: function() {
     var self = this;
 
