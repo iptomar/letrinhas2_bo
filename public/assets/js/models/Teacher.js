@@ -15,7 +15,7 @@ var Teacher = Backbone.Model.extend({
 
         after_fetch();
       },
-      //Não esquecer de atribuir uma escola ao Prof   
+      //Precisamos enviar para a Tabela escolas o id do professor.  
       
       function (xhr, ajaxOptions, thrownError) {
         var json = JSON.parse(xhr.responseText);
