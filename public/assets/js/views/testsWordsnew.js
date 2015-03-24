@@ -1,16 +1,6 @@
 window.TestsNewView = Backbone.View.extend({
-  events: {
-    "click #buttonCancelar": "buttonCancelar",
-  
-  },
+  events: {},
   initialize: function() {},
-    
-    buttonCancelar: function(e) {
-    app.navigate('/MenuPrincipal', {
-        trigger: true
-      });
-    },
-    
 
   render: function() {
       

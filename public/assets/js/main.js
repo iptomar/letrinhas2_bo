@@ -215,6 +215,16 @@ var Router = Backbone.Router.extend({
       }
     );
   },
+testsWordsNew: function() {
+    var self = this;
+
+    templateLoader.load(["TestsWordsNewView"],
+      function() {
+        var v = new TestsWordsNewView({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
   testsInfo: function(id) {
     var self = this;
 
