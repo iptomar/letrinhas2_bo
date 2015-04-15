@@ -32,7 +32,7 @@ var Router = Backbone.Router.extend({
     "tests": "tests",
     "tests/new": "testsNew",
     "tests/:id": "testsInfo",
-    "testsWords/new": "testsWordsnew",
+    "testsWords/new": "testsWordsNew",
       // falta inseir as restantes páginas do testePalavras
     "submissions": "submissions",
     "submissions/:id": "submissionsInfo",

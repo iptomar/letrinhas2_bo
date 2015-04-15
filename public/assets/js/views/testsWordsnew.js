@@ -1,6 +1,16 @@
-window.TestsNewView = Backbone.View.extend({
-  events: {},
+window.TestsWordsNewView = Backbone.View.extend({
+  events: {
+    "click #buttonCancelar": "buttonCancelar",
+  
+  },
   initialize: function() {},
+    
+    buttonCancelar: function(e) {
+    app.navigate('/MenuPrincipal', {
+        trigger: true
+      });
+    },
+    
 
   render: function() {
       
@@ -18,7 +28,5 @@ window.TestsNewView = Backbone.View.extend({
     return this;
   }
 });
-
-
 
  

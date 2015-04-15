@@ -5,6 +5,9 @@ var express = require('express'),
   teachers = require('./routes/teachers'),
   students = require('./routes/students'),
   tests = require('./routes/tests'),
+    //TESTE
+  testsWords = require('./routes/testsWords'),
+    //FIM DO TESTE
   submissions = require('./routes/submissions'),
   schools = require('./routes/schools');
 
@@ -36,6 +39,11 @@ app.get('/schools/:id', schools.get);
 app.post('/tests', tests.new);
 app.get('/tests', tests.getAll);
 app.get('/tests/:id', tests.get);
+// TESTE:
+app.post('/testsWords', testsWords.new);
+app.get('/testsWords', testsWords.getAll);
+app.get('/testsWords/:id', testsWords.get);
+// FIM DE TESTE
 
 app.get('/submissions', submissions.getAll);
 app.get('/submissions/:id', submissions.get);
