@@ -35,7 +35,7 @@ var Router = Backbone.Router.extend({
     "submissions": "submissions",
     "submissions/:id": "submissionsInfo",
     "MenuPrincipal": "MenuPrincipal",
-    "man":"man",  
+    "man":"man",
     "login": "login",
     "": "index"
   },
@@ -46,7 +46,9 @@ var Router = Backbone.Router.extend({
     });
   },
   login: function() {
-    var login = new LoginView();
+    var login = new LoginView({
+      model: new LoginModel()
+    });
     $('#header').html("");
     $('#footer').html("");
     $('#content').html(login.render().el);
@@ -111,9 +113,9 @@ var Router = Backbone.Router.extend({
       }
     );
   },
-    
-    
-    
+
+
+
     //Menu Principal
     MenuPrincipal: function() {
     var self = this;
@@ -125,17 +127,17 @@ var Router = Backbone.Router.extend({
       }
     );
   },
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
   studentsNew: function() {
     var self = this;
 

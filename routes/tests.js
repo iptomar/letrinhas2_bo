@@ -1,7 +1,9 @@
 require('colors');
 
-var nano = require('nano')('http://ince.pt:5984');
-var db = nano.use('testes');
+//var nano = require('nano')('http://ince.pt:5984');
+var nano = require('nano')('http://127.0.0.1:5984');
+//var db = nano.use('testes');
+var db = nano.use('dev_testes');
 
 exports.new = function (req, res) {
   console.log('tests new'.green);
@@ -37,5 +39,3 @@ exports.get = function (req, res) {
     res.json(body);
   });
 };
-
-

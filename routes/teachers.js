@@ -1,8 +1,9 @@
 require('colors');
 
-var nano = require('nano')('http://ince.pt:5984');
-var db = nano.use('professores');
-
+//var nano = require('nano')('http://ince.pt:5984');
+var nano = require('nano')('http://127.0.0.1:5984');
+//var db = nano.use('professores');
+var db = nano.use('dev_professores');
 
 exports.new = function(req, res) {
   console.log('teachers new'.green);
@@ -29,7 +30,7 @@ exports.new = function(req, res) {
 };
 
 exports.getAll = function(req, res) {
-  console.log('teachers getAll'.green);
+  console.log('teachers getAll'.yellow);
 
   db.list(function(err, body) {
     if (err) {
@@ -38,15 +39,15 @@ exports.getAll = function(req, res) {
         'message': err
       });
     }
-
     res.json(body.rows);
+    //para aceder:
+    //json
+
   });
 };
 
 exports.get = function(req, res) {
   var id = req.params.id;
-
-  console.log('teachers get'.green);
 
   db.get(id, function(err, body) {
     if (err) {
@@ -57,5 +58,8 @@ exports.get = function(req, res) {
     }
 
     res.json(body);
+    //para aceder:
+    //json.parametro;
+
   });
 };

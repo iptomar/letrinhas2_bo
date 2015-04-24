@@ -1,7 +1,9 @@
 require('colors');
 
-var nano = require('nano')('http://ince.pt:5984');
-var db = nano.use('correcoes');
+//var nano = require('nano')('http://ince.pt:5984');
+var nano = require('nano')('http://127.0.0.1:5984');
+//var db = nano.use('correcoes');
+var db = nano.use('dev_correcoes');
 
 exports.getAll = function (req, res) {
   console.log('submissions getAll'.green);
