@@ -1,9 +1,15 @@
 require('colors');
 
+<<<<<<< HEAD
 //var nano = require('nano')('http://ince.pt:5984');
 var nano = require('nano')('http://127.0.0.1:5984');
 //var db = nano.use('professores');
 var db = nano.use('dev_professores');
+=======
+var nano = require('nano')('http://ince.pt:5984');
+var dbProf = nano.use('professores');
+ 
+>>>>>>> 309b4ec2bba021185b35ef34fc5a07a4a1252abb
 
 exports.new = function(req, res) {
   console.log('teachers new'.green);
