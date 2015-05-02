@@ -1,103 +1,101 @@
-<div>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Letrinhas</a>
-            </div>
+<div class="alert-warning" >
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand">Letrinhas</a>
+      </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">Testes <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#tests/new">Inserir Teste Texto</a>
+                  </li>
+                  <li><a href="#testsWords/new">Inserir Teste Lista Palavras</a>
+                  </li>
+                  <li><a href="#man">Inserir Teste Multimédia</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li><a href="#man">Alterar Teste</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#man">Desabilitar Teste</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Professores <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#teachers/new">Inserir Professor</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Alterar Dados Professor</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Desabilitar Professor</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Escolas <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#schools/new">Inserir Escola</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Alterar Dados Escola</a>
+                  </li>
+              </ul>
+          </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Teste <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#tests/new">Inserir Teste Texto</a>
-                            </li>
-                            <li><a href="#testsWords/new">Inserir Teste Lista Palavras</a>
-                            </li>
-                            <li><a href="#man">Inserir Teste Multimédia</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Teste</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Teste</a>
-                            </li>
-                        </ul>
-                    </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Turmas <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#man">Inserir Turma</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Alterar Dados Turma</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Desabilitar Turma</a>
+                  </li>
+              </ul>
+          </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Professores <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#teachers/new">Inserir Professor</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Professor</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Professor</a>
-                            </li>
-                        </ul>
-                    </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Alunos <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#students/new">Inserir Aluno</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Alterar Dados Aluno</a>
+                  </li>
+                  <li class="divider "></li>
+                  <li><a href="#man">Desabilitar Aluno</a>
+                  </li>
+              </ul>
+          </li>
+        </ul>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Escolas <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#schools/new">Inserir Escola</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Escola</a>
-                            </li>
-                        </ul>
-                    </li>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="manSair" role="button">Voltar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Turmas <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#man">Inserir Turma</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Turma</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Turma</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Alunos <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#students/new">Inserir Aluno</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Aluno</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Aluno</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="../index.html">Sair</a>
-                        </li>
-                    </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="text-center">
+      <div>
+        <h4 class="alert-warning">Esta página está de momento indísponivel, estamos a trabalhar para que esta esteja pronta o mais breve possível.</h4>
+        <br>
+        <span>Para quaisquer esclarecimento ou urgência, é favor de contactar os criadores do site:</span>
+        <br>
+        <span>Alexandre Carvalho, axcs90@gmail.com</span>
+        <br>
+        <span>Artur Gomes, artur.s.gomes@gmail.com</span>
+        <br>
+        <span>Tiago Fernandes, thiago_f@aeiou.pt</span>
+      </div>
+      <br>
+      <img src="../img/inConstruction.jpg">
+    </div>
 </div>
-      <div class="centerEX">
-      <div style="margin-left:auto;margin-right:auto;width:100%;">
-         <img src="../img/letrinhas2.png" alt="Letrinhas">
-         <h1>Em Construção</h1>
-       </div>
-          </div>
-        </div>
-        

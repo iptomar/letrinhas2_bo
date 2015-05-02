@@ -1,92 +1,123 @@
-<div>
+<!--
+Sugestão para o menu:
+Usar esta pàgina como uma MasterPage, e
+consoante as permissões do utilizador (rolls)
+apresenta para cosuta:
 
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
+>Testes: (Faz aparecer uma grid com os diversos testes ativos,
+          onde, além de um "preview" do teste (1ª pergunta) apresenta as
+          diversas opções)
+          >Editar / >Criar / >Apagar (Desabilitar???)
 
-                <a class="navbar-brand">Letrinhas</a>
-            </div>
+         Seguindo a lógica da app.
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+>Professores: (Apresentar uma grid com todos os professores na BD e apresentando
+               as respetivas opções)
+               >Editar / >Criar / >Apagar (Desabilitar???)
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Teste <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#tests/new">Inserir Teste Texto</a>
-                            </li>
-                            <li><a href="#testsWords/new">Inserir Teste Lista Palavras</a>
-                            </li>
-                            <li><a href="#man">Inserir Teste Multimédia</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Teste</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Teste</a>
-                            </li>
-                        </ul>
-                    </li>
+>Escolas: (Apresentar uma grid com todas as escolas na BD e apresentando
+           as respetivas opções)
+           >Editar / >Criar / >Apagar (Desabilitar???)
+           Ao clicar numa escola, muda a grid para consulta de todas as turmas
+           da escola selecionada.
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Professores <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#teachers/new">Inserir Professor</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Professor</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Professor</a>
-                            </li>
-                        </ul>
-                    </li>
+>Turmas: (Apresentar uma grid com todas as turmas na BD e apresentando
+          as respetivas opções)
+          >Editar / >Criar / >Apagar (Desabilitar???)
+          Ao clicar numa turma, muda a grid para consulta de todos os Alunos
+          da Turma selecionada.
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Escolas <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#schools/new">Inserir Escola</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Escola</a>
-                            </li>
-                        </ul>
-                    </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Turmas <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#man">Inserir Turma</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Turma</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Turma</a>
-                            </li>
-                        </ul>
-                    </li>
+>Alunos: (Apresentar uma grid com todos os alunos BD e apresentando
+            as respetivas opções)
+            >Editar / >Criar / >Apagar (Desabilitar???)
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Alunos <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#students/new">Inserir Aluno</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Alterar Dados Aluno</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#man">Desabilitar Aluno</a>
-                            </li>
-                        </ul>
-                    </li>
+-->
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="../index.html">Sair</a>
-                        </li>
-                    </ul>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Letrinhas</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">Testes <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#tests/new">Criar Teste Texto</a>
+                </li>
+                <li><a href="#testsWords/new">Criar Teste Lista Palavras</a>
+                </li>
+                <li><a href="#man">Criar Teste Multimédia</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="#man">Alterar Teste</a></li>
+                <li class="divider"></li>
+                <li><a href="#man">Desabilitar Teste</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Professores <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#teachers/new">Inserir Professor</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Alterar Dados Professor</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Desabilitar Professor</a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Escolas <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#schools/new">Inserir Escola</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Alterar Dados Escola</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Turmas <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#man">Inserir Turma</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Alterar Dados Turma</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Desabilitar Turma</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Alunos <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#students/new">Inserir Aluno</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Alterar Dados Aluno</a>
+                </li>
+                <li class="divider "></li>
+                <li><a href="#man">Desabilitar Aluno</a>
+                </li>
+            </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="menuSair" role="button">Sair</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="text-center">
+   <img src="../img/letrinhas2.png" alt="Letrinhas">
 </div>
