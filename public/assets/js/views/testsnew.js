@@ -1,6 +1,6 @@
 window.TestsNewView = Backbone.View.extend({
   events: {
-    "submit": "textSubmeter",
+    "click #txtSubmeter": "textSubmeter",
     "click #buttonCancelar": "buttonCancelar",
 
   },
@@ -23,6 +23,7 @@ window.TestsNewView = Backbone.View.extend({
     var self = this;
     console.log("a submeter");
 
+
     //1ºcriar a pergunta
     var pergunta = {
 
@@ -31,7 +32,7 @@ window.TestsNewView = Backbone.View.extend({
 
     //2ºcriar o teste e adicionar a sua pergunta
 
-    //3º inserir o teste na BD.
+    //3º inserir o teste e a pergunta na BD.
   /*  modem('GET', 'tests', function(data) {
       $('#subcontent', self.el).html(JSON.stringify(data));
     }, function(error) {
