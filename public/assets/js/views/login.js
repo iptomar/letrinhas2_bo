@@ -7,6 +7,7 @@ window.LoginView = Backbone.View.extend({
   initialize: function () {
     var self=this;
 
+
   },
 
   keyApaga: function(e){
@@ -107,6 +108,13 @@ window.LoginView = Backbone.View.extend({
     },
 
   render: function () {
+    //se já estiver logado, então não pára aqui, e passa para o menuPrincipal
+    var controlo=window.localStorage.getItem("Logged");
+    if(controlo){
+      app.navigate('/MenuPrincipal', {
+          trigger: true
+        });
+    }
     $(this.el).html(this.template());
     return this;
   }
