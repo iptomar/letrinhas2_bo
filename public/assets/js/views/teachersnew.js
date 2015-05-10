@@ -1,7 +1,9 @@
 window.TeachersNewView = Backbone.View.extend({
   events: {
-    "submit":"submeterProfessor",
+    //"submit":"submeterProfessor",
+    "click #subProf":"submeterProfessor",
     "click #buttonCancelar": "buttonCancelar",
+    "blur #InputEmail":"verificaMail",
 
 
 
@@ -17,9 +19,12 @@ window.TeachersNewView = Backbone.View.extend({
     else{
       console.log('Logado'); //guardar variavel
     }
+    //para fazer update às escolas selecionadas e respetivas turmas,
+    //caso seja submetido o formulário
+    var turmas = new Array();
 
 
-    //1º Buscar o professor pelo e-mail
+    //Teste de preencher o dropDown para selecção da escola.
     modem('GET', 'schools',
         function (json) {
           // Preencher o select escola, com as escolas existentes e respetivas turmas:
@@ -30,14 +35,16 @@ window.TeachersNewView = Backbone.View.extend({
           console.log("nº de escolas: ", json.length);
           var s='';
           for(i=0; i<json.length; i++){
-            console.log(json[i].nome+'');
-            s+="<option >"+ json[i].nome;
+            console.log(json[i].doc.nome);
+            s+="<option >"+ json[i].doc.nome;
             //e adicionar as turmas...
             s+='<select>';
-            for(j=0;j<json[i].turmas.length;j++){
-              s+='<option>'+json[i].turmas[j].nome+'</option>';
+            for(j=0;j<json[i].doc.turmas.length;j++){
+              s+='<option>'+json[i].doc.turmas[j].nome+'</option>';
+              console.log(json[i].doc.turmas[j].nome);
             }
-            s+="  </select></option>";
+            s+="</select>";
+            s+="</option>";
           }
           $("#selectEscola").html(s);
         },
@@ -52,20 +59,31 @@ window.TeachersNewView = Backbone.View.extend({
 
   },
 
+  verificaMail: function(){
+
+    console.log("A verificar mail...");
+
+    //1ºverificar se o e-mail é válido
+    //2ºse já exite na BD
+  },
+
   submeterProfessor: function(e){
     //e.preventDefault();
     console.log("A submeter");
-    //1ºverificar se o e-mail é válido
-    //2ºse já exite na BD
-    //3ºvalidar PIN
-    //4ªvalidar Telefone
-    //5ºverificar a foto, se não tiver atribuir uma por defeito, consoante o género
-    //e por fim submeter..
+
+
+    //1ªvalidar Telefone
+    //2ºverificar a foto, se não tiver atribuir uma por defeito, consoante o género
+    //e por fim submeter??.
+    //Insert no professores, com foto, se possível.
+    //vários Updates das Escolas/ Turmas associadas
+
     //teste na submissão: ######################################################
     //verificar o estado:
     var estado;
-    if($("#selectEstado").selected==0) estado=true;
+    if($("#selectEstado").val()=="Ativo") estado=true;
     else estado = false;
+
 
   /*  var prof={
       '_id': $("#InputEmail").text(),
@@ -76,11 +94,8 @@ window.TeachersNewView = Backbone.View.extend({
       'estado': estado,
       'tipo': $("#selectTipo").selected,
     };
-
     try{
       modem('POST','teachers', prof,null);
-
-
     }
     catch (err) {
       console.log(err.message);
@@ -88,8 +103,7 @@ window.TeachersNewView = Backbone.View.extend({
       window.history.back();
     }*/
     // fim de teste na submissão: ###### ERRO ##################################
-
-    return true;
+    return false;
   },
 
   buttonCancelar: function(e) {

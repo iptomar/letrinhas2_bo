@@ -2,14 +2,13 @@ require('colors');
 
 var express = require('express'),
   http = require('http'),
+  schools = require('./routes/schools');
   teachers = require('./routes/teachers'),
   students = require('./routes/students'),
   tests = require('./routes/tests'),
-    //TESTE
-  testsWords = require('./routes/testsWords'),
-    //FIM DO TESTE
+  questions = require('./routes/questions'),
   submissions = require('./routes/submissions'),
-  schools = require('./routes/schools');
+  answers = require('./routes/answers');
 
 var app = express();
 
@@ -23,30 +22,45 @@ app.configure(function(){
   this.use(app.router);
 });
 
-
+//Professores
 app.post('/teachers', teachers.new);
+app.post('/teachers/:id', teachers.upDate);
 app.get('/teachers', teachers.getAll);
 app.get('/teachers/:id', teachers.get);
 
+//Alunos
 app.post('/students', students.new);
+app.post('/students/:id', students.upDate);
 app.get('/students', students.getAll);
 app.get('/students/:id', students.get);
 
+//Escolas
 app.post('/schools', schools.new);
+app.post('/schools/:id', schools.upDate);
 app.get('/schools', schools.getAll);
 app.get('/schools/:id', schools.get);
 
+//Testes
 app.post('/tests', tests.new);
+app.post('/tests/:id', tests.upDate);
 app.get('/tests', tests.getAll);
 app.get('/tests/:id', tests.get);
-// TESTE:
-app.post('/testsWords', testsWords.new);
-app.get('/testsWords', testsWords.getAll);
-app.get('/testsWords/:id', testsWords.get);
-// FIM DE TESTE
 
+//Perguntas
+app.post('/questions', questions.new);
+app.post('/questions/:id', questions.upDate);
+app.get('/questions', questions.getAll);
+app.get('/questions/:id', questions.get);
+
+//Resoluçoes
 app.get('/submissions', submissions.getAll);
+app.post('/submissions/:id', submissions.upDate);
 app.get('/submissions/:id', submissions.get);
+
+//Respostas
+app.get('/answers', answers.getAll);
+app.post('/answers/:id', answers.upDate);
+app.get('/answers/:id', answers.get);
 
 // app.post('/login', session.login);
 

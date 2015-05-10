@@ -22,6 +22,7 @@ var Router = Backbone.Router.extend({
   routes: {
     "teachers": "teachers",
     "teachers/new": "teachersNew",
+    "teachers/edit": "teachersEdit"
     "teachers/:id": "teachersInfo",
     "students": "students",
     "students/new": "studentsNew",
@@ -66,6 +67,7 @@ var Router = Backbone.Router.extend({
       }
     );
   },
+
   teachersNew: function() {
     var self = this;
 
@@ -76,6 +78,7 @@ var Router = Backbone.Router.extend({
       }
     );
   },
+
   teachersInfo: function(id) {
     var self = this;
 
@@ -94,27 +97,29 @@ var Router = Backbone.Router.extend({
     );
   },
 
-  students: function() {
-    var self = this;
+students: function() {
+  var self = this;
 
-    templateLoader.load(["StudentsView"],
-      function() {
-        var v = new StudentsView({});
-        self.showView(v, $('#content'));
-      }
-    );
-  },
-    // Manutenção
-    man: function() {
-    var self = this;
+  templateLoader.load(["StudentsView"],
+    function() {
+      var v = new StudentsView({});
+      self.showView(v, $('#content'));
+    }
+  );
+},
 
-    templateLoader.load(["manView"],
-      function() {
-        var v = new manView({});
-        self.showView(v, $('#content'));
-      }
-    );
-  },
+
+  // Manutenção
+man: function() {
+  var self = this;
+
+  templateLoader.load(["manView"],
+    function() {
+      var v = new manView({});
+      self.showView(v, $('#content'));
+    }
+  );
+},
 
 
 
