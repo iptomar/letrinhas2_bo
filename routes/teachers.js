@@ -13,20 +13,20 @@ exports.upDate = function(rep, res){
 
 // source: http://writings.nunojob.com/2012/07/How-To-Update-A-Document-With-Nano-The-CouchDB-Client-for-Node.js.html
 
-db.update = function(obj, key, callback) {
-var db = this;
+//db.update = function(obj, key, callback) {
+//var db = this;
 
-db.get(key, function (error, existing) {
-if(!error) obj._rev = existing._rev;
-db.insert(obj, key, callback);
-});
-}
+//db.get(key, function (error, existing) {
+//if(!error) obj._rev = existing._rev;
+//db.insert(obj, key, callback);
+//});
+//}
 
 
-db.update({title: 'The new one'}, '1', function(err, res) {
-if (err) return console.log('No update!');
-console.log('Updated!');
-});
+//db.update({title: 'The new one'}, '1', function(err, res) {
+//if (err) return console.log('No update!');
+//console.log('Updated!');
+//});
 //fim exemplo
 
 

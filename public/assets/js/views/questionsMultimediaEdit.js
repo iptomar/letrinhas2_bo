@@ -1,4 +1,4 @@
-window.TestsInfoView = Backbone.View.extend({
+window.QuestionsMultimediaEdit = Backbone.View.extend({
   events: {},
   initialize: function() {},
 

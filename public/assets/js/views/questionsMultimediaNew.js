@@ -1,4 +1,4 @@
-window.SubmissionsInfoView = Backbone.View.extend({
+window.QuestionsMultimediaNew = Backbone.View.extend({
   events: {},
   initialize: function() {},
 

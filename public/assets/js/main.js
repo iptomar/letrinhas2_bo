@@ -22,24 +22,71 @@ var Router = Backbone.Router.extend({
   routes: {
     "teachers": "teachers",
     "teachers/new": "teachersNew",
-    "teachers/edit": "teachersEdit"
-    "teachers/:id": "teachersInfo",
+    "teachers/edit": "teachersEdit",
+  //  "teachers/:id": "teachersInfo",
+
     "students": "students",
     "students/new": "studentsNew",
-    "students/:id": "studentsInfo",
+    "students/edit": "studentsEdit",
+  //  "students/:id": "studentsInfo",
+
     "schools": "schools",
     "schools/new": "schoolsNew",
-    "schools/:id": "schoolsInfo",
+    "schools/edit": "schoolsEdit",
+  //  "schools/:id": "schoolsInfo",
+
+  //Testes
     "tests": "tests",
-    "tests/new": "testsNew",
-    "tests/:id": "testsInfo",
-    "testsWords/new": "testsWordsNew",
-      // falta inseir as restantes páginas do testePalavras
+
+  //Perguntas de:
+  //  Texto
+    "questionsText": "questionsText",
+    "questionsText/new": "questionsTextNew",
+    "questionsText/edit": "questionsTextEdit",
+
+  //  Lista de Palavras
+    "questionsList": "questionsList",
+    "questionsList/new": "questionsListNew",
+    "questionsList/edit": "questionsListEdit",
+
+  //  Mutlimédia
+    "questionsMultimedia": "questionsMultimedia",
+    "questionsMultimedia/new": "questionsMultimediaNew",
+    "questionsMultimedia/edit": "questionsMultimediaEdit",
+
+  //  Interpretação
+    "questionsInterp": "questionsInterp",
+    "questionsInterp/new": "questionsInterpNew",
+    "questionsInterp/edit": "questionsInterpEdit",
+
+  //Resoluções:
     "submissions": "submissions",
-    "submissions/:id": "submissionsInfo",
+
+  //Respostas de:
+  //Texto
+    "answersText": "answersText",
+    "answersText/Corr": "answersTextCorr",
+
+  //Lista
+    "answersList": "answersList",
+    "answersList/Corr": "answersListCorr",
+
+  //Multimédia
+    "answersMultimedia": "answersMultimedia",
+
+  //Interpretação
+    "answersInterp": "answersInterp",
+
+  //Menu Principal
     "MenuPrincipal": "MenuPrincipal",
+
+  //Pagina de Manutenção
     "man":"man",
+
+  //Controlo de acesso
     "login": "login",
+
+  //Default Page
     "": "index"
   },
 
@@ -48,6 +95,7 @@ var Router = Backbone.Router.extend({
       trigger: true
     });
   },
+
   login: function() {
     var login = new LoginView({
       model: new LoginModel()
@@ -59,7 +107,6 @@ var Router = Backbone.Router.extend({
 
   teachers: function() {
     var self = this;
-
     templateLoader.load(["TeachersView"],
       function() {
         var v = new TeachersView({});
@@ -70,7 +117,6 @@ var Router = Backbone.Router.extend({
 
   teachersNew: function() {
     var self = this;
-
     templateLoader.load(["TeachersNewView"],
       function() {
         var v = new TeachersNewView({});
@@ -79,9 +125,19 @@ var Router = Backbone.Router.extend({
     );
   },
 
-  teachersInfo: function(id) {
+  teachersEdit: function(){
     var self = this;
+    templateLoader.load(["TeachersEditView"],
+      function() {
+        var v = new TeachersEditView({});
+        self.showView(v, $('#content'));
+      }
+    );
 
+  },
+
+  /*teachersInfo: function(id) {
+    var self = this;
     templateLoader.load(["TeachersInfoView"],
       function() {
         var ss = new Teacher({
@@ -95,55 +151,18 @@ var Router = Backbone.Router.extend({
         });
       }
     );
-  },
+  },*/
 
-students: function() {
-  var self = this;
-
-  templateLoader.load(["StudentsView"],
-    function() {
-      var v = new StudentsView({});
-      self.showView(v, $('#content'));
-    }
-  );
-},
-
-
-  // Manutenção
-man: function() {
-  var self = this;
-
-  templateLoader.load(["manView"],
-    function() {
-      var v = new manView({});
-      self.showView(v, $('#content'));
-    }
-  );
-},
-
-
-
-    //Menu Principal
-    MenuPrincipal: function() {
+  students: function() {
     var self = this;
 
-    templateLoader.load(["MenuPrincipalView"],
+    templateLoader.load(["StudentsView"],
       function() {
-        var v = new MenuPrincipalView({});
+        var v = new StudentsView({});
         self.showView(v, $('#content'));
       }
     );
   },
-
-
-
-
-
-
-
-
-
-
 
   studentsNew: function() {
     var self = this;
@@ -155,23 +174,34 @@ man: function() {
       }
     );
   },
-  studentsInfo: function(id) {
+
+  studentsEdit: function() {
     var self = this;
 
-    templateLoader.load(["StudentsInfoView"],
-    function() {
-      var ss = new Student({
-        id: id
-      });
-      ss.fetch().done(function () {
-        var v = new StudentsInfoView({
-          model: ss
-        });
+    templateLoader.load(["StudentsEdit"],
+      function() {
+        var v = new StudentsEdit({});
         self.showView(v, $('#content'));
-      });
-    }
+      }
     );
   },
+
+  /*studentsInfo: function(id) {
+  var self = this;
+  templateLoader.load(["StudentsInfoView"],
+  function() {
+    var ss = new Student({
+      id: id
+    });
+    ss.fetch().done(function () {
+      var v = new StudentsInfoView({
+        model: ss
+      });
+      self.showView(v, $('#content'));
+    });
+  }
+  );
+},*/
 
   schools: function() {
     var self = this;
@@ -183,26 +213,38 @@ man: function() {
       }
     );
   },
+
   schoolsNew: function() {
     var self = this;
 
-    templateLoader.load(["SchoolsNewView"],
+    templateLoader.load(["SchoolsNew"],
       function() {
-        var v = new SchoolsNewView({});
+        var v = new SchoolsNew({});
         self.showView(v, $('#content'));
       }
     );
   },
-  schoolsInfo: function(id) {
+
+  schoolsEdit: function() {
     var self = this;
 
+    templateLoader.load(["SchoolsEdit"],
+      function() {
+        var v = new SchoolsEdit({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  /*schoolsInfo: function(id) {
+    var self = this;
     templateLoader.load(["SchoolsInfoView"],
       function() {
         var v = new SchoolsInfoView({});
         self.showView(v, $('#content'));
       }
     );
-  },
+  },*/
 
   tests: function() {
     var self = this;
@@ -214,32 +256,134 @@ man: function() {
       }
     );
   },
-  testsNew: function() {
+
+  questionsText: function() {
     var self = this;
 
-    templateLoader.load(["TestsNewView"],
+    templateLoader.load(["QuestionsText"],
       function() {
-        var v = new TestsNewView({});
+        var v = new QuestionsText({});
         self.showView(v, $('#content'));
       }
     );
   },
-testsWordsNew: function() {
+
+  questionsTextNew: function() {
     var self = this;
 
-    templateLoader.load(["TestsWordsNewView"],
+    templateLoader.load(["QuestionsTextNew"],
       function() {
-        var v = new TestsWordsNewView({});
+        var v = new QuestionsTextNew({});
         self.showView(v, $('#content'));
       }
     );
   },
-  testsInfo: function(id) {
+
+  questionsTextEdit: function() {
     var self = this;
 
-    templateLoader.load(["TestsInfoView"],
+    templateLoader.load(["QuestionsTextEdit"],
       function() {
-        var v = new TestsInfoView({});
+        var v = new QuestionsTextEdit({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsList: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsList"],
+      function() {
+        var v = new QuestionsList({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsListNew: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsListNew"],
+      function() {
+        var v = new QuestionsListNew({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsListEdit: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsListEdit"],
+      function() {
+        var v = new QuestionsListEdit({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsMultimedia: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsMultimedia"],
+      function() {
+        var v = new QuestionsMultimedia({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsMultimediaNew: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsMultimediaNew"],
+      function() {
+        var v = new QuestionsMultimediaNew({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsMultimediaEdit: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsMultimediaEdit"],
+      function() {
+        var v = new QuestionsMultimediaEdit({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsInterp: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsInterp"],
+      function() {
+        var v = new QuestionsInterp({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsInterpNew: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsInterpNew"],
+      function() {
+        var v = new QuestionsInterpNew({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  questionsInterpEdit: function() {
+    var self = this;
+
+    templateLoader.load(["QuestionsInterpEdit"],
+      function() {
+        var v = new QuestionsInterpEdit({});
         self.showView(v, $('#content'));
       }
     );
@@ -255,18 +399,98 @@ testsWordsNew: function() {
       }
     );
   },
-  submissionsInfo: function(id) {
+
+  answersText: function() {
     var self = this;
 
-    templateLoader.load(["SubmissionsInfoView"],
+    templateLoader.load(["AnswersText"],
       function() {
-        var v = new SubmissionsInfoView({});
+        var v = new AnswersText({});
         self.showView(v, $('#content'));
       }
     );
   },
-});
 
+  answersTextCorr: function() {
+    var self = this;
+
+    templateLoader.load(["AnswersTextCorr"],
+      function() {
+        var v = new AnswersTextCorr({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  answersList: function() {
+    var self = this;
+
+    templateLoader.load(["AnswersList"],
+      function() {
+        var v = new AnswersList({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  answersListCorr: function() {
+    var self = this;
+
+    templateLoader.load(["AnswerListtCorr"],
+      function() {
+        var v = new AnswersListCorr({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  answersMultimedia: function() {
+    var self = this;
+
+    templateLoader.load(["AnswersMultimedia"],
+      function() {
+        var v = new AnswersMultimedia({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  answersInterp: function() {
+    var self = this;
+
+    templateLoader.load(["AnswersInterp"],
+      function() {
+        var v = new AnswersInterp({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  // Manutenção
+  man: function() {
+    var self = this;
+
+    templateLoader.load(["manView"],
+      function() {
+        var v = new manView({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  //Menu Principal
+  MenuPrincipal: function() {
+    var self = this;
+
+    templateLoader.load(["MenuPrincipalView"],
+      function() {
+        var v = new MenuPrincipalView({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+});
 
 templateLoader.load(["LoginView"],
   function() {

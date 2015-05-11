@@ -1,4 +1,4 @@
-window.SchoolsNew = Backbone.View.extend({
+window.SchoolsEdit = Backbone.View.extend({
   events: {"click #buttonCancelar": "buttonCancelar",
 
 
@@ -6,11 +6,12 @@ window.SchoolsNew = Backbone.View.extend({
   },
   initialize: function() {},
 
-    buttonCancelar: function(e) {
-    app.navigate('/MenuPrincipal', {
-        trigger: true
-      });
-    },
+  buttonCancelar: function(e) {
+  app.navigate('/MenuPrincipal', {
+      trigger: true
+    });
+  },
+    
   render: function() {
     $(this.el).html(this.template());
     return this;

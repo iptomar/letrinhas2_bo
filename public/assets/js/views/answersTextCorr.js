@@ -1,4 +1,4 @@
-window.TestsView = Backbone.View.extend({
+window.AnswersTextCorr = Backbone.View.extend({
   events: {},
   initialize: function() {},
 

@@ -1,5 +1,6 @@
-window.SchoolsNew = Backbone.View.extend({
-  events: {"click #buttonCancelar": "buttonCancelar",
+window.StudentsEdit = Backbone.View.extend({
+  events: {
+      "click #buttonCancelar": "buttonCancelar",
 
 
 
