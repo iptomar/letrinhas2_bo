@@ -20,7 +20,6 @@ window.TestsView = Backbone.View.extend({
 
 
     modem('GET', 'tests', function(data) {
-      console.log("nº de Testes: ", data.length);
       $('#testBadge').text(data.length);
       var s='';
       for(i=0;i<data.length;i++){
@@ -34,7 +33,6 @@ window.TestsView = Backbone.View.extend({
       }
       $('#testsContent').html(s);
 
-      //$('#testsContent', self.el).html(JSON.stringify(data));
     }, function(error) {
       console.log('Error getting tests list!');
     });
