@@ -5,7 +5,7 @@ window.TestsView = Backbone.View.extend({
   },
 
   newTest:function(){
-    console.log("Queres novo teste?? ");
+    console.log("Quer novo teste?? ");
 
     //deverá aparecer um Modal para escolher o tipo de teste a criar.
     //Teste:

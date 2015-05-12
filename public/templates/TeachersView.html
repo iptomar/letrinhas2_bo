@@ -1,5 +1,5 @@
 <div>
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <nav class="navbar navbar-default ">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" aria-expanded="false">
@@ -55,13 +55,93 @@
 
     </div>
   </nav>
-  <div id="teachersContent">
+  
+    <div id="teachersPanel" class="panel panel-default col-md-2">
+    <div class="panel-body " text-align="center" style="height:600px;">
+      <div >Testes: <span id="teachersBadge"class="badge"></span>
+      </div>
+      <hr>
+      <span>
+        <span class="glyphicon glyphicon-filter"></span>
+        Filtrar por:
+      </span>
+
+      <!-- Split button -->
+      <div class="btn-group" >
+        <button type="button" class="btn btn" style="width:100px">Disciplina</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a>
+              <span>
+                <img src="../img/portugues.png" style='height:32px;'>
+              </span>
+              Letrinhas
+            </a>
+          </li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <br>
+      <br>
+
+      <!-- Split button -->
+      <div class="btn-group">
+        <button type="button" class="btn " style="width:100px">Ano Escolar</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <br>
+      <br>
+
+      <!-- Split button -->
+      <div class="btn-group">
+        <button type="button" class="btn" style="width:100px">Cronologia</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
 
 
-    <div id='subcontent'>
-      teachers list
+
+
+      <div>
+      </div>
+
+
+      <hr>
+      <button id="btnTeachersNew" class="btn btn-warning" style="font-size:12px"><span class="glyphicon glyphicon-plus" style="color:#00ff00;"></span>
+        Criar novo professor
+      </button>
     </div>
+  </div>
+  <div id="teachersContent" class=" panel-body col-md-5" style="max-height:600px; overflow:auto">
 
-
+  </div>
+  <div id="teachersPreview" class="col-md-5" align="center" style="">
+    
   </div>
 </div>
