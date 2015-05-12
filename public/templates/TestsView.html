@@ -55,10 +55,31 @@
 
     </div>
   </nav>
-  <div id="testsContent">
+
+  <div id="testsPanel" class="panel panel-default col-md-2">
+    <div class="panel-body " text-align="center" style="height:600px;">
+      <div >Testes: <span id="testBadge"class="badge"></span>
+      </div>
+      <hr>
+      <span>
+        <span class="glyphicon glyphicon-filter"></span>
+        Filtrar por:
+      </span>
+      <div>
+      </div>
 
 
-
+      <hr>
+      <button id="btnTestNew" class="btn btn-warning" style="font-size:12px"><span class="glyphicon glyphicon-plus" style="color:#00ff00;"></span>
+        Criar novo teste
+      </button>
+    </div>
+  </div>
+  <div id="testsContent" class=" panel-body col-md-5" style="max-height:600px; overflow:auto">
 
   </div>
+  <div id="testsPreview" class="col-md-5" align="center" style="background-color:#ffdddd">
+    Preview...
+  </div>
+
 </div>
