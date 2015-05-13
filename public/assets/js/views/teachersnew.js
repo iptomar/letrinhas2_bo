@@ -108,9 +108,7 @@ window.TeachersNewView = Backbone.View.extend({
 
   buttonCancelar: function(e) {
     e.preventDefault();
-    app.navigate('/MenuPrincipal', {
-        trigger: true
-      });
+    window.history.back();
   },
 
   render: function() {
