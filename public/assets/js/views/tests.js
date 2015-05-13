@@ -1,16 +1,16 @@
 window.TestsView = Backbone.View.extend({
   events: {
     "click #btnTestNew":"newTest",
+    "click #btnTesteCriar":"criarTeste"
 
   },
 
+  criarTeste:function(){
+    
+  },
+
   newTest:function(){
-    console.log("Quer novo teste?? ");
     $('#myModalTest').modal("show");
-    //deverá aparecer um Modal para escolher o tipo de teste a criar.
-    //Teste:
-
-
   },
 
   initialize: function() {},

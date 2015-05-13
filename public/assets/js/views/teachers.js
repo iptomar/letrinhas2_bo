@@ -22,7 +22,7 @@ window.TeachersView = Backbone.View.extend({
           + '"  name="' + data[i].doc._id
           +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block" >'
-          +' <img src="../img/professor1.png"  style="height:25px;" > '
+          +' <img src="http://localhost:5984/dev_professores/'+data[i].doc._id+'/prof.png"  style="height:25px;" > '
           + data[i].doc.nome + '</button>';
       }
 
@@ -59,7 +59,7 @@ window.TeachersView = Backbone.View.extend({
         //console.log(url);
 
         var conteudo='';
-            conteudo+= '<img src="../img/docentes.png"  style="height:250px;">';
+            conteudo+= '<img src="http://localhost:5984/dev_professores/'+data[0].doc._id+'/prof.png"  style="height:250px;">';
             conteudo+= '<br><label>'+data[0].doc.estado+' </label><br>';
             conteudo+= '<label>'+data[0].doc.telefone+'</label><br>';
 
