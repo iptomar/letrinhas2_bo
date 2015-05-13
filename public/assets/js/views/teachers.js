@@ -1,6 +1,10 @@
 window.TeachersView = Backbone.View.extend({
-  events: {},
+  events: {
+     "click #btnTeachersNew": "newTeacher",
+  },
+    
   initialize: function() {},
+  
 
   render: function() {
     $(this.el).html(this.template());
@@ -68,11 +72,24 @@ window.TeachersView = Backbone.View.extend({
         $('#teachersPreview').html(conteudo);
 
 
+        
+        
     }, function(error) {
       console.log('Error getting teachers list!');
     });
 
     return this;
-  }
-
+  },
+  
+  newTeacher: function (e) {
+    e.preventDefault();
+    app.navigate('/teachers/new', {
+    trigger: true
+    }); 
+  },
+    
+    
+    
 });
+
+
