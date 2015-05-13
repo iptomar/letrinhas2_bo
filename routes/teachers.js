@@ -59,7 +59,7 @@ exports.new = function(req, res) {
 exports.getAll = function(req, res) {
   console.log('teachers getAll'.yellow);
 
-  db.list({'include_docs': true, 'limit': undefined, 'descending': true}, function(err, body) {
+  db.list({'include_docs': true, 'attachments': true, 'limit': undefined, 'descending': true}, function(err, body) {
     if (err) {
       return res.status(500).json({
         'result': 'nok',
@@ -83,4 +83,20 @@ exports.get = function(req, res) {
 
     res.json(body);
   });
+};
+
+exports.foto = function(req, res){
+  var id = req.params.id;
+
+  db.attachment.get(id,'prof.png',function(err,body){
+    if (err) {
+      return res.status(500).json({
+        'result': 'nok',
+        'message': err
+      });
+    }
+
+    res.json(body);
+  });
+
 };

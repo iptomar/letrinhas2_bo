@@ -27,6 +27,7 @@ app.post('/teachers', teachers.new);
 app.post('/teachers/:id', teachers.upDate);
 app.get('/teachers', teachers.getAll);
 app.get('/teachers/:id', teachers.get);
+app.get('/teachersFoto/:id', teachers.foto);
 
 //Alunos
 app.post('/students', students.new);

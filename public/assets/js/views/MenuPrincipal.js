@@ -16,7 +16,7 @@ window.MenuPrincipalView = Backbone.View.extend({
       console.log('Logado'); //guardar variavel
     }
     //criar restrições a opções consoante as permissões do professor.
-    
+
   },
 
   Logout:function(e){
@@ -24,6 +24,7 @@ window.MenuPrincipalView = Backbone.View.extend({
     console.log("sair");
     window.localStorage.removeItem("Logged");
     window.localStorage.removeItem("ProfID");
+    window.localStorage.removeItem("Roll");
     window.history.back();
 
   },
