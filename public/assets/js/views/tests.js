@@ -6,7 +6,7 @@ window.TestsView = Backbone.View.extend({
   },
 
   criarTeste:function(){
-    
+
   },
 
   newTest:function(){
@@ -28,7 +28,7 @@ window.TestsView = Backbone.View.extend({
       }
       else{
         for(i=0;i<data.length;i++){
-          var img;
+          var img, img2;
 
           switch(data[i].doc.tipo){
             case 'Texto': img="../img/testeTexto.png";
@@ -44,6 +44,20 @@ window.TestsView = Backbone.View.extend({
             default:  img="../img/page-loader.gif";
               break;
           };
+
+          switch(data[i].doc.disciplina){
+            case 'português': img2="../img/portugues.png";
+              break;
+            case 'inglês': img2="../img/ingles.png";
+              break;
+            case 'matemática': img2="../img/mate.png";
+              break;
+            case 'estudoMeio': img2="../img/estudoMeio.png";
+              break;
+            default:  img2="../img/page-loader.gif";
+              break;
+          };
+
 
          var date = new Date(data[i].doc.dataCri);
          var day = date.getDate().toString();
@@ -63,12 +77,13 @@ window.TestsView = Backbone.View.extend({
             +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
             +' class="btn btn-lg btn-block" >'
             +' <img src="'+img+'"  style="height:25px;" > '
+            +' <img src="'+img2+'"  style="height:25px;" > '
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
         }
 
         var d=""+data[0].doc.descricao;
         $("#testsPreview").html(d);
-
+        console.log("idquestão: "+data[0].doc.perguntas[0]);
         //Preview
         modem('GET', 'questions/'+data[0].doc.perguntas[0], function(item) {
           console.log(item);

@@ -5,8 +5,6 @@ window.TeachersView = Backbone.View.extend({
   },
 
   initialize: function() {
-
-
   },
 
 
@@ -51,14 +49,17 @@ window.TeachersView = Backbone.View.extend({
 
       self.getTurmas();
 
-      //Criar Evento
+      //Criar Eventos
       var myEl = document.getElementsByClassName('profSelec');
       for(j=0;j<myEl.length;j++){
         myEl[j].addEventListener('click', function() {
                       self.mudaProf(this);
                     }, false);
       };
-
+      myEl = document.getElementById('btnTeachersEdit');
+      myEl.addEventListener('click', function() {
+                    self.editTeacher(this);
+                  }, false);
 
 
       // Dúvidas:
@@ -91,25 +92,12 @@ window.TeachersView = Backbone.View.extend({
         //= URL.createObjectURL(data[0].doc._attachments.data);
         //console.log(url);
 
-
-
-
-
-
     }, function(error) {
       console.log('Error getting teachers list!');
     });
 
     return this;
   },
-
-/*
-var myEl = document.getElementByClass('AU');
-myEl.addEventListener('click', function() {
-              self.mudaProf(this);
-            }, false);
-*/
-
   getTurmas:function(){
     var self=this;
     modem('GET','schools', function(json){
@@ -121,7 +109,6 @@ myEl.addEventListener('click', function() {
         var escola="<div><div class='col-md-7'><label>"+json[i].doc.nome+': </label></div>';
         var turma='';
         for(j=0; j< json[i].doc.turmas.length; j++){
-
           for(k=0; k<json[i].doc.turmas[j].professores.length; k++){
             var g=""+json[i].doc.turmas[j].professores[k].id;
             var f=""+$("#profEmail").text();
@@ -138,19 +125,12 @@ myEl.addEventListener('click', function() {
         if(turma.length>1){
           s+=escola+"<div class='col-md-4'>"+turma+"<br></div></div><br>";
         }
-
       }
-
       if(contTurmas>0){
         s+="</div>";
         $("#SchoolTable").html(s);
         $("#prfSchool").text($("#profNome").text()+", tem "+contTurmas+" turmas associadas.");
       }
-      console.log($("#profEmail").text());
-      console.log(json.length);
-      //console.log('idProf: '+ json[0].doc.turmas[0].professores[0].id);
-
-
     },
     function(error) {
       console.log('Error getting schools list!');
@@ -169,19 +149,15 @@ myEl.addEventListener('click', function() {
       myEl.addEventListener('click', function() {
                     self.editTeacher(this);
                   }, false);
-
       self.getTurmas();
-
     },
     function(error) {
       console.log('Error getting teachers list!');
     });
-
   },
 
   enchePreview: function(documnt){
     var html='';
-
     html+= '<img src="http://localhost:5984/dev_professores/'+documnt._id+'/prof.png"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-8"><span>Nome: <label id="profNome">'+documnt.nome+' </label></span>';
     html+= '<br><span>E-mail: <label id="profEmail">'+documnt._id+'</label></span>';
@@ -189,22 +165,13 @@ myEl.addEventListener('click', function() {
     html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipo+' </label></span></div>';
     //Botão para Editar
     html+='<div align=right class="col-md-3"><br><br><br>'
-        +'<button id="btnTeachersEdit" name='+documnt._id+' class="btn btn-warning" style="font-size:10px">'
+        +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px">'
         +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
         +' Editar dados'
         +'</button>'
         +'</div><br>';
-
-    // falta ir buscar à BD as escolas onde o professor leciona e turmas
     html+= '<div id="prfSchool" class="col-md-12" align=left><hr>'+documnt.nome+' não tem turmas associadas.</div><br>';
     html+= '<div id="SchoolTable" class="col-md-12" align="center" style="max-height:220px; overflow:auto"></div>';
-
-
-
-    //html+= '<hr>';
-
-
-
     return html;
   },
 
@@ -212,7 +179,7 @@ myEl.addEventListener('click', function() {
   newTeacher: function (e) {
     e.preventDefault();
     app.navigate('/teachers/new', {
-    trigger: true
+      trigger: true
     });
   },
 
@@ -220,8 +187,8 @@ myEl.addEventListener('click', function() {
     //Variavel a enviar, para depois poder buscar os dados do professor a editar
     window.localStorage.setItem("ProfEditar", obj.name);
     app.navigate('/teachers/edit', {
-    trigger: true
-  });
+      trigger: true
+    });
   },
 
 
