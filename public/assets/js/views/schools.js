@@ -38,7 +38,7 @@ newEscola: function(e) {
         
 
         var conteudo='';
-            conteudo+= '<img src="http://localhost:5984/dev_alunos/'+data[0].doc._id+'/escola.png"  style="height:250px;">';
+            conteudo+= '<img src="http://localhost:5984/dev_escolas/'+data[0].doc._id+'/escola.png"  style="height:250px;">';
             conteudo+= '<br><label>'+data[0].doc.nome+' </label><br>';
             conteudo+= '<label>'+data[0].doc.morada+'</label><br>';
            // conteudo+= '<label>'+data[0].doc.turmas+'</label><br>';
