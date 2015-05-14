@@ -29,8 +29,8 @@ newAluno: function(e) {
           + '"  name="' + data[i].doc._id
           +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block" >'
-          +' <img src="http://localhost:5984/dev_alunos/'+data[i].doc._id+'/aluno.png"  style="height:25px;" > '
-          + data[i].doc.nome + '</button>';
+        +'<img src="data:'+data[i].doc._attachments['aluno.png'].content_type+';base64,'+data[i].doc._attachments['aluno.png'].data+'"  style="height:25px;">'
+        + data[i].doc.nome + '</button>';
       }
 
       $('#studentsContent').html(s);
@@ -44,9 +44,10 @@ newAluno: function(e) {
 
         //= URL.createObjectURL(data[0].doc._attachments.data);
         //console.log(url);
-
+        console.log(data[0]);
         var conteudo='';
-            conteudo+= '<img src="http://localhost:5984/dev_alunos/'+data[0].doc._id+'/aluno.png"  style="height:250px;">';
+        conteudo+= '<img src="data:'+data[0].doc._attachments['aluno.png'].content_type+';base64,'+data[0].doc._attachments['aluno.png'].data+'"  style="height:250px;">';
+            
             conteudo+= '<br><label>'+data[0].doc.nome+' </label><br>';
             conteudo+= '<label>'+data[0].doc.numero+'</label><br>';
 

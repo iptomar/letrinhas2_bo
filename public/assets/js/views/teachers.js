@@ -26,7 +26,7 @@ window.TeachersView = Backbone.View.extend({
           + '"  name="' + data[i].doc._id
           +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block" >'
-          +' <img src="http://localhost:5984/dev_professores/'+data[i].doc._id+'/prof.png"  style="height:25px;" > '
+        +'<img src="data:'+data[i].doc._attachments['prof.png'].content_type+';base64,'+data[i].doc._attachments['prof.png'].data+'"  style="height:25px;">'
           + data[i].doc.nome + '</button>';
       }
 
@@ -62,8 +62,11 @@ window.TeachersView = Backbone.View.extend({
         //= URL.createObjectURL(data[0].doc._attachments.data);
         //console.log(url);
 
+        console.log(data[0].doc._attachments);
+       
         var conteudo='';
-            conteudo+= '<img src="http://localhost:5984/dev_professores/'+data[0].doc._id+'/prof.png"  style="height:250px;">';
+        
+          conteudo+= '<img src="data:'+data[0].doc._attachments['prof.png'].content_type+';base64,'+data[0].doc._attachments['prof.png'].data+'"  style="height:250px;">';
             conteudo+= '<br><label>'+data[0].doc.estado+' </label><br>';
             conteudo+= '<label>'+data[0].doc.telefone+'</label><br>';
 
