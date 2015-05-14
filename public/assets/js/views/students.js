@@ -2,24 +2,23 @@ window.StudentsView = Backbone.View.extend({
   events: {
      "click #btnStudentsNew":"newAluno",
    },
-    
-newAluno: function(e) {
-  console.log("criar aluno");
+
+   newAluno: function(e) {
     e.preventDefault();
     app.navigate('/students/new', {
     trigger: true
-    }); 
+    });
   },
-    
+
   initialize: function() {},
-    
-    
-  
+
+
+
 
   render: function() {
     $(this.el).html(this.template());
 
-  
+
     modem('GET', 'students', function(data) {
       $('#studentsBadge').text(data.length);
       var s='';
@@ -40,7 +39,7 @@ newAluno: function(e) {
         console.log(data[0].doc.nome);
         console.log(data[0].doc._attachments);
 
-     
+
 
         //= URL.createObjectURL(data[0].doc._attachments.data);
         //console.log(url);
@@ -51,21 +50,21 @@ newAluno: function(e) {
             conteudo+= '<br><label>'+data[0].doc.nome+' </label><br>';
             conteudo+= '<label>'+data[0].doc.numero+'</label><br>';
 
-        
+
 
         $('#studentsPreview').html(conteudo);
 
 
-        
-        
+
+
     }, function(error) {
       console.log('Error getting students list!');
     });
 
     return this;
   },
-  
- 
-    
-    
+
+
+
+
 });
