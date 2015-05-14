@@ -35,7 +35,11 @@ window.TeachersView = Backbone.View.extend({
           + '"  name="' + data[i].doc._id
           +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block profSelec" >'
-          +' <img src="http://localhost:5984/dev_professores/'+data[i].doc._id+'/prof.png"  style="height:25px;" > '
+          +' <img src="data:'+data[i].doc._attachments['prof.png'].content_type
+                      +';base64,'
+                      +data[i].doc._attachments['prof.png'].data
+                      +'" style="height:25px;" > '
+          //'"http://localhost:5984/dev_professores/'+data[i].doc._id+'/prof.png"  style="height:25px;" > '
           + data[i].doc.nome + '</button>';
 
           if(first){
