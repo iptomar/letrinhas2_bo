@@ -1,5 +1,5 @@
 <div>
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <nav class="navbar navbar-default ">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" aria-expanded="false">
@@ -55,10 +55,21 @@
 
     </div>
   </nav>
-  <div id="studentsContent">
+   <div id="schoolsPanel" class="panel panel-default col-md-2" align="center">
+    <div class="panel-body " text-align="center" style="height:600px;">
+      <div >Escolas: <span id="schoolsBadge"class="badge"></span>
+      </div>
+      <hr>
+      <br>
+      <button id="btnSchoolNew" class="btn btn-warning" style="font-size:10px"><span class="glyphicon glyphicon-plus" style="color:#00ff00;"></span>
+        Nova Escola
+      </button>
+    </div>
+  </div>
+  <div id="schoolsContent" class=" panel-body col-md-5" style="max-height:600px; overflow:auto">
 
-
-
-
+  </div>
+  <div id="schoolsPreview" class="col-md-5" align="center" style="">
+      
   </div>
 </div>
