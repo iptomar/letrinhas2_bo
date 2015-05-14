@@ -1,9 +1,9 @@
 window.StudentsView = Backbone.View.extend({
   events: {
-     "click #btnStudentsNew":"newStudent",
+     "click #btnStudentsNew":"newAluno",
    },
     
-newStudent: function(e) {
+newAluno: function(e) {
   console.log("criar aluno");
     e.preventDefault();
     app.navigate('/students/new', {
@@ -19,7 +19,7 @@ newStudent: function(e) {
   render: function() {
     $(this.el).html(this.template());
 
-  /*
+  
     modem('GET', 'students', function(data) {
       $('#studentsBadge').text(data.length);
       var s='';
@@ -59,7 +59,7 @@ newStudent: function(e) {
         
     }, function(error) {
       console.log('Error getting students list!');
-    });*/
+    });
 
     return this;
   },

@@ -1,17 +1,20 @@
 window.StudentsNewView = Backbone.View.extend({
   events: {
-      "click #buttonCancelar": "buttonCancelar",
+      "click #buttonCancelar": "buttonCancelarAluno",
   
   
   
   },
   initialize: function() {},
     
-    buttonCancelar: function(e) {
-    app.navigate('/MenuPrincipal', {
-        trigger: true
-      });
-    },
+buttonCancelarAluno: function(e) {
+    e.preventDefault();
+    window.history.back();
+  },
+    
+    
+    
+    
   render: function() {
     $(this.el).html(this.template());
     return this;
