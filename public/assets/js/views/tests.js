@@ -80,6 +80,12 @@ window.TestsView = Backbone.View.extend({
     $('#myModalTest').modal("show");
   },
 
+  enchePreviewTexto: function(){},
+  enchePreviewLista: function(){},
+  enchePreviewMultim: function(){},
+  enchePreviewInterp: function(){},
+
+
   initialize: function() {},
 
   render: function() {

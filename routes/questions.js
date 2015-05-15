@@ -29,7 +29,7 @@ exports.new = function (req, res) {
     },
     "tipo":req.body.tipo,
     "dataCri":dati,
-    "profID":"desconhecido",
+    "profID":req.body.profID,
 
   };
  var teste={
@@ -39,7 +39,7 @@ exports.new = function (req, res) {
    "ano_escolar":req.body.ano_escolar,
    "perguntas":idPerg,
    "dataCri":dati,
-   "profID":"desconhecido",
+   "profID":req.body.profID,
    "tipo":req.body.tipo,
  };
 

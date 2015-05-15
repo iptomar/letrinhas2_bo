@@ -8,12 +8,12 @@
 
 <div>
   <!--  -->
-  <form role="form" method="POST" action="/questions" enctype="multipart/form-data">
+  <form id="txtNewForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
 
     <div class="form-group">
       <div class="col-sm-4">
         <label for="InputTitulo" >Título:</label>
-        <input type="text" class="form-control" id="InputTitulo" placeholder="Ex: Anita vai às compras" name="titulo">
+        <input type="text" class="form-control preenche" id="InputTitulo" placeholder="Ex: Anita vai às compras" name="titulo">
       </div>
       <div class="col-sm-2">
         <label for="selectDiscip">Disciplina:</label>
@@ -37,21 +37,21 @@
       <div class="col-sm-12">
         <hr>
         <label for="InputDescricao" >Descrição:</label>
-        <input type="text" class="form-control" id="InputDescricao" placeholder="Ex: Teste de apoio para alunos con dificuldades de leitura" name="descricao">
+        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para alunos con dificuldades de leitura" name="descricao">
         <br>
       </div>
 
       <div class="col-sm-12">
         <label for="InputPergunta" >Pergunta:</label>
-        <input type="text" class="form-control" id="InputPergunta" placeholder="Ex: Leia o segunte texto" name="pergunta">
+        <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Leia o segunte texto" name="pergunta">
       </div>
 
       <div class="col-sm-12">
         <label for="InputTexto">Texto</label>
-        <textarea class="form-control" rows="10" id="InputTexto" name="texto"></textarea>
+        <textarea class="form-control preenche" rows="10" id="InputTexto" name="texto"></textarea>
         <div class="form-group">
           <label for="inputSom" >Gravação de Demonstração:</label>
-          <input type="file" id="inputFoto" name="file">
+          <input class="preenche" type="file" id="inputFoto" name="file">
         </div>
 
 
@@ -81,13 +81,13 @@
             <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
           </div>
           <div class="col-sm-6">
-            <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created">Submeter</button>
+            <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
           </div>
         </div>
       </div>
 
 
-      <div class="col-sm-10">
+      <div class="col-sm-10" style="">
       </div>
 
 
