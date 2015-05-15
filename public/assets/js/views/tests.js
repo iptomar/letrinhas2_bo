@@ -106,18 +106,20 @@ window.TestsView = Backbone.View.extend({
               break;
             case 'Interpretação': img="../img/testInterpretacao.png";
               break;
+            case 'Hibrido': img="../img/imags.png";
+              break;
             default:  img="../img/page-loader.gif";
               break;
           };
 
           switch(data[i].doc.disciplina){
-            case 'Português': img2="../img/portugues.png";
+            case 'português': img2="../img/portugues.png";
               break;
-            case 'Inglês': img2="../img/ingles.png";
+            case 'inglês': img2="../img/ingles.png";
               break;
-            case 'Matemática': img2="../img/mate.png";
+            case 'matemática': img2="../img/mate.png";
               break;
-            case 'Estudo do Meio': img2="../img/estudoMeio.png";
+            case 'estudoMeio': img2="../img/estudoMeio.png";
               break;
             default:  img2="../img/page-loader.gif";
               break;
