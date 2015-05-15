@@ -1,14 +1,12 @@
 <!-- Inserção Pergunta do tipo Texto: -->
 <div class="topcoat-navigation-bar">
   <div class="topcoat-navigation-bar__item center ">
-    <h2 align="center" class="topcoat-navigation-bar__title">Criar Teste de Texto</h2>
-
+    <h3 align="center" class="topcoat-navigation-bar__title">Criar Teste de Texto</h3>
   </div>
 
 </div>
 
 <div>
-    <legend>Dados do Teste:</legend>
   <!--  -->
   <form role="form" method="POST" action="/questions" enctype="multipart/form-data">
 
@@ -50,7 +48,7 @@
 
       <div class="col-sm-12">
         <label for="InputTexto">Texto</label>
-        <textarea class="form-control" rows="10" id="InputTexto"></textarea>
+        <textarea class="form-control" rows="10" id="InputTexto" name="texto"></textarea>
         <div class="form-group">
           <label for="inputSom" >Gravação de Demonstração:</label>
           <input type="file" id="inputFoto" name="file">
@@ -59,20 +57,23 @@
 
 
       </div>
-      <div id="painelInvisivel" class="form-group  col-sm-8" style="">
-        estado
-        <select class="form-control" id="selectEstado" name="estado">
-          <option>1</option>
-          <option>0</option>
-        </select>
-        tipo
-        <select class="form-control" id="selectTipo" name="tipo">
-          <option>Texto</option>
-        </select>
-        estado
-        dataCri
-        professor_Id
-        tipo
+      <div id="painelInvisivel" class="form-group  col-sm-8" style="visibility:hidden">
+        <div class="col-sm-4" >
+          estado
+          <select class="form-control" id="selectEstado" name="estado">
+            <option>1</option>
+            <option>0</option>
+          </select>
+        </div>
+        <div class="col-sm-4" >
+
+          tipo
+          <select class="form-control" id="selectTipo" name="tipo">
+            <option>Texto</option>
+          </select>
+
+        </div>
+
       </div>
       <div class="col-sm-4" >
         <div class="row">

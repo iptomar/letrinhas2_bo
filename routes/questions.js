@@ -17,22 +17,42 @@ exports.new = function (req, res) {
   console.log('req.body:'.green + req.body.tituloTeste);
 
   req.body.batata='cenas';
- var teste={
-      "titulo":req.body.tituloTeste,
+  var dati = new Date();
+  var idPerg = 'P'+dati.getTime();
+  var pergunta ={
+    "ano_escolar":req.body.ano_escolar,
+    "titulo":req.body.titulo,
+    "disciplina":req.body.disciplina,
+    "conteúdo":{
+      "pergunta":req.body.pergunta,
+      "texto":req.body.texto,
+    },
+    "tipo":req.body.tipo,
+    "dataCri":dati,
+    "profID":"desconhecido",
 
+  };
+ var teste={
+   "titulo":req.body.titulo,
+   "descricao":req.body.descricao,
+   "disciplina":req.body.disciplina,
+   "ano_escolar":req.body.ano_escolar,
+   "perguntas":idPerg,
+   "dataCri":dati,
+   "profID":"desconhecido",
+   "tipo":req.body.tipo,
  };
 
   var file;
   if(req.files) file = req.files.file;
 
   var imgData = require('fs').readFileSync(file.path);
-  var dati = new Date();
 
-  db.multipart.insert(teste, [{
+  db.multipart.insert(pergunta, [{
     name: 'prof.png',
     data: imgData,
     content_type: 'image/png'
-  }], dati.toString() , function(err, body) {
+  }], idPerg, function(err, body) {
     if (err) {
       console.log('questions new, an error ocourred'.green);
 
