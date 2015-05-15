@@ -13,6 +13,11 @@ exports.upDate = function(rep, res){
 
 exports.new = function (req, res) {
   console.log('tests new, NotAvaliable yet'.green);
+  var obj={"nome":"cenaças",
+            "porto":8085,
+            "tiago":"fernandes"};
+  console.log(obj.nome);
+
 };
 
 exports.getAll = function (req, res) {
