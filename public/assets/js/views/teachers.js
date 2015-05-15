@@ -53,6 +53,8 @@ window.TeachersView = Backbone.View.extend({
 
       self.getTurmas();
 
+      document.getElementById(data[0].doc._id).focus();
+
       //Criar Eventos
       var myEl = document.getElementsByClassName('profSelec');
       for(j=0;j<myEl.length;j++){
@@ -163,18 +165,18 @@ window.TeachersView = Backbone.View.extend({
   enchePreview: function(documnt){
     var html='';
     html+= '<img src="http://localhost:5984/dev_professores/'+documnt._id+'/prof.png"  style="height:220px;">';
-    html+= '<br><div align=left class="col-md-8"><span>Nome: <label id="profNome">'+documnt.nome+' </label></span>';
+    html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="profNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>E-mail: <label id="profEmail">'+documnt._id+'</label></span>';
     html+= '<br><span>Telefone: <label>'+documnt.telefone+' </label></span>';
     html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipo+' </label></span></div>';
     //Botão para Editar
-    html+='<div align=right class="col-md-3"><br><br><br>'
+    html+='<div align=right class="col-md-2"><br><br><br>'
         +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px">'
         +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
         +' Editar dados'
         +'</button>'
-        +'</div><br>';
-    html+= '<div id="prfSchool" class="col-md-12" align=left><hr>'+documnt.nome+' não tem turmas associadas.</div><br>';
+        +'</div><br><br><br><br><hr>';
+    html+= '<div id="prfSchool" class="col-md-12" align=left>'+documnt.nome+', não tem turmas associadas.</div><br><br>';
     html+= '<div id="SchoolTable" class="col-md-12" align="center" style="max-height:220px; overflow:auto"></div>';
     return html;
   },

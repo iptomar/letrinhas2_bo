@@ -1,12 +1,79 @@
 window.TestsView = Backbone.View.extend({
   events: {
     "click #btnTestNew":"newTest",
-    "click #btnTesteCriar":"criarTeste"
+    "click #btnTesteCriar":"criarTeste",
+    "click #btnTexto":"criarTexto",
+    "click #btnLista":"criarLista",
+    "click #btnMult":"criarMultimedia",
+    "click #btnInterp":"criarInterpr",
+
 
   },
 
-  criarTeste:function(){
+  criarTexto:function(){
+    var sefl=this;
+    sefl.tipoTeste="texto";
+    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#00ff00');
+    $("#btnTesteCriar").attr('style','visibility:initial');
+    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+  },
 
+  criarLista:function(){
+    var sefl=this;
+    sefl.tipoTeste="lista";
+    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnTesteCriar").attr('style','visibility:initial');
+    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+  },
+
+  criarMultimedia:function(){
+    var sefl=this;
+    sefl.tipoTeste="Multimedia";
+    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnTesteCriar").attr('style','visibility:initial');
+    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+  },
+
+  criarInterpr:function(){
+    var sefl=this;
+    sefl.tipoTeste="interpr";
+    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnTesteCriar").attr('style','visibility:initial');
+    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+  },
+
+  criarTeste:function(){
+    var sefl=this;
+    switch(sefl.tipoTeste){
+      case 'texto':
+        app.navigate('/questionsText/new', {
+            trigger: true
+          });
+        break;
+      case 'lista':
+        app.navigate('man', {
+            trigger: true
+          });
+        break;
+      case 'Multimedia': img="../img/testMul.png";
+        break;
+      case 'interpr': img="../img/testInterpretacao.png";
+        break;
+    };
+
+
+
+
+
+    $('#myModalTest').modal("hide");
   },
 
   newTest:function(){
@@ -81,7 +148,8 @@ window.TestsView = Backbone.View.extend({
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
         }
 
-        var d=""+data[0].doc.descricao;
+        var d="Preview<br><label>Descrição:</label> "+data[0].doc.descricao
+             +' <br><img src="../img/inConstruction.jpg"  style="height:250px;" > ';
         $("#testsPreview").html(d);
         console.log("idquestão: "+data[0].doc.perguntas[0]);
         //Preview
@@ -92,11 +160,11 @@ window.TestsView = Backbone.View.extend({
           console.log('Error getting questions\n'+ error2);
         });
 
-        $("#btn0").focus();
+
 
       }
       $('#testsContent').html(s);
-
+      $("#btn0").focus();
 
     }, function(error) {
       console.log('Error getting tests list!');
