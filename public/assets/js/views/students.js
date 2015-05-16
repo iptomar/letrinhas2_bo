@@ -50,11 +50,7 @@ window.StudentsView = Backbone.View.extend({
 
       document.getElementById(data[0].doc._id).focus();
 
-
         // até aqui é o preview
-
-
-
 
       //Criar Eventos
       var myEl = document.getElementsByClassName('studSelec');
@@ -90,7 +86,7 @@ window.StudentsView = Backbone.View.extend({
 
     },
     function(error) {
-      console.log('Error getting teachers list!');
+      console.log('Error getting students list!');
     });
   },
 
@@ -115,7 +111,7 @@ window.StudentsView = Backbone.View.extend({
     var self=this;
     var html='';
     html+= '<img src="http://localhost:5984/dev_alunos/'+documnt._id+'/aluno.png"  style="height:220px;">';
-    html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="profNome">'+documnt.nome+'</label></span>';
+    html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="alunoNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>Numero de Aluno: <label>'+documnt.numero+' </label></span>';
     html+= '<br><span >Turma: <label id="turmaAluno">Sem Turma...</label></span></div>';
     //Botão para Editar
@@ -125,7 +121,7 @@ window.StudentsView = Backbone.View.extend({
         +' Editar dados'
         +'</button>'
         +'</div><br><br><br><br><hr>'
-        +'Apersentar nivel de evolução...<img src="../img/inConstruction.jpg"  style="height:40px;"><br><hr>'
+        +'Apresentar nível de evolução...<img src="../img/inConstruction.jpg"  style="height:40px;"><br><hr>'
         +'Listar Resoluções feitas (Corrigidas ou  não)...<img src="../img/inConstruction.jpg"  style="height:40px;"><br><hr>';
 
     return html;
