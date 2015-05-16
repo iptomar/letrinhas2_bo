@@ -67,37 +67,6 @@ window.TeachersView = Backbone.View.extend({
                     self.editTeacher(this);
                   }, false);
 
-
-      // Dúvidas:
-      // Já tenho o attachements, mas não o consigo usar... como usar e colocar no html??
-
-
-      //console.log(data[0].attachment.get('rabit','rabit.png',function(err,body){}));
-      /*alunos_local2.getAttachment(alunoId, 'aluno.png', function(err2, DataImg) {
-              if (err2) console.log(err2);
-              var url = URL.createObjectURL(DataImg);
-              $('#lbNomeAluno').text("[" + turmaNome + " ] -- " + alunoNome);
-              $('#imgAluno').attr("src", url);
-            });*/
-
-        var url='';
-
-        console.log(data[0].doc.nome);
-        console.log(data[0].doc._attachments);
-
-        //var obj = new Object(data[0].doc._attachments.object[0]);
-        //console.log(obj);
-        //data[0].getAttachment('prof.png',function(err2, DataImg){
-        //  if (err2) console.log(err2);
-          //url = URL.createObjectURL(data[0].doc._attachments);
-          //console.log(url);
-
-      //  });
-
-
-        //= URL.createObjectURL(data[0].doc._attachments.data);
-        //console.log(url);
-
     }, function(error) {
       console.log('Error getting teachers list!');
     });
@@ -110,7 +79,6 @@ window.TeachersView = Backbone.View.extend({
       var s='<div align="left">';
       var has=false;
       var contTurmas=0;
-      console.log("n Escolas: "+json.length);
       for(i=0; i< json.length; i++){
         var escola="<div><div class='col-md-7'><label>"+json[i].doc.nome+': </label></div>';
         var turma='';

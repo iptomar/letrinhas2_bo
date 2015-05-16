@@ -46,7 +46,7 @@ window.LoginView = Backbone.View.extend({
                 // vamos comparar as password's
                 if(json.password == $("#psswrd").val()){
                   //verificar o estado
-                  if(json.estado==1){
+                  if(json.estado==1 || json.estado=='Ativo'){
                     window.localStorage.setItem("Logged", true);
                     window.localStorage.setItem("Roll", json.roll);
                     window.localStorage.setItem("ProfID", json._id); //guardar variavel

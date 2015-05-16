@@ -91,7 +91,7 @@ window.TestsView = Backbone.View.extend({
 
   render: function() {
     $(this.el).html(this.template());
-
+    var self=this;
     //Constrir os botões
     modem('GET', 'tests', function(data) {
       $('#testBadge').text(data.length);
@@ -153,14 +153,16 @@ window.TestsView = Backbone.View.extend({
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
         }
 
-        var d="Preview<br><label>Descrição:</label> "+data[0].doc.descricao
-             +' <br><img src="../img/inConstruction.jpg"  style="height:250px;" > ';
-        $("#testsPreview").html(d);
+
+
+
         console.log("idquestão: "+data[0].doc.perguntas[0]);
         //Preview
         modem('GET', 'questions/'+data[0].doc.perguntas[0], function(item) {
           console.log(item);
-
+          var d="Preview<br><label>Descrição:</label> "+data[0].doc.descricao
+               +' <br><img src="../img/inConstruction.jpg"  style="height:250px;" > ';
+               $("#testsPreview").html(d);
         }, function(error2) {
           console.log('Error getting questions\n');
           console.log(error2);

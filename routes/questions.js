@@ -15,7 +15,6 @@ exports.upDate = function(rep, res){
 exports.new = function (req, res) {
   console.log('questions new, inConstruction'.green);
 
-  req.body.batata='cenas';
   var dati = new Date();
   var idPerg = 'P'+dati.getTime();
   var pergunta ={
@@ -29,18 +28,18 @@ exports.new = function (req, res) {
     "tipo":req.body.tipo,
     "dataCri":dati,
     "profID":req.body.profID,
-
   };
- var teste={
-   "titulo":req.body.titulo,
-   "descricao":req.body.descricao,
-   "disciplina":req.body.disciplina,
-   "ano_escolar":req.body.ano_escolar,
-   "perguntas":idPerg,
-   "dataCri":dati,
-   "profID":req.body.profID,
-   "tipo":req.body.tipo,
- };
+
+  var teste={
+    "titulo":req.body.titulo,
+    "descricao":req.body.descricao,
+    "disciplina":req.body.disciplina,
+    "ano_escolar":req.body.ano_escolar,
+    "perguntas":idPerg,
+    "dataCri":dati,
+    "profID":req.body.profID,
+    "tipo":req.body.tipo,
+  };
 
   var file;
   if(req.files) file = req.files.file;
@@ -62,6 +61,7 @@ exports.new = function (req, res) {
     }
     console.log('questions added'.green);
     //res.json(body);
+    res;
   });
 
   db2.insert(teste, function(err,body){
