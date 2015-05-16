@@ -86,7 +86,8 @@ window.TestsView = Backbone.View.extend({
   enchePreviewInterp: function(){},
 
 
-  initialize: function() {},
+  initialize: function() {
+  },
 
   render: function() {
     $(this.el).html(this.template());
@@ -161,7 +162,8 @@ window.TestsView = Backbone.View.extend({
           console.log(item);
 
         }, function(error2) {
-          console.log('Error getting questions\n'+ error2);
+          console.log('Error getting questions\n');
+          console.log(error2);
         });
 
 

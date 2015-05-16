@@ -14,7 +14,6 @@ exports.upDate = function(rep, res){
 
 exports.new = function (req, res) {
   console.log('questions new, inConstruction'.green);
-  console.log('req.body:'.green + req.body.tituloTeste);
 
   req.body.batata='cenas';
   var dati = new Date();
@@ -62,7 +61,7 @@ exports.new = function (req, res) {
       });
     }
     console.log('questions added'.green);
-    res.json(body);
+    //res.json(body);
   });
 
   db2.insert(teste, function(err,body){

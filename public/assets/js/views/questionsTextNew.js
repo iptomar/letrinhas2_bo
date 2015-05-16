@@ -8,10 +8,21 @@ window.QuestionsTextNew = Backbone.View.extend({
   validaSubmissao:function(e){
     if ($("#InputDescricao").val().length==0) {
        e.preventDefault();
+       //Teste
        alert("descrição Vaizia");
        return false; //for old browsers
     } else{
 
+      app.navigate('/tests', {
+          trigger: true
+        });
+      //  window.reload();
+      /*modem('POST','/questions',
+
+
+      , function(error) {
+        console.log('Error getting tests list!');
+      });*/
 
        //form was OK - you can add some pre-send script in here
     }
