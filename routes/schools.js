@@ -20,7 +20,7 @@ exports.new = function (req, res) {
 exports.getAll = function (req, res) {
   console.log('schools getAll'.yellow);
 
-  db.list({'include_docs': true, 'limit': undefined, 'descending': true}, function(err, body) {
+  db.list({'include_docs': true, 'attachments': true, 'limit': undefined, 'descending': true}, function(err, body) {
     if (err) {
       return res.status(500).json({
         'result': 'nok',

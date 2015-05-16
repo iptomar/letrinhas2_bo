@@ -34,14 +34,19 @@ editEscola: function (obj) {
           + data[i].doc._id
           + '"  name="' +data[i].doc._id+'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block schoolSelec" >'
-            +'<img src="data:'+data[i].doc._attachments['escola.png'].content_type+';base64,'
-            +data[i].doc._attachments['escola.png'].data
-            +'" style="height:25px;">'+ data[i].doc.nome + '</button>';
+        //  +'<img src="data:'+data[i].doc._attachments['escola.png'].content_type+';base64,'
+        //    +data[i].doc._attachments['escola.png'].data
+        +' <img src="data:'+data[i].doc._attachments['escola.png'].content_type
+                    +';base64,'
+                    +data[i].doc._attachments['escola.png'].data
+                    +'" style="height:25px;" > '+ data[i].doc.nome + '</button>';
 
-          if(first){
-            $('#schoolsPreview').html(self.encheEscPreview(data[i].doc));
-            first=false;
-          }
+
+
+            if(first){
+              $('#schoolsPreview').html(self.encheEscPreview(data[i].doc));
+              first=false;
+            }
       }
 
       $("#schoolsContent").html(s);
@@ -90,7 +95,7 @@ mudaEscola: function(obj){
   encheEscPreview: function(documnt){
     var self=this;
     var html='';
-    html+= '<img src="http://localhost:5984/dev_escolas/902393ee9df4a63a37888d52d914dd2e/escola.png"  style="height:220px;">';
+    html+= '<img src="http://localhost:5984/dev_escolas/'+documnt._id+'/escola.png"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="EscolaNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>Morada da Escola: <label>'+documnt.morada+' </label></span>';
     html+= '<br><span >Turmas: <label id="turmas">Sem Turma...</label></span></div>';

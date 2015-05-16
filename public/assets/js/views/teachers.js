@@ -13,14 +13,6 @@ window.TeachersView = Backbone.View.extend({
 
     var self=this;
 
-    modem('GET','teachersFoto/xpto@gmail.com0', function(json){
-      //var url= URL.createObjectURL(json);
-      console.log(json);
-    },
-    function(error) {
-      console.log('Error getting teachers list!');
-    });
-
     modem('GET', 'teachers', function(data) {
       //indicar quantos items existem
       $('#teachersBadge').text(data.length);
@@ -73,7 +65,7 @@ window.TeachersView = Backbone.View.extend({
 
     return this;
   },
-  
+
   getTurmas:function(){
     var self=this;
     modem('GET','schools', function(json){
