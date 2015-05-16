@@ -2,28 +2,29 @@ window.SchoolsView = Backbone.View.extend({
   events: {
      "click #btnSchoolNew":"newEscola",
    },
-    
+
 newEscola: function(e) {
     e.preventDefault();
     app.navigate('/schools/new', {
     trigger: true
-    }); 
-  },    
-    
+    });
+  },
+
 editEscola: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados da escola a editar
     window.localStorage.setItem("EscolaEditar", obj.name);
     app.navigate('/schools/edit', {
       trigger: true
     });
-  },    
-    
+  },
+
   initialize: function() {},
 
    render: function() {
     $(this.el).html(this.template());
 
-        
+    var self=this;
+
     modem('GET', 'schools', function(data) {
       $('#schoolsBadge').text(data.length);
       var s='';
@@ -32,19 +33,22 @@ editEscola: function (obj) {
          s+= '<button id="'
           + data[i].doc._id
           + '"  name="' +data[i].doc._id+'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
-          +' class="btn btn-lg btn-block schoolSelec" >'+'<img src="data:'
-            +data[i].doc._attachments['escola.png'].content_type
-            +';base64,'
+          +' class="btn btn-lg btn-block schoolSelec" >'
+            +'<img src="data:'+data[i].doc._attachments['escola.png'].content_type+';base64,'
             +data[i].doc._attachments['escola.png'].data
-            +'"  style="height:25px;">'+ data[i].doc.nome + '</button>';
-            if(first){
-              $('#schoolsPreview').html(self.encheEscPreview(data[i].doc));
-              first=false;
-            }
-    } 
-/*   $('#schoolsContent').html(s);
+            +'" style="height:25px;">'+ data[i].doc.nome + '</button>';
+
+          if(first){
+            $('#schoolsPreview').html(self.encheEscPreview(data[i].doc));
+            first=false;
+          }
+      }
+
+      $("#schoolsContent").html(s);
+      document.getElementById(data[0].doc._id).focus();
+/*
         self.getTurma(data[0].doc.turma);
-        document.getElementById(data[0].doc._id).focus();
+
 
 */
        //Criar Eventos
@@ -65,7 +69,7 @@ editEscola: function (obj) {
       return this;
 
   },
-                                          
+
 mudaEscola: function(obj){
     var self=this;
     //vai buscar os dados da escola:
@@ -80,13 +84,13 @@ mudaEscola: function(obj){
     },
     function(error) {
       console.log('Error getting schools list!');
-    });      
-    }, 
-   
+    });
+    },
+
   encheEscPreview: function(documnt){
     var self=this;
     var html='';
-    html+= '<img src="http://localhost:5984/dev_escola/'+documnt._id+'/escola.png"  style="height:220px;">';
+    html+= '<img src="http://localhost:5984/dev_escolas/902393ee9df4a63a37888d52d914dd2e/escola.png"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="EscolaNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>Morada da Escola: <label>'+documnt.morada+' </label></span>';
     html+= '<br><span >Turmas: <label id="turmas">Sem Turma...</label></span></div>';
@@ -97,7 +101,7 @@ mudaEscola: function(obj){
         +' Editar dados'
         +'</button>';
 
-    return html;  
-}
-});
+    return html;
+},
 
+});

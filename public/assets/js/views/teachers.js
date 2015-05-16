@@ -73,6 +73,7 @@ window.TeachersView = Backbone.View.extend({
 
     return this;
   },
+  
   getTurmas:function(){
     var self=this;
     modem('GET','schools', function(json){
