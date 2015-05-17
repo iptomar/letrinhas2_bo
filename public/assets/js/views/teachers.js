@@ -139,6 +139,7 @@ window.TeachersView = Backbone.View.extend({
         +'</div><br><br><br><br><hr>';
     html+= '<div id="prfSchool" class="col-md-12" align=left>'+documnt.nome+', não tem turmas associadas.</div><br><br>';
     html+= '<div id="SchoolTable" class="col-md-12" align="center" style="max-height:220px; overflow:auto"></div>';
+
     return html;
   },
 

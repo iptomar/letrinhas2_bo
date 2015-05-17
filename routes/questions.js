@@ -17,18 +17,35 @@ exports.new = function (req, res) {
 
   var dati = new Date();
   var idPerg = 'P'+dati.getTime();
-  var pergunta ={
-    "ano_escolar":req.body.ano_escolar,
-    "titulo":req.body.titulo,
-    "disciplina":req.body.disciplina,
-    "conteúdo":{
-      "pergunta":req.body.pergunta,
-      "texto":req.body.texto,
-    },
-    "tipo":req.body.tipo,
-    "dataCri":dati,
-    "profID":req.body.profID,
+
+  var pergunta;
+
+  switch(req.body.tipo){
+    case "Texto":
+      pergunta={
+        "ano_escolar":req.body.ano_escolar,
+        "titulo":req.body.titulo,
+        "disciplina":req.body.disciplina,
+        "conteúdo":{
+          "pergunta":req.body.pergunta,
+          "texto":req.body.texto,
+        },
+        "tipo":req.body.tipo,
+        "dataCri":dati,
+        "profID":req.body.profID,
+      };
+      break;
+    case "Lista":
+      //Terminar
+      break;
+    case "Multimédia":
+      //Terminar
+      break;
+    case "Interpretação":
+      //Terminar
+      break;
   };
+
 
   var teste={
     "titulo":req.body.titulo,
@@ -37,6 +54,7 @@ exports.new = function (req, res) {
     "ano_escolar":req.body.ano_escolar,
     "perguntas":idPerg,
     "dataCri":dati,
+    "estado":1,
     "profID":req.body.profID,
     "tipo":req.body.tipo,
   };
