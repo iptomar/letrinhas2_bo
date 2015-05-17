@@ -4,6 +4,7 @@ window.TeachersNewView = Backbone.View.extend({
     "click #subProf":"submeterProfessor",
     "click #buttonCancelar": "buttonCancelar",
     "blur #InputEmail":"verificaMail",
+    "click #addEscola":"addTurma",
 
 
 
@@ -23,40 +24,10 @@ window.TeachersNewView = Backbone.View.extend({
     //caso seja submetido o formulário
     var turmas = new Array();
 
+  },
 
-    //Teste de preencher o dropDown para selecção da escola.
-    modem('GET', 'schools',
-        function (json) {
-          // Preencher o select escola, com as escolas existentes e respetivas turmas:
-          // PROBLEMAS!!! o Array de objetos devolvido existe, mas ao aceder a
-          // um campo este aparece como um undefined
-          // Consultar o professor Dias...
-          //
-          console.log("nº de escolas: ", json.length);
-          var s='';
-          for(i=0; i<json.length; i++){
-            console.log(json[i].doc.nome);
-            s+="<option >"+ json[i].doc.nome;
-            //e adicionar as turmas...
-            s+='<select>';
-            for(j=0;j<json[i].doc.turmas.length;j++){
-              s+='<option>'+json[i].doc.turmas[j].nome+'</option>';
-              console.log(json[i].doc.turmas[j].nome);
-            }
-            s+="</select>";
-            s+="</option>";
-          }
-          $("#selectEscola").html(s);
-        },
-
-        function (xhr, ajaxOptions, thrownError) {
-          var json = JSON.parse(xhr.responseText);
-          console.log("\nErro:\n")
-          console.log(json.message.error);
-          console.log(json.result);
-        }
-      );
-
+  addTurma:function(){
+    $("#selectEscola").attr("style","visibility:initial");
   },
 
   verificaMail: function(){
@@ -113,6 +84,67 @@ window.TeachersNewView = Backbone.View.extend({
 
   render: function() {
     $(this.el).html(this.template());
+
+    //Teste de associar a(s) turmas ao professor.
+    modem('GET', 'schools',
+        function (json) {
+          // Preencher o select escola, com as escolas existentes e respetivas turmas:
+          //e o select que vai ajudar a devolver os ID's ao form e vazer a correta atualização na escola
+
+          console.log("nº de escolas: ", json.length);
+          var s='<select id="selectTurma">';
+          var d='<select id="hiddenTurma">';
+          for(i=0; i<json.length; i++){
+            console.log(json[i].doc.nome);
+            s+="<optgroup label="+ json[i].doc.nome+'>';
+            //e adicionar as turmas...
+
+            for(j=0;j<json[i].doc.turmas.length;j++){
+              s+='<option value="'+json[i].doc.nome+'">'+json[i].doc.turmas[j].nome+'</option>';
+              d+='<option value="'+json[i].doc._id+'">'+json[i].doc.turmas[j]._id+'</option>';
+              console.log(json[i].doc.turmas[j].nome);
+            }
+            s+="</optgroup>";
+          }
+          s+="</select>";
+          d+="</select>";
+
+          $("#selectEscola").html(s);
+          $("#hiddenEscola").html(d);
+
+          //adicionar os eventos para o select da turma.
+          var myEl = document.getElementById('selectTurma');
+          myEl.addEventListener('change', function() {
+            var i = this.selectedIndex;
+            //igualar os indexes
+            document.getElementById('hiddenEscola').selectedIndex = i;
+            //apresentar a turma escolhida
+            var v='<label> - '+this.options[i].text+'</label><span>, '
+                  +this.options[i].value+'; </span>'
+            $("#assocTurma").append(v);
+
+            //esconder o select
+            $("#selectEscola").attr('style','visibility:hidden');
+
+          }, false);
+
+
+        },
+
+        function (xhr, ajaxOptions, thrownError) {
+          var json = JSON.parse(xhr.responseText);
+          console.log("\nErro:\n")
+          console.log(json.message.error);
+          console.log(json.result);
+        }
+      );
+
+
+
+
+
+
+
     return this;
   }
 

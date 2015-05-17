@@ -39,19 +39,26 @@
       com checkbox's, para permitir que se consiga associar o professor a mais que
       uma turma. -->
       <br/>
-      <span class="help-block">Associar a turma? (teste)</span>
-      <button id="addEscola" type="button" class="btn  btn-block  activeXF">
+      <div>
+      <button id="addEscola" type="button" class="btn"  >
         <span class="glyphicon glyphicon glyphicon-plus"></span>
-        <p>Associar a turma</p>
+        <p>Adicionar turma</p>
         </button>
       </button>
-      <div class="assocTurma">
-        <label for="selectEscola"> Escola / Turma </label>
-        <select class="form-control" id="selectEscola" name="escola">
-          <option></option>
-        </select>
+      <div id="selectEscola" style="visibility:hidden">
+
+      </div>
+      </div>
+      <div>
+      <div id="hiddenEscola" style="display:none">
+
+      </div>
+      <div id="assocTurma" ><!--style="display:none"-->
+
+
       </div>
 
+    </div>
       <!--###################################################################-->
 
     </div>
@@ -71,5 +78,3 @@
 </form>
 <!--  -->
 </div>
-
-
