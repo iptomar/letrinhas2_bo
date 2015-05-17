@@ -65,9 +65,9 @@ exports.new = function (req, res) {
   var imgData = require('fs').readFileSync(file.path);
 
   db.multipart.insert(pergunta, [{
-    name: 'prof.png',
+    name: 'voz.mp3',
     data: imgData,
-    content_type: 'image/png'
+    content_type: 'audio/mp3'
   }], idPerg, function(err, body) {
     if (err) {
       console.log('questions new, an error ocourred'.green);

@@ -33,7 +33,7 @@ window.TestsView = Backbone.View.extend({
   criarMultimedia:function(){
     var sefl=this;
     sefl.tipoTeste="Multimedia";
-    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ff0000');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
     $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
@@ -43,7 +43,7 @@ window.TestsView = Backbone.View.extend({
   criarInterpr:function(){
     var sefl=this;
     sefl.tipoTeste="interpr";
-    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ff0000');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
     $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
@@ -59,7 +59,7 @@ window.TestsView = Backbone.View.extend({
           });
         break;
       case 'lista':
-        app.navigate('man', {
+        app.navigate('/questionsList/new', {
             trigger: true
           });
         break;
@@ -85,7 +85,7 @@ window.TestsView = Backbone.View.extend({
   mudaTest:function(obj){
     var self=this;
     modem('GET', 'tests/'+obj.id, function(item) {
-      $('#testsPreview').html(self.encheTestPreview(item));
+      self.encheTestPreview(item);
     }, function(error2) {
       console.log('Error getting questions\n');
       console.log(error2);
@@ -100,28 +100,45 @@ window.TestsView = Backbone.View.extend({
     switch(f){
       case 'Texto':
       console.log("enche Predview Texto ");
-
-          return self.enchePreviewTexto(documnt);
+          self.enchePreviewTexto(documnt);
         break;
-      case 'Lista': return self.enchePreviewLista(documnt);
+      case 'Lista': self.enchePreviewLista(documnt);
         break;
-      case 'Multimedia':
+      case 'Multimédia':
           console.log("enche Predview ;multim ");
 
-          return self.enchePreviewMultim(documnt);
+           self.enchePreviewMultim(documnt);
         break;
-      case 'Interpretação':return self.enchePreviewInterp(documnt);
+      case 'Interpretação': self.enchePreviewInterp(documnt);
         break;
-      default:  return "false";
-        break;
+
     };
   },
 
   enchePreviewTexto: function(documnt){
     modem('GET', 'questions/'+documnt.perguntas, function(item) {
-      var d="Preview<br><label>Descrição:</label> "+documnt.descricao
-           +' <br>'+item.pergunta+'<img src="../img/inConstruction.jpg"  style="height:250px;" > ';
-           return d;
+      var d='<span class="badge btn-info">Pré-visualização</span><hr>'
+           +'<div align=left>'
+            +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
+            +'<br><label>Pergunta:</label><span> '+item.conteudo.pergunta+'</span>'
+           +'</div>'
+           +'<div class="panel panel-default col-md-12 " align=left style="height:300px; overflow:auto">'
+            +''+item.conteudo.texto
+           +'</div>'
+           +'<div class="col-md-12 " align=left>'
+            +'<label>Demo:</label>'
+            +'<audio id="vozProf" controls style="width:100%">'
+              +'<source src="http://localhost:5984/dev_perguntas/'+documnt._id+'/voz.mp3" type="audio/mpeg">'
+            +'</audio><hr> '
+           +'</div>'
+           +'<div class="col-md-12 "  align=right >'
+              +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px">'
+                +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
+                +' Editar dados'
+              +'</button>'
+           +'</div>';
+
+           $('#testsPreview').html(d);
     }, function(error2) {
       console.log('Error getting questions\n');
       console.log(error2);
@@ -129,13 +146,29 @@ window.TestsView = Backbone.View.extend({
 
 
   },
-  enchePreviewLista: function(){},
-  enchePreviewMultim: function(documnt){
-    console.log("enche Pw ;multim ");
-    var d="Preview<br><label>Descrição multimédia:</label> "+documnt.descricao;
-    return d;
+  enchePreviewLista: function(documnt){
+    var d="Preview<br><label>Descrição Lista:</label> "+documnt.descricao
+        +'<br>'
+        +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
+
+        $('#testsPreview').html(d);
   },
-  enchePreviewInterp: function(){},
+
+  enchePreviewMultim: function(documnt){
+    var d="Preview<br><label>Descrição multimédia:</label> "+documnt.descricao
+        +'<br>'
+        +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
+
+        $('#testsPreview').html(d);
+  },
+
+  enchePreviewInterp: function(documnt){
+    var d="Preview<br><label>Descrição Interpretação:</label> "+documnt.descricao
+        +'<br>'
+        +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
+
+        $('#testsPreview').html(d);
+  },
 
 
   initialize: function() {
@@ -204,7 +237,7 @@ window.TestsView = Backbone.View.extend({
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
 
           if(first){
-            $('#testsPreview').html(self.encheTestPreview(data[i].doc));
+            self.encheTestPreview(data[i].doc);
             first=false;
           }
         }
