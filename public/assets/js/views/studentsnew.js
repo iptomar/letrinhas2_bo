@@ -38,7 +38,7 @@ window.StudentsNewView = Backbone.View.extend({
                     //igualar os indexes
                     document.getElementById('selectIDEscola').selectedIndex = i;
                     }, false);
-            self.getTurma(escolas[0].doc, $("#Ano").val());
+            self.getTurma(escolas[0].doc, $("#selectAno").val());
             
             },
                      
@@ -54,11 +54,30 @@ window.StudentsNewView = Backbone.View.extend({
         return this;
     },
     
-    /*getTurma.funcion(){
-
-
-    },*/
+    getTurma:function(escola,ano){
+        console.log("ano: "+ano);
+        modem('GET','schools/'+escola._id,
+           function (escolaRec){
+               var turmas='';
+                var turmaId='';
+                for(i=0;i<escolaRec.turmas.length;i++){
+                    console.log("turma ano: "+escolaRec.turmas[i].ano);
+                    if (escolaRec.turmas[i].ano == ano){
+                        turmas+= "<option>" + escolaRec.turmas[i].nome + "</option>";
+                        turmaId+= i+":";
+                    }
+                }
+                $("#selectTurma").html(turmas);
+                $("#selectIDTurma").val(turmaId); 
     
-
+}, 
+    function (xhr, ajaxOptions, throwError) {
+                var json = JSON.parse(xhr.responseText);
+                console.log("\Erro");
+                console.log(json.message.error);
+                console.log(json.result);
+            }); 
+        return false;
+},
     
 });

@@ -26,7 +26,7 @@
                 <option>Não Ativo</option>
             </select>
 
-            <label for="select">Escola que o aluno frequenta</label>
+            <label for="selectEscola">Escola que o aluno frequenta</label>
             <select class="form-control" id="selectEscola">
                 
             </select>
@@ -34,7 +34,7 @@
             <select class="form-control" id="selectIDEscola" name="escola" style="display: none">
             </select>
 
-            <label for="select">Ano que o Aluno frequenta</label>
+            <label for="selectAno">Ano que o Aluno frequenta</label>
             <select class="form-control" id="selectAno" name="Ano">
                 <option>1º</option>
                 <option>2º</option>
@@ -42,10 +42,11 @@
                 <option>4º</option>
             </select>
 
-            <label for="select">Turma do aluno</label>
+            <label for="selectTurma">Turma do aluno</label>
             <select class="form-control" id="selectTurma" name="turma">
                 
             </select>
+            <input type="text" class="" id="selectIDTurma" style="display:none">
         </div>
 
 
@@ -54,7 +55,7 @@
                 <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
             </div>
             <div class="col-sm-6">
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-created">Submeter</button>
+                <button type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
             </div>
         </div>
     </form>
