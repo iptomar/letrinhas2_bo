@@ -13,7 +13,12 @@ exports.upDate = function(rep, res){
 
 exports.new = function (req, res) {
   console.log('schools new, NotAvaliable yet'.green);
+  escola={
+  "morara":"string",
+  "nome":"string",
+  "turmas":[],
 
+  }
 
 };
 

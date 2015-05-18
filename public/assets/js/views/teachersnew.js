@@ -1,12 +1,48 @@
 window.TeachersNewView = Backbone.View.extend({
   events: {
     //"submit":"submeterProfessor",
-    "click #subProf":"submeterProfessor",
+    //"click #subProf":"submeterProfessor",
     "click #buttonCancelar": "buttonCancelar",
-    "blur #InputEmail":"verificaMail",
+    //"blur #InputEmail":"verificaMail",
     "click #addEscola":"addTurma",
+    "mouseover #pwdIcon":"verPwd",
+    "mouseout #pwdIcon":"escondePwd",
+    "keyup #ConfirmPasswd": "confirmPwd",
+    "focus #InputPasswd":"limpapwds",
 
 
+
+  },
+
+  confirmPwd:function(){
+    if($("#InputPasswd").val()==$("#ConfirmPasswd").val()){
+      console.log("iguais");
+      $("#confIcon").addClass("glyphicon-ok");
+      $("#confIcon").removeClass("glyphicon-remove");
+      $("#confIcon").attr("style","color:#66dd66");
+    }
+    else{
+      $("#confIcon").addClass("glyphicon-remove");
+      $("#confIcon").removeClass("glyphicon-ok");
+      $("#confIcon").attr("style","color:#dd6666");
+
+    }
+  },
+
+  limpapwds:function(){
+    $("#ConfirmPasswd").val('');
+    $("#InputPasswd").val('');
+    $("#confIcon").removeClass("glyphicon-ok");
+    $("#confIcon").removeClass("glyphicon-remove");
+  },
+
+  escondePwd:function(){
+    $("#pwdIcon").attr("style","color:#cccccc");
+    $("#InputPasswd").attr("type","password");
+  },
+  verPwd:function(){
+    $("#pwdIcon").attr("style","color:#66cc66");
+    $("#InputPasswd").attr("type","text");
 
   },
   initialize: function() {
@@ -90,19 +126,15 @@ window.TeachersNewView = Backbone.View.extend({
         function (json) {
           // Preencher o select escola, com as escolas existentes e respetivas turmas:
           //e o select que vai ajudar a devolver os ID's ao form e vazer a correta atualização na escola
-
-          console.log("nº de escolas: ", json.length);
-          var s='<select id="selectTurma">';
+          var s='<select class="form-control" id="selectTurma">';
           var d='<select id="hiddenTurma">';
           for(i=0; i<json.length; i++){
-            console.log(json[i].doc.nome);
             s+="<optgroup label="+ json[i].doc.nome+'>';
             //e adicionar as turmas...
 
             for(j=0;j<json[i].doc.turmas.length;j++){
               s+='<option value="'+json[i].doc.nome+'">'+json[i].doc.turmas[j].nome+'</option>';
               d+='<option value="'+json[i].doc._id+'">'+json[i].doc.turmas[j]._id+'</option>';
-              console.log(json[i].doc.turmas[j].nome);
             }
             s+="</optgroup>";
           }

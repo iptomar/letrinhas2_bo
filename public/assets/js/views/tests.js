@@ -170,20 +170,14 @@ window.TestsView = Backbone.View.extend({
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
            +'</div>'
            +'<div class="panel panel-default col-md-12 " style="height:300px;">'
-            +'<div class="col-md-4" style="background-color:#00ff00; overflow:auto">'
-              + 'em contrução:'
-              +'<img src="../img/inConstruction.jpg"  style="height:100px;">'
-              //self.getColunas(item.conteudo.palavrasCl1)
+            +'<div class="col-md-4" style="max-height:290px; overflow:auto">'
+              + self.getColunas(item.conteudo['palavrasCL1'])
             +'</div>'
-            +'<div class="col-md-4" style="background-color:#0000ff; overflow:auto">'
-              + 'em contrução:'
-              +'<img src="../img/inConstruction.jpg"  style="height:100px;">'
-              //+ self.getColunas(item.conteudo.palavrasCl2)
+            +'<div class="col-md-4" style="max-height:290px; overflow:auto">'
+              + self.getColunas(item.conteudo['palavrasCL2'])
             +'</div>'
-            +'<div class="col-md-4" style="background-color:#ff0000; overflow:auto">'
-              + 'em contrução:'
-              +'<img src="../img/inConstruction.jpg"  style="height:100px;">'
-              //+ self.getColunas(item.conteudo.palavrasCl3)
+            +'<div class="col-md-4" style="max-height:290px; overflow:auto">'
+              + self.getColunas(item.conteudo['palavrasCL3'])
             +'</div>'
            +'</div>'
            +'<div class="col-md-12 " align=left>'
@@ -201,10 +195,10 @@ window.TestsView = Backbone.View.extend({
 
            $('#testsPreview').html(d);
 
-           myEl = document.getElementById('btnTestEdit');
-           myEl.addEventListener('click', function() {
-                         self.editTest();
-                       }, false);
+           //myEl = document.getElementById('btnTestEdit');
+           //myEl.addEventListener('click', function() {
+          //               self.editTest();
+          //             }, false);
 
     }, function(error2) {
       console.log('Error getting questions\n');
@@ -235,7 +229,7 @@ window.TestsView = Backbone.View.extend({
     var coluna='';
 
     for(i=1;i<lista.length;i++){
-      coluna+='\n'+lista[i];
+      coluna+='<br>'+lista[i];
     }
 
     return coluna;
@@ -264,7 +258,7 @@ window.TestsView = Backbone.View.extend({
               break;
             case 'Lista': img="../img/testLista.png";
               break;
-            case 'Multimedia': img="../img/testMul.png";
+            case 'Multimédia': img="../img/testMul.png";
               break;
             case 'Interpretação': img="../img/testInterpretacao.png";
               break;
@@ -286,7 +280,7 @@ window.TestsView = Backbone.View.extend({
           };
 
 
-          var date = new Date(data[i].doc.dataCri);
+          var date = new Date(data[i].doc.data);
           var day = date.getDate().toString();
           var month = date.getMonth().toString();
           var year = date.getFullYear().toString();

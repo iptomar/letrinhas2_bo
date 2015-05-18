@@ -23,7 +23,7 @@ exports.new = function (req, res) {
   switch(req.body.tipo){
     case "Texto":
       pergunta={
-        "ano_escolar":req.body.ano_escolar,
+        "anoEscolar":req.body.ano_escolar,
         "titulo":req.body.titulo,
         "disciplina":req.body.disciplina,
         "pergunta":req.body.pergunta,
@@ -37,7 +37,7 @@ exports.new = function (req, res) {
       break;
     case "Lista":
       pergunta={
-        "ano_escolar":req.body.ano_escolar,
+        "anoEscolar":req.body.ano_escolar,
         "titulo":req.body.titulo,
         "disciplina":req.body.disciplina,
         "pergunta":req.body.pergunta,
@@ -46,16 +46,51 @@ exports.new = function (req, res) {
           "palavrasCL2":getPalavras(req.body.cl2),
           "palavrasCL3":getPalavras(req.body.cl3),
         },
-        "tipo":req.body.tipo,
+        "tipoTeste":req.body.tipo,
         "dataCri":dati,
-        "profID":req.body.profID,
+        "professorId":req.body.profID,
 
       };
       break;
     case "Multimédia":
+    /*  pergunta={
+        "anoEscolar":req.body.ano_escolar,
+        "titulo":req.body.titulo,
+        "disciplina":req.body.disciplina,
+        "pergunta":req.body.pergunta,
+        "conteudo":{
+          "idCategoria":0,//numero,
+          "tipoDoCorpo":"imagem , texto, audio",//uma destas opções
+          "corpo":"string" //a preencher em tipo=texto
+          "opcoes":[
+              "tipo":"imagem, texto",
+              "conteudo":"string", //se tipo=texto
+          ],
+          "opcaoCerta":0,//numero
+        },
+        "tipoTeste":req.body.tipo,
+        "dataCri":dati,
+        "professorId":req.body.profID,
+
+      };*/
+
       //Terminar
       break;
     case "Interpretação":
+    /*  pergunta={
+        "anoEscolar":req.body.ano_escolar,
+        "titulo":req.body.titulo,
+        "disciplina":req.body.disciplina,
+        "pergunta":req.body.pergunta,
+        "conteudo":{
+          "text":req.body.texto,
+          "posicaoResposta":getPositions(req.body.),
+        },
+        "tipoTeste":req.body.tipo,
+        "dataCri":dati,
+        "professorId":req.body.profID,
+
+      };*/
       //Terminar
       break;
   };
@@ -65,11 +100,11 @@ exports.new = function (req, res) {
     "titulo":req.body.titulo,
     "descricao":req.body.descricao,
     "disciplina":req.body.disciplina,
-    "ano_escolar":req.body.ano_escolar,
+    "anoEscolar":req.body.ano_escolar,
     "perguntas":[idPerg],
-    "dataCri":dati,
-    "estado":1,
-    "profID":req.body.profID,
+    "data":dati,
+    "estado":true,
+    "professorId":req.body.profID,
     "tipo":req.body.tipo,
   };
 
