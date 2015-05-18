@@ -62,21 +62,7 @@ var Router = Backbone.Router.extend({
   //Resoluções:
     "submissions": "submissions",
 
-  //Respostas de:
-  //Texto
-    "answersText": "answersText",
-    "answersText/Corr": "answersTextCorr",
-
-  //Lista
-    "answersList": "answersList",
-    "answersList/Corr": "answersListCorr",
-
-  //Multimédia
-    "answersMultimedia": "answersMultimedia",
-
-  //Interpretação
-    "answersInterp": "answersInterp",
-
+  
   //Menu Principal
     "MenuPrincipal": "MenuPrincipal",
 

@@ -121,7 +121,7 @@ window.TestsView = Backbone.View.extend({
 
   enchePreviewTexto: function(documnt){
     var self=this;
-    modem('GET', 'questions/'+documnt.perguntas, function(item) {
+    modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
       var d='<span class="badge btn-info">Pré-visualização</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
@@ -133,7 +133,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="http://localhost:5984/dev_perguntas/'+documnt._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="http://localhost:5984/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'

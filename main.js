@@ -7,8 +7,7 @@ var express = require('express'),
   students = require('./routes/students'),
   tests = require('./routes/tests'),
   questions = require('./routes/questions'),
-  submissions = require('./routes/submissions'),
-  answers = require('./routes/answers');
+  submissions = require('./routes/submissions');
 
 var app = express();
 
@@ -57,10 +56,6 @@ app.get('/submissions', submissions.getAll);
 app.post('/submissions/:id', submissions.upDate);
 app.get('/submissions/:id', submissions.get);
 
-//Respostas
-app.get('/answers', answers.getAll);
-app.post('/answers/:id', answers.upDate);
-app.get('/answers/:id', answers.get);
 
 // app.post('/login', session.login);
 

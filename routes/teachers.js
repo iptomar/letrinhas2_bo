@@ -35,6 +35,15 @@ exports.upDate = function(rep, res){
 exports.new = function(req, res) {
   console.log('teachers new'.green);
 
+  var professor={"estado":true,
+                 "nome":"string",
+                 "password":"string",
+                 "pin":"string",
+                 "telefone":"string",
+                 "tipoFuncionario":"string",
+
+  }
+
   var file;
   if(req.files) file = req.files.file;
 

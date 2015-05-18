@@ -16,6 +16,13 @@ exports.upDate = function(rep, res){
 
 exports.new = function (req, res) {
   console.log('students new, NotAvaliable yet'.green);
+  aluno={
+  "nome":"string",
+  "estado":true,
+  "numero":0,
+  "turmas":"idDaTurma",
+
+  }
 
 
 };

@@ -8,7 +8,36 @@ var db = nano.use('dev_resolucoes');
 
 exports.upDate = function(rep, res){
   console.log('submissions upDate, NotAvaliable yet'.blue);
+  /*
+  submission_={
+          "dataReso":string,
+          "id_Aluno":string,
+          "id_Prof":string,
+          "id_Teste":string,
+          "nota":string,
+          "observ":string,
+          "respostas":[{
+                        "id_Pergunta":string,
+                        "TotalPalavras":string,
+                        "dataCorr":string,
+                        "velocidade"string,
+                        "correcao":[{"palavra":string,
+                                     "categoria":string,
+                                     "erro":string,
+                                     "posicao":string,
+                                   }]
+                    }]
+            }
+
+
+
+
+
+
+  */
+
 };
+
 
 exports.getAll = function (req, res) {
   console.log('submissions getAll'.green);

@@ -14,11 +14,17 @@ exports.upDate = function(rep, res){
 exports.new = function (req, res) {
   console.log('schools new, NotAvaliable yet'.green);
   escola={
-  "morara":"string",
+  "morada":"string",
   "nome":"string",
-  "turmas":[],
+  "turmas":[{"_id":"string",
+             "ano":0,
+             "anoLectivo":2015,
+             "nome":"turmaX",
+             "professores":[{"id":"string",
+             }]
+           }],
 
-  }
+  };
 
 };
 
