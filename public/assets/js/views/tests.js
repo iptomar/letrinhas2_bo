@@ -82,6 +82,12 @@ window.TestsView = Backbone.View.extend({
     $('#myModalTest').modal("show");
   },
 
+  editTest:function(){
+    app.navigate('man', {
+        trigger: true
+      });
+  },
+
   mudaTest:function(obj){
     var self=this;
     modem('GET', 'tests/'+obj.id, function(item) {
@@ -95,32 +101,31 @@ window.TestsView = Backbone.View.extend({
 
   encheTestPreview:function(documnt){
     var self = this;
-    console.log(documnt.tipo);
- var f = documnt.tipo;
+    var f = documnt.tipo;
     switch(f){
       case 'Texto':
       console.log("enche Predview Texto ");
           self.enchePreviewTexto(documnt);
         break;
-      case 'Lista': self.enchePreviewLista(documnt);
+      case 'Lista':
+          self.enchePreviewLista(documnt);
         break;
       case 'Multimédia':
-          console.log("enche Predview ;multim ");
-
-           self.enchePreviewMultim(documnt);
+          self.enchePreviewMultim(documnt);
         break;
-      case 'Interpretação': self.enchePreviewInterp(documnt);
+      case 'Interpretação':
+          self.enchePreviewInterp(documnt);
         break;
-
     };
   },
 
   enchePreviewTexto: function(documnt){
+    var self=this;
     modem('GET', 'questions/'+documnt.perguntas, function(item) {
       var d='<span class="badge btn-info">Pré-visualização</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
-            +'<br><label>Pergunta:</label><span> '+item.conteudo.pergunta+'</span>'
+            +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
            +'</div>'
            +'<div class="panel panel-default col-md-12 " align=left style="height:300px; overflow:auto">'
             +''+item.conteudo.texto
@@ -132,13 +137,19 @@ window.TestsView = Backbone.View.extend({
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'
-              +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px">'
+              +'<button id="btnTestEdit" class="btn btn-warning" style="font-size:10px">'
                 +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
                 +' Editar dados'
               +'</button>'
            +'</div>';
 
            $('#testsPreview').html(d);
+
+           myEl = document.getElementById('btnTestEdit');
+           myEl.addEventListener('click', function() {
+                         self.editTest();
+                       }, false);
+
     }, function(error2) {
       console.log('Error getting questions\n');
       console.log(error2);
@@ -146,6 +157,8 @@ window.TestsView = Backbone.View.extend({
 
 
   },
+
+  //Em construção
   enchePreviewLista: function(documnt){
     var d="Preview<br><label>Descrição Lista:</label> "+documnt.descricao
         +'<br>'
@@ -154,6 +167,7 @@ window.TestsView = Backbone.View.extend({
         $('#testsPreview').html(d);
   },
 
+  //Em construção
   enchePreviewMultim: function(documnt){
     var d="Preview<br><label>Descrição multimédia:</label> "+documnt.descricao
         +'<br>'
@@ -162,6 +176,7 @@ window.TestsView = Backbone.View.extend({
         $('#testsPreview').html(d);
   },
 
+  //Em construção
   enchePreviewInterp: function(documnt){
     var d="Preview<br><label>Descrição Interpretação:</label> "+documnt.descricao
         +'<br>'
@@ -255,10 +270,6 @@ window.TestsView = Backbone.View.extend({
                       self.mudaTest(this);
                     }, false);
       };
-      myEl = document.getElementById('btnTestEdit');
-      myEl.addEventListener('click', function() {
-                    self.editTest(this);
-                  }, false);
 
     }, function(error) {
       console.log('Error getting tests list!');

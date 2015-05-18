@@ -1,90 +1,111 @@
-<div>
-  <div class="topcoat-navigation-bar">
-          <div class="topcoat-navigation-bar__item center full">
-            <h1 align="center" class="topcoat-navigation-bar__title">Inserção Teste Lista de Palavras</h1>
-
-          </div>
-        </div>
-    
-    
-    <div class="form-group">
-      <label for="perg">Pergunta:</label>
-      <input type="text" class="form-control" id="perg">
-        <label for="tit">Titulo:</label>
-      <input type="text" class="form-control" id="tit">
-    </div>
-        
-            <div class="row">
-        <div class="col-sm-4">
-            <div class="form-group">
-              <label for="col1">Coluna 1:</label>
-              <textarea class="form-control" rows="10" id="col1"></textarea>
-            </div>
-      
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-              <label for="col2">Coluna 2:</label>
-              <textarea class="form-control" rows="10" id="col2"></textarea>
-            </div>
-      
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-              <label for="col3">Coluna 3:</label>
-              <textarea class="form-control" rows="10" id="col3"></textarea>
-            </div>
-        </div>
-      
-      <!-- Teste -->
-      
-       <div class="row">
-        <div class="col-sm-4">
-             <div class="form-group">
-               <label for="select" class="col-lg-3 control-label">Disciplina:</label>
-                  <div class="col-lg-7">
-                    <select class="form-control" id="select">
-                      <option>Português</option>
-                      <option>Inglês</option>
-                    </select>
-            </div>
-      
-        </div>
-        </div>
-           
-        <div class="col-sm-4">
-          <div class="form-group">
-              <label for="select" class="col-lg-3 control-label">Grau Escolar:</label>
-                  <div class="col-lg-7">
-                    <select class="form-control" id="select">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-            </div>
-      </div>
-     </div>
-        <div class="col-sm-4">
-           <div class="form-group">
-              <label >Ficheiro de som do Professor:</label>
-                <span class="btn btn-default btn-file"> <input type="file"></span>
-            </div>
-              
-        </div>
-           
-           <div class="row">
-        <div class="col-sm-6">
-             <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
-        </div> 
-        <div class="col-sm-6">
-           <button type="submit" class="btn btn-lg btn-success btn-block btn-created">Submeter</button>
-      </div>
-     </div>
-          
-  </div>
-    
-    
+<!-- Inserção Pergunta do tipo Texto: -->
+<div class="topcoat-navigation-bar">
+  <div class="topcoat-navigation-bar__item center full">
+    <h3 align="center" class="topcoat-navigation-bar__title">Criar Teste Lista de Palavras</h3>
   </div>
 </div>
 
+<div>
+  <form id="listNewForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <div class="col-sm-4">
+        <label for="InputTitulo" >Título:</label>
+        <input type="text" class="form-control preenche" id="InputTitulo" placeholder="Ex: Anita vai ao médico" name="titulo">
+      </div>
+      <div class="col-sm-2">
+        <label for="selectDiscip">Disciplina:</label>
+        <select class="form-control" id="selectDiscip" name="disciplina">
+          <option>Português</option>
+          <option>Inglês</option>
+          <option>Matemática</option>
+          <option>Estudo do Meio</option>
+        </select>
+      </div>
+      <div class="col-sm-1">
+        <label for="selectAno">AnoEscolar:</label>
+        <select class="form-control" id="selectAno" name="ano_escolar">
+          <option>1º</option>
+          <option>2º</option>
+          <option>3º</option>
+          <option>4º</option>
+        </select>
+      </div>
+      <div class="col-sm-12">
+        <hr>
+        <label for="InputDescricao" >Descrição:</label>
+        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para alunos com dificuldades de leitura" name="descricao">
+        <br>
+      </div>
+
+      <div class="col-sm-12">
+        <label for="InputPergunta" >Pergunta:</label>
+        <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Leia as palavras..." name="pergunta">
+        <br>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="col1">Coluna 1:</label>
+          <textarea class="form-control preenche" rows="10" id="col1" name="cl1"></textarea>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="col2">Coluna 2:</label>
+          <textarea class="form-control" rows="10" id="col2" name="cl2"></textarea>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="col3">Coluna 3:</label>
+          <textarea class="form-control" rows="10" id="col3" name="cl3"></textarea>
+        </div>
+      </div>
+
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="inputSom" >Gravação de Demonstração:</label>
+          <input class="preenche" type="file" id="inputFoto" name="file">
+        </div>
+      </div>
+
+      <div id="painelInvisivel" class="form-group  col-sm-4" style="visibility:hidden">
+        <div class="col-sm-2" >
+          <select class="form-control" id="selectEstado" name="estado">
+            <option>1</option>
+            <option>0</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control" id="selectTipo" name="tipo">
+            <option>Lista</option>
+          </select>
+
+        </div>
+      </div>
+      <div class="col-sm-4" >
+        <br>
+        <br>
+        <div class="row" align=right>
+          <div class="col-sm-6">
+            <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
+          </div>
+          <div class="col-sm-6">
+            <button id="subList" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-10" style="">
+      </div>
+
+    </div>
+
+
+
+</form>
+<!--  -->
+</div>

@@ -26,8 +26,8 @@ exports.new = function (req, res) {
         "ano_escolar":req.body.ano_escolar,
         "titulo":req.body.titulo,
         "disciplina":req.body.disciplina,
-        "conteúdo":{
-          "pergunta":req.body.pergunta,
+        "pergunta":req.body.pergunta,
+        "conteudo":{
           "texto":req.body.texto,
         },
         "tipo":req.body.tipo,
@@ -36,6 +36,21 @@ exports.new = function (req, res) {
       };
       break;
     case "Lista":
+      pergunta={
+        "ano_escolar":req.body.ano_escolar,
+        "titulo":req.body.titulo,
+        "disciplina":req.body.disciplina,
+        "pergunta":req.body.pergunta,
+        "conteudo":{
+          "palavrasCL1":getPalavras(req.body.cl1),
+          "palavrasCL2":getPalavras(req.body.cl2),
+          "palavrasCL3":getPalavras(req.body.cl3),
+        },
+        "tipo":req.body.tipo,
+        "dataCri":dati,
+        "profID":req.body.profID,
+
+      };
       //Terminar
       break;
     case "Multimédia":
@@ -52,7 +67,7 @@ exports.new = function (req, res) {
     "descricao":req.body.descricao,
     "disciplina":req.body.disciplina,
     "ano_escolar":req.body.ano_escolar,
-    "perguntas":idPerg,
+    "perguntas":[idPerg],
     "dataCri":dati,
     "estado":1,
     "profID":req.body.profID,
@@ -126,3 +141,36 @@ exports.get = function (req, res) {
     res.json(body);
   });
 };
+
+
+function getPalavras(texto){
+  var listaPalavras= new Array();
+  var contaPalavra=0;
+  var palavra='';
+  var isCaracter=false;
+
+  for(i=0;i<texto.length;i++){
+    //de acordo com a tabela ascii 1º caracter possivel '!' CODE 33
+    if(texto.charCodeAt(i)<33){
+      //enterga a palavra à lista
+      if(isCaracter){
+        listaPalavras[contaPalavra]=palavra;
+        contaPalavra++;
+        palavra='';
+        isCaracter=false;
+      }
+
+
+    }
+    else{
+      palavra+=texto.charAt(i);
+      isCaracter=true;
+    }
+
+  }
+
+
+
+
+  return listaPalavras;
+}

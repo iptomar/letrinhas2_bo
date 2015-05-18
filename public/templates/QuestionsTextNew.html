@@ -3,7 +3,6 @@
   <div class="topcoat-navigation-bar__item center ">
     <h3 align="center" class="topcoat-navigation-bar__title">Criar Teste de Texto</h3>
   </div>
-
 </div>
 
 <div>
@@ -26,7 +25,7 @@
       </div>
       <div class="col-sm-1">
         <label for="selectAno">AnoEscolar:</label>
-        <select class="form-control" id="selectDiscip" name="ano_escolar">
+        <select class="form-control" id="selectAno" name="ano_escolar">
           <option>1º</option>
           <option>2º</option>
           <option>3º</option>
@@ -44,6 +43,7 @@
       <div class="col-sm-12">
         <label for="InputPergunta" >Pergunta:</label>
         <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Leia o segunte texto" name="pergunta">
+        <br>
       </div>
 
       <div class="col-sm-12">
@@ -53,27 +53,19 @@
           <label for="inputSom" >Gravação de Demonstração:</label>
           <input class="preenche" type="file" id="inputFoto" name="file">
         </div>
-
-
-
       </div>
-      <div id="painelInvisivel" class="form-group  col-sm-8" style="visibility:hidden">
+      <div id="painelInvisivel" class="form-group  col-sm-7" style="visibility:hidden">
         <div class="col-sm-4" >
-          estado
           <select class="form-control" id="selectEstado" name="estado">
             <option>1</option>
             <option>0</option>
           </select>
         </div>
-        <div class="col-sm-4" >
-
-          tipo
+        <div class="col-sm-4">
           <select class="form-control" id="selectTipo" name="tipo">
             <option>Texto</option>
           </select>
-
         </div>
-
       </div>
       <div class="col-sm-4" >
         <div class="row">
@@ -81,7 +73,7 @@
             <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
           </div>
           <div class="col-sm-6">
-            <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+            <button id="subTxt" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
           </div>
         </div>
       </div>

@@ -1,37 +1,33 @@
 window.QuestionsTextNew = Backbone.View.extend({
   events: {
     "submit":"validaSubmissao",
+    "click #buttonCancelar":"cancelTest",
     "blur .preenche":"verificarCampos",
 
   },
+
+  cancelTest:function(){
+    window.history.back();
+  },
+
 
   validaSubmissao:function(e){
     if ($("#InputDescricao").val().length==0) {
        e.preventDefault();
        //Teste
-       alert("descrição Vaizia");
+       //alert("descrição Vaizia");
        return false; //for old browsers
     } else{
 
       app.navigate('/tests', {
           trigger: true
         });
-      //  window.reload();
-      /*modem('POST','/questions',
 
-
-      , function(error) {
-        console.log('Error getting tests list!');
-      });*/
 
        //form was OK - you can add some pre-send script in here
     }
 
-    //$(this).submit();
-    //you don't have to submit manually if you didn't prevent the default event before
 
-
-    console.log("A submeter...");
 
   },
 
@@ -56,7 +52,7 @@ window.QuestionsTextNew = Backbone.View.extend({
     //se todos estão preenchidos, então hbilita o botão de submeter.
     if(cont == myEl.length ){
       //habilitar o botão de submeter
-      document.getElementById("subProf").disabled = false;
+      document.getElementById("subTxt").disabled = false;
       //adicioinar parametros invisíveis ao form, para tratamento na inserção
       var input = $("<input>").attr("type", "hidden")
                               .attr("name", "profID")
@@ -65,7 +61,7 @@ window.QuestionsTextNew = Backbone.View.extend({
     }
     else{
       //senão desabilitar o botão de submeter
-      document.getElementById("subProf").disabled = true;
+      document.getElementById("subTxt").disabled = true;
     }
   },
 
