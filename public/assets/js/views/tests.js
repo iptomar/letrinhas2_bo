@@ -160,11 +160,56 @@ window.TestsView = Backbone.View.extend({
 
   //Em construção
   enchePreviewLista: function(documnt){
-    var d="Preview<br><label>Descrição Lista:</label> "+documnt.descricao
-        +'<br>'
-        +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
+    var self=this;
+    modem('GET', 'questions/'+documnt.perguntas, function(item) {
 
-        $('#testsPreview').html(d);
+      console.log(item.conteudo.palavrasCl1);
+      var d='<span class="badge btn-info">Pré-visualização</span><hr>'
+           +'<div align=left>'
+            +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
+            +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
+           +'</div>'
+           +'<div class="panel panel-default col-md-12 " style="height:300px;">'
+            +'<div class="col-md-4" style="background-color:#00ff00; overflow:auto">'
+              + 'em contrução:'
+              +'<img src="../img/inConstruction.jpg"  style="height:100px;">'
+              //self.getColunas(item.conteudo.palavrasCl1)
+            +'</div>'
+            +'<div class="col-md-4" style="background-color:#0000ff; overflow:auto">'
+              + 'em contrução:'
+              +'<img src="../img/inConstruction.jpg"  style="height:100px;">'
+              //+ self.getColunas(item.conteudo.palavrasCl2)
+            +'</div>'
+            +'<div class="col-md-4" style="background-color:#ff0000; overflow:auto">'
+              + 'em contrução:'
+              +'<img src="../img/inConstruction.jpg"  style="height:100px;">'
+              //+ self.getColunas(item.conteudo.palavrasCl3)
+            +'</div>'
+           +'</div>'
+           +'<div class="col-md-12 " align=left>'
+            +'<label>Demo:</label>'
+            +'<audio id="vozProf" controls style="width:100%">'
+              +'<source src="http://localhost:5984/dev_perguntas/'+documnt._id+'/voz.mp3" type="audio/mpeg">'
+            +'</audio><hr> '
+           +'</div>'
+           +'<div class="col-md-12 "  align=right >'
+              +'<button id="btnTestEdit" class="btn btn-warning" style="font-size:10px">'
+                +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
+                +' Editar dados'
+              +'</button>'
+           +'</div>';
+
+           $('#testsPreview').html(d);
+
+           myEl = document.getElementById('btnTestEdit');
+           myEl.addEventListener('click', function() {
+                         self.editTest();
+                       }, false);
+
+    }, function(error2) {
+      console.log('Error getting questions\n');
+      console.log(error2);
+    });
   },
 
   //Em construção
@@ -185,7 +230,16 @@ window.TestsView = Backbone.View.extend({
         $('#testsPreview').html(d);
   },
 
+  getColunas:function(lista){
+    console.log(lista);
+    var coluna='';
 
+    for(i=1;i<lista.length;i++){
+      coluna+='\n'+lista[i];
+    }
+
+    return coluna;
+  },
   initialize: function() {
   },
 

@@ -51,7 +51,6 @@ exports.new = function (req, res) {
         "profID":req.body.profID,
 
       };
-      //Terminar
       break;
     case "Multimédia":
       //Terminar
@@ -142,35 +141,36 @@ exports.get = function (req, res) {
   });
 };
 
-
+//Função para devolver um array de palavras
 function getPalavras(texto){
   var listaPalavras= new Array();
   var contaPalavra=0;
   var palavra='';
+
   var isCaracter=false;
 
   for(i=0;i<texto.length;i++){
     //de acordo com a tabela ascii 1º caracter possivel '!' CODE 33
     if(texto.charCodeAt(i)<33){
-      //enterga a palavra à lista
+      //se o caracter anterior for válido
       if(isCaracter){
+        //enterga a palavra à lista
         listaPalavras[contaPalavra]=palavra;
+        //incrementa o ponteiro do array
         contaPalavra++;
+        //limpa a palavra
         palavra='';
+        //não e um caracter válido (ex: "enter", "space", "tab")
         isCaracter=false;
       }
-
-
     }
     else{
+      //adiciona o caracter à palavra
       palavra+=texto.charAt(i);
+      //confirma que era uma caracter
       isCaracter=true;
     }
-
   }
-
-
-
 
   return listaPalavras;
 }
