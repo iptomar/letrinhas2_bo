@@ -23,7 +23,7 @@ window.TestsView = Backbone.View.extend({
   criarLista:function(){
     var sefl=this;
     sefl.tipoTeste="lista";
-    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
     $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
@@ -163,7 +163,6 @@ window.TestsView = Backbone.View.extend({
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas, function(item) {
 
-      console.log(item.conteudo.palavrasCl1);
       var d='<span class="badge btn-info">Pré-visualização</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
@@ -183,7 +182,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="http://localhost:5984/dev_perguntas/'+documnt._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="http://localhost:5984/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'
@@ -225,7 +224,6 @@ window.TestsView = Backbone.View.extend({
   },
 
   getColunas:function(lista){
-    console.log(lista);
     var coluna='';
 
     for(i=1;i<lista.length;i++){

@@ -47,6 +47,8 @@ window.TeachersNewView = Backbone.View.extend({
   },
   initialize: function() {
     var self=this;
+
+
     //verificar se está logado
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
@@ -55,15 +57,16 @@ window.TeachersNewView = Backbone.View.extend({
     }
     else{
       console.log('Logado'); //guardar variavel
+      //para fazer update às escolas selecionadas e respetivas turmas,
+      //caso seja submetido o formulário
     }
-    //para fazer update às escolas selecionadas e respetivas turmas,
-    //caso seja submetido o formulário
-    var turmas = new Array();
+
 
   },
 
   addTurma:function(){
-    $("#selectEscola").attr("style","visibility:initial");
+    $("#selectEscola").attr("style","display:show");
+    $("#addEscola").attr("style","display:none");
   },
 
   verificaMail: function(){
@@ -119,13 +122,15 @@ window.TeachersNewView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(this.template());
+    var sefl=this;
 
+
+    $(this.el).html(this.template());
     //Teste de associar a(s) turmas ao professor.
     modem('GET', 'schools',
         function (json) {
           // Preencher o select escola, com as escolas existentes e respetivas turmas:
-          //e o select que vai ajudar a devolver os ID's ao form e vazer a correta atualização na escola
+          //e o select que vai ajudar a devolver os ID's ao form e fazer a correta atualização na escola
           var s='<select class="form-control" id="selectTurma">';
           var d='<select id="hiddenTurma">';
           for(i=0; i<json.length; i++){
@@ -139,24 +144,37 @@ window.TeachersNewView = Backbone.View.extend({
             s+="</optgroup>";
           }
           s+="</select>";
-          d+="</select>";
+          d+="</select><input type='text' id='hidden2'  class='form-control' name='turmas' style='display:none'>";
 
           $("#selectEscola").html(s);
           $("#hiddenEscola").html(d);
+          //no hidden, contém no value o id da escola
+          //e no text o id da turma.
 
           //adicionar os eventos para o select da turma.
           var myEl = document.getElementById('selectTurma');
           myEl.addEventListener('change', function() {
             var i = this.selectedIndex;
             //igualar os indexes
-            document.getElementById('hiddenEscola').selectedIndex = i;
+            var hidden = document.getElementById('hiddenTurma');
+            hidden.selectedIndex = i;
             //apresentar a turma escolhida
             var v='<label> - '+this.options[i].text+'</label><span>, '
-                  +this.options[i].value+'; </span>'
+                  +this.options[i].value+'; </span>';
             $("#assocTurma").append(v);
 
+            var r=$("#hidden2").val();
+            r+=hidden.options[i].value+':'+hidden.options[i].text+';';
+            console.log(r);
+            $("#hidden2").val(r);
+
+            console.log($("#hidden2").val());
+
             //esconder o select
-            $("#selectEscola").attr('style','visibility:hidden');
+
+            $("#selectEscola").attr('style','display:none');
+            //mostra o botão
+            $("#addEscola").attr("style","display:show");
 
           }, false);
 
