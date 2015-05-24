@@ -22,7 +22,7 @@ exports.new = function (req, res) {
   "numero":0,
   "turmas":"idDaTurma",
 
-  }
+};
 
 
 };
