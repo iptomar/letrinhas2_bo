@@ -3,15 +3,72 @@ window.TeachersNewView = Backbone.View.extend({
     //"submit":"submeterProfessor",
     //"click #subProf":"submeterProfessor",
     "click #buttonCancelar": "buttonCancelar",
-    //"blur #InputEmail":"verificaMail",
+    "blur .preenche":"verificarCampos",
     "click #addEscola":"addTurma",
+    "click #limpaTurmas":"limpaTurmas",
     "mouseover #pwdIcon":"verPwd",
     "mouseout #pwdIcon":"escondePwd",
     "keyup #ConfirmPasswd": "confirmPwd",
     "focus #InputPasswd":"limpapwds",
+    "change #inputFoto": "carregFoto",
 
 
+  },
 
+  //Martelada à Bruta... Mas funciona.
+  verificarCampos: function() {
+    var self=this;
+    //buscar todos os campos obrigatórios
+    var myEl = document.getElementsByClassName('preenche');
+    var cont=0;
+
+    console.log(myEl.length);
+    //verificar se estão preenchidos
+    for(i=0;i<myEl.length; i++){
+      if($(myEl[i]).val().length!=0){
+        cont++;
+      }
+    }
+    console.log(cont);
+
+    //se todos estão preenchidos, então hbilita o botão de submeter.
+    if(cont == myEl.length ){
+      //habilitar o botão de submeter
+      document.getElementById("subProf").disabled = false;
+      //adicioinar parametros invisíveis ao form, para tratamento na inserção
+      var input = $("<input>").attr("type", "hidden")
+                              .attr("name", "profID")
+                              .val(window.localStorage.getItem("ProfID"));
+      $('#txtNewForm').append($(input));
+    }
+    else{
+      //senão desabilitar o botão de submeter
+      document.getElementById("subProf").disabled = true;
+    }
+  },
+
+  carregFoto:function(){
+    if($("#inputFoto").val().length >0 ){
+      $("#iFoto").attr("src","../img/inConstruction.jpg");
+      $("#iFoto").attr("style"," width:200px; display:show");
+
+    }
+    else{
+      $("#iFoto").attr("style","display:none");
+    }
+  },
+
+  limpaTurmas: function(){
+    //esconder o select escola e o limpar
+    $("#selectEscola").attr('style','display:none');
+    $("#limpaTurmas").attr("style","display:none");
+    //mostra o adicionar turma
+    $("#addEscola").attr("style","display:show");
+    //limpa as turmas escolhidas
+    $("#assocTurma").html('');
+    //limpa os ids.
+    $("#hidden2").val('');
+    console.log("size input: "+$("#hidden2").val().length);
   },
 
   confirmPwd:function(){
@@ -160,21 +217,19 @@ window.TeachersNewView = Backbone.View.extend({
             hidden.selectedIndex = i;
             //apresentar a turma escolhida
             var v='<label> - '+this.options[i].text+'</label><span>, '
-                  +this.options[i].value+'; </span>';
+                  +this.options[i].value+'; </span><br>';
             $("#assocTurma").append(v);
 
+            //addicionar os id's necessários de escola:turma;
             var r=$("#hidden2").val();
             r+=hidden.options[i].value+':'+hidden.options[i].text+';';
-            console.log(r);
             $("#hidden2").val(r);
 
-            console.log($("#hidden2").val());
-
             //esconder o select
-
             $("#selectEscola").attr('style','display:none');
-            //mostra o botão
+            //mostra o botão add e limpar
             $("#addEscola").attr("style","display:show");
+            $("#limpaTurmas").attr("style","display:show");
 
           }, false);
 

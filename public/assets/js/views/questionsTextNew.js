@@ -2,33 +2,21 @@ window.QuestionsTextNew = Backbone.View.extend({
   events: {
     "submit":"validaSubmissao",
     "click #buttonCancelar":"cancelTest",
-    "blur .preenche":"verificarCampos",
-
+    "blur .preenche":"verificarCampos"
   },
 
   cancelTest:function(){
     window.history.back();
   },
 
-
   validaSubmissao:function(e){
+
     if ($("#InputDescricao").val().length==0) {
        e.preventDefault();
        //Teste
        //alert("descrição Vaizia");
        return false; //for old browsers
-    } else{
-
-      app.navigate('/tests', {
-          trigger: true
-        });
-
-
-       //form was OK - you can add some pre-send script in here
     }
-
-
-
   },
 
 
@@ -36,7 +24,7 @@ window.QuestionsTextNew = Backbone.View.extend({
     var self=this;
   },
 
-  //Martelada à Bruta...
+  //Martelada à Bruta... Mas funciona.
   verificarCampos: function() {
     var self=this;
     //buscar todos os campos obrigatórios

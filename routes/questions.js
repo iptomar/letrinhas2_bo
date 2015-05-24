@@ -128,7 +128,8 @@ exports.new = function (req, res) {
     }
     console.log('questions added'.green);
     //res.json(body);
-    res;
+    //res.json({'result': 'ok'});
+    res.redirect('/#tests');
   });
 
   db2.insert(teste, function(err,body){

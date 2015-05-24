@@ -12,11 +12,11 @@
     <div class="form-group">
       <div class="col-sm-6">
         <label for="InputNome" >Nome</label>
-        <input type="text" class="form-control" id="InputNome" placeholder="Ex: Ana Ferreira" name="nome">
+        <input type="text" class="form-control preenche" id="InputNome" placeholder="Ex: Ana Ferreira" name="nome">
       </div>
       <div class="col-sm-6">
         <label for="InputEmail">Email</label>
-        <input type="email" class="form-control" id="InputEmail" placeholder="Ex: ana.paula.faria.ferreira@gmail.com" name="email">
+        <input type="email" class="form-control preenche" id="InputEmail" placeholder="Ex: ana.paula.faria.ferreira@gmail.com" name="email">
       </div>
       <div class="col-sm-6">
         <br>
@@ -24,26 +24,25 @@
           <label for="InputPasswd">Palavra-passe</label>
         </div>
         <span id="pwdIcon" class="glyphicon glyphicon-eye-open" style="color:#cccccc"></span>
-        <input type="password" class="form-control" id="InputPasswd" placeholder="Ex: passworXpto" name="password">
+        <input type="password" class="form-control preenche" id="InputPasswd" placeholder="Ex: passworXpto" name="password">
         <br>
 
         <div class="col-sm-11">
           <label for="ConfirmPasswd">Confirmar palavra-passe</label>
         </div>
         <span id="confIcon" class="glyphicon"></span>
-        <input type="password" class="form-control" id="ConfirmPasswd" placeholder="Ex: passworXpto" name="password">
+        <input type="password" class="form-control preenche" id="ConfirmPasswd" placeholder="Ex: passworXpto">
         <br>
         <div class="col-sm-6">
           <label for="InputPin">Pin:</label>
-        <input type="number" min="0000" max="9999" class="form-control" id="inputPin" placeholder='4 dígitos, ex: "2015"' name="pin" style="width:200px">
+        <input type="number" max="9999" class="form-control preenche" id="inputPin" placeholder='4 dígitos, ex: "2015"' name="pin" style="width:200px">
         <span style="color:#909090">(para usar no Tablet) </span>
       </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-6">
           <label for="inputFoto" >Foto:</label>
-          <input type="file" id="inputFoto" name="file">
-
-
+          <input type="file" id="inputFoto" class="form-control preenche" name="file">
+          <img id="iFoto" style="display:none" src="../img/inConstruction.jpg">
         </div>
 
       </div>
@@ -51,7 +50,7 @@
       <div class="col-sm-6">
         <br>
         <label for="InputTelefone">Telefone</label>
-        <input type="number" min="0" max="999999999" class="form-control" id="InputTelefone" placeholder="Telefone" name="telefone">
+        <input type="number" min="210000000" max="999999999" class="form-control preenche" id="InputTelefone" placeholder="Telefone" name="telefone">
       </div>
 
       <div class="col-sm-3">
@@ -72,32 +71,42 @@
           <option>Não Ativo</option>
         </select>
       </div>
+      <div class="col-sm-6">
+        <hr>
+      </div>
       <div class="col-sm-2">
         <br>
-        <button id="addEscola" type="button" class="btn">
-          <span class="glyphicon glyphicon glyphicon-plus"></span>
-          Adicionar turma
+        <div align=right>
+          <button id="addEscola" type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon glyphicon-plus" style="color:#00ff00"></span>
+            Adicionar turma
+            </button>
           </button>
-        </button>
-        <div id="selectEscola" style="visibility:hidden">
-
         </div>
+
+        <div id="selectEscola" style="display:none">
+        </div>
+
+        <br>
+        <div align=right>
+          <button id="limpaTurmas" type="button" class="btn btn-danger" style="display:none">
+            <span class="glyphicon glyphicon glyphicon-erase" style="color:#ffcc00"></span>
+            limpar
+            </button>
+          </button>
+        </div>
+
       </div>
 
-
+      <div id="assocTurma" class="col-sm-4" style="max-height:220px; overflow:auto;">
+      </div>
       <!--  -->
       <br/>
 
-      <div>
-      <div id="hiddenEscola" >
-
-      </div>
-      <div id="assocTurma" >
-
-
+      <div id="hiddenEscola" style="display:none">
       </div>
 
-    </div>
+
       <!--###################################################################-->
 
     </div>
@@ -107,7 +116,7 @@
           <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
         </div>
         <div class="col-sm-6">
-          <button id="subTxt" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+          <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
         </div>
     </div>
 
