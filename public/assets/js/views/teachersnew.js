@@ -4,6 +4,8 @@ window.TeachersNewView = Backbone.View.extend({
     //"click #subProf":"submeterProfessor",
     "click #buttonCancelar": "buttonCancelar",
     "blur .preenche":"verificarCampos",
+    "blur #InputEmail":"verificarMail",
+    "focus .preenche":"disabelSub",
     "click #addEscola":"addTurma",
     "click #limpaTurmas":"limpaTurmas",
     "mouseover #pwdIcon":"verPwd",
@@ -15,6 +17,10 @@ window.TeachersNewView = Backbone.View.extend({
 
   },
 
+  disabelSub: function(){
+   console.log("focus");
+   document.getElementById("subProf").disabled = true;
+ },
   //Martelada à Bruta... Mas funciona.
   verificarCampos: function() {
     var self=this;
@@ -22,14 +28,12 @@ window.TeachersNewView = Backbone.View.extend({
     var myEl = document.getElementsByClassName('preenche');
     var cont=0;
 
-    console.log(myEl.length);
     //verificar se estão preenchidos
     for(i=0;i<myEl.length; i++){
       if($(myEl[i]).val().length!=0){
         cont++;
       }
     }
-    console.log(cont);
 
     //se todos estão preenchidos, então hbilita o botão de submeter.
     if(cont == myEl.length ){
@@ -73,7 +77,6 @@ window.TeachersNewView = Backbone.View.extend({
 
   confirmPwd:function(){
     if($("#InputPasswd").val()==$("#ConfirmPasswd").val()){
-      console.log("iguais");
       $("#confIcon").addClass("glyphicon-ok");
       $("#confIcon").removeClass("glyphicon-remove");
       $("#confIcon").attr("style","color:#66dd66");
@@ -126,51 +129,42 @@ window.TeachersNewView = Backbone.View.extend({
     $("#addEscola").attr("style","display:none");
   },
 
-  verificaMail: function(){
+  verificarMail: function(){
+    var self=this;
+    document.getElementById("subProf").disabled = true;
+    var mail = $("#InputEmail").val();
+    var placeHolder = $("#InputEmail").attr("placeholder");
+    $("#InputEmail").val('');
+    $("#InputEmail").attr("placeholder",mail);
+    $("#imgMail").attr("style","display:show");
 
-    console.log("A verificar mail...");
-
-    //1ºverificar se o e-mail é válido
-    //2ºse já exite na BD
+    //Verificar se mail já existe na BD se já exite na BD
+    modem('GET', 'teachers/'+mail,
+        function (json) {
+          $("#lblMAil").attr("style","color:#ff0000");
+          $("#lblMAil").text('Email: "'+mail+'" já consta na Base de Dados!');
+          $("#InputEmail").attr("placeholder",placeHolder);
+          $("#imgMail").attr("style","display:none");
+        },
+        function (xhr, ajaxOptions, thrownError) {
+          var json = JSON.parse(xhr.responseText);
+          console.log("\nErro:\n")
+          console.log(json.message.error);
+          console.log(json.result);
+          $("#lblMAil").text('Email:');
+          $("#lblMAil").attr("style","color:#000000");
+          $("#InputEmail").val(mail);
+          $("#InputEmail").attr("placeholder",placeHolder);
+          $("#imgMail").attr("style","display:none");
+          self.verificarCampos();
+        }
+      );
   },
 
   submeterProfessor: function(e){
-    //e.preventDefault();
-    console.log("A submeter");
-
-
-    //1ªvalidar Telefone
-    //2ºverificar a foto, se não tiver atribuir uma por defeito, consoante o género
-    //e por fim submeter??.
-    //Insert no professores, com foto, se possível.
-    //vários Updates das Escolas/ Turmas associadas
-
-    //teste na submissão: ######################################################
-    //verificar o estado:
     var estado;
     if($("#selectEstado").val()=="Ativo") estado=true;
     else estado = false;
-
-
-  /*  var prof={
-      '_id': $("#InputEmail").text(),
-      'nome': $("#InputNome").text(),
-      'telefone': $("#InputTelefone"),
-      'password': $("#InputPasswd"),
-      'pin': $("#inputPin"),
-      'estado': estado,
-      'tipo': $("#selectTipo").selected,
-    };
-    try{
-      modem('POST','teachers', prof,null);
-    }
-    catch (err) {
-      console.log(err.message);
-      alert("Ocorreu um erro na inserção do utilizador na BD, tente mais tarde.");
-      window.history.back();
-    }*/
-    // fim de teste na submissão: ###### ERRO ##################################
-    return false;
   },
 
   buttonCancelar: function(e) {

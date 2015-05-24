@@ -5,6 +5,9 @@ window.TeachersView = Backbone.View.extend({
   },
 
   initialize: function() {
+    var self=this;
+    self.bd='dev_professores';
+    self.site='http://127.0.0.1:5984';
   },
 
 
@@ -124,8 +127,9 @@ window.TeachersView = Backbone.View.extend({
   },
 
   enchePreview: function(documnt){
+    var self=this;
     var html='';
-    html+= '<img src="http://localhost:5984/dev_professores/'+documnt._id+'/prof.png"  style="height:220px;">';
+    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/prof.png"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="profNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>E-mail: <label id="profEmail">'+documnt._id+'</label></span>';
     html+= '<br><span>Telefone: <label>'+documnt.telefone+' </label></span>';

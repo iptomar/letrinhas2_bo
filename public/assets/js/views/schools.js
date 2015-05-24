@@ -18,7 +18,11 @@ editEscola: function (obj) {
     });
   },
 
-  initialize: function() {},
+  initialize: function() {
+    var self=this;
+    self.bd='dev_escolas';
+    self.site='http://127.0.0.1:5984';
+  },
 
    render: function() {
     $(this.el).html(this.template());
@@ -95,24 +99,24 @@ mudaEscola: function(obj){
   encheEscPreview: function(documnt){
     var self=this;
     var html='';
-    html+= '<img src="http://localhost:5984/dev_escolas/'+documnt._id+'/escola.png"  style="height:220px;">';
+    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/escola.png"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="EscolaNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>Morada da Escola: <label>'+documnt.morada+' </label></span></div>';
-    
+
     //Botão para Editar
     html+='<div align=right class="col-md-2"><br><br><br>'
         +'<button id="btnSchoolsEdit" class="btn btn-warning" style="font-size:10px">'
         +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
         +' Editar dados'
         +'</button></div>';
-         
-// ciclo for para ir buscar as turmas 
+
+// ciclo for para ir buscar as turmas
       for(j=0; j< documnt.turmas.length; j++){
            html+='<div align=left class="col-md-3"><br>'
             +'<button id="btnClassView'+[j]+'" class="btn btn-default" style="font-size:10px">'
-            +documnt.turmas[j].ano+' Ano, '+documnt.turmas[j].nome+'</button></div>';        
+            +documnt.turmas[j].ano+' Ano, '+documnt.turmas[j].nome+'</button></div>';
           }
-       
+
     return html;
 },
 

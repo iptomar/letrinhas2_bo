@@ -9,27 +9,6 @@ var db2 = nano.use('dev_escolas');
 
 exports.upDate = function(rep, res){
   console.log('teachers upDate, NotAvaliable yet'.blue);
-//Exemplo
-
-// source: http://writings.nunojob.com/2012/07/How-To-Update-A-Document-With-Nano-The-CouchDB-Client-for-Node.js.html
-
-//db.update = function(obj, key, callback) {
-//var db = this;
-
-//db.get(key, function (error, existing) {
-//if(!error) obj._rev = existing._rev;
-//db.insert(obj, key, callback);
-//});
-//}
-
-
-//db.update({title: 'The new one'}, '1', function(err, res) {
-//if (err) return console.log('No update!');
-//console.log('Updated!');
-//});
-//fim exemplo
-
-
 };
 
 exports.new = function(req, res) {
@@ -75,9 +54,9 @@ exports.new = function(req, res) {
       //                 idProf        escola&turmas
       insertProfTurma(req.body.email, escolas[esc]);
     }
+    console.log('New teacher was inserted'.green);
 
     res.redirect('/#teachers');
-    //res.json(body);
 
   });
 };
@@ -99,7 +78,7 @@ exports.getAll = function(req, res) {
 exports.get = function(req, res) {
   var id = req.params.id;
 
-  db.get(id, function(err, body) {
+  db.get(id,function(err, body) {
     if (err) {
       return res.status(500).json({
         'result': 'nok',
@@ -109,30 +88,10 @@ exports.get = function(req, res) {
 
     res.json(body);
   });
-};
-
-exports.foto = function(req, res){
-  var id = req.params.id;
-
-  db.attachment.get(id,'prof.png',function(err,body){
-    if (err) {
-      return res.status(500).json({
-        'result': 'nok',
-        'message': err
-      });
-    }
-
-    res.json(body);
-  });
-
 };
 
 //Função para atualizar as turmas com o id do professor
 function insertProfTurma(idProf, escola){
-  //    var iTurmas = getTurmas(req.body.turmas);
-  //getEscola
-  //varAux para receber o doc.
-  //procurar onde estão as turmas
   db2.get(escola.id, function(err, body) {
 
     if (err) {
@@ -141,28 +100,20 @@ function insertProfTurma(idProf, escola){
         'message': err
       });
     }
-    console.log("getEscola: ".red + body._id);
-    console.log("escolax: "+escola.id);
 
     //correr os arrays de turmas para encontrar a correspondência
     for(t=0;t< escola.turma.length; t++){
       for(i=0;i<body.turmas.length;i++){
-        console.log("turma Escola: "+body.turmas[i]._id);
-        console.log("turma escolax: "+escola.turma[t]);
         if(escola.turma[t] == body.turmas[i]._id){
           //verificar se o id do professor já está na turma
           var existe=false;
           for(p=0;p< body.turmas[i].professores.length;p++){
-            console.log("professores: ".blue +body.turmas[i].professores[p].id);
             if(body.turmas[i].professores[p].id == idProf ){
               existe=true;
-              console.log("existe: ".yellow + idProf);
               break;
             }
           }
           if(!existe){
-            console.log("pushed".green + idProf);
-
             body.turmas[i].professores.push(
               {"id":idProf}
             );
@@ -184,43 +135,10 @@ function insertProfTurma(idProf, escola){
 
     db2.update(body, body._id, function(err, res) {
       if (err) return console.log('No update!'.red);
-      console.log('Updated!'.green);
+      console.log(body.nome+' was Updated!'.green);
     });
 
   });
-
-
-
-
-/*
-
-escola={
-"morada":"string",
-"nome":"string",
-"turmas":[{"_id":"string",
-           "ano":0,
-           "anoLectivo":2015,
-           "nome":"turmaX",
-           "professores":[{"id":"string", ... prof.push()
-           }]
-         }],
-
-};
-
-
-
-*/
-//Exemplo
-
-//update
-//db2.update(escola, escola._id, function(err, res) {
-//if (err) return console.log('No update!');
-//console.log('Updated!');
-//});
-//fim exemplo
-
-
-
 
 };
 
