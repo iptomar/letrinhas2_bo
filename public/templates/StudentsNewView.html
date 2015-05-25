@@ -1,62 +1,47 @@
-
 <div class="topcoat-navigation-bar">
-    <div class="topcoat-navigation-bar__item center full">
-        <h1 align="center" class="topcoat-navigation-bar__title">Inserção Aluno</h1>
-
-    </div>
+  <div class="topcoat-navigation-bar__item center full">
+    <h1 align="center" class="topcoat-navigation-bar__title">Registar Aluno</h1>
+  </div>
 </div>
 <div>
-    <legend>Dados Aluno</legend>
-    <form role="form" method="POST" action="/students" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="InputNome">Nome</label>
-            <input type="text" class="form-control" id="InputNome" placeholder="Nome" name="nome">
-            <label for="InputNrAluno">Número de Aluno</label>
-            <input type="number" class="form-control" id="InputNrAluno" placeholder="Numero" name="numero">
-
-            
-            <div class="form-group">
-                <label for="file">Foto:</label>
-                <input type="file" id="InputFile" name="file">
-            </div>
-
-            <label for="select">Estado</label>
-            <select class="form-control" id="select" name="estado">
-                <option>Ativo</option>
-                <option>Não Ativo</option>
-            </select>
-
-            <label for="selectEscola">Escola que o aluno frequenta</label>
-            <select class="form-control" id="selectEscola">
-                
-            </select>
-            
-            <select class="form-control" id="selectIDEscola" name="escola" style="display: none">
-            </select>
-
-            <label for="selectAno">Ano que o Aluno frequenta</label>
-            <select class="form-control" id="selectAno" name="Ano">
-                <option>1º</option>
-                <option>2º</option>
-                <option>3º</option>
-                <option>4º</option>
-            </select>
-
-            <label for="selectTurma">Turma do aluno</label>
-            <select class="form-control" id="selectTurma" name="turma">
-                
-            </select>
-            <input type="text" class="" id="selectIDTurma" style="display:none">
+  <legend>Dados do Aluno:</legend>
+  <form role="form" method="POST" action="/students" enctype="multipart/form-data">
+    <div class="form-group">
+      <div class="col-sm-6">
+        <div class="col-sm-12">
+          <label for="InputNome" >Nome:</label>
+          <input type="text" class="form-control preenche" id="InputNome" placeholder="Ex: Tiago Fernandes" name="nome">
         </div>
-
-
-        <div class="row">
-            <div class="col-sm-6">
-                <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
-            </div>
-            <div class="col-sm-6">
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
-            </div>
+        <div class="col-sm-4">
+          <br>
+          <label for="InputNrAluno" >Número de Aluno:</label>
+          <input type="number" class="form-control preenche" id="InputNrAluno" placeholder="Ex: 17253" name="numero">
         </div>
-    </form>
+        <div class="col-sm-8" id="selectEscola">
+          <br>
+          <label for="selectTurma" >Turma que o aluno frequenta:</label>
+          <select class="form-control" id="selectTurma"></select>
+        </div>
+      </div>
+
+      <div class="col-sm-3" style="height:300px;">
+        <label for="file">Foto:</label>
+        <input type="file" class="form-control preenche" id="InputFile" name="file">
+        <br>
+        <img id="iFoto" style="display:none" src="../img/inConstruction.jpg">
+      </div>
+
+      <input type="text" id="hidenIDTurma" class="form-control preenche" style="display:none">
+      <select class="form-control" id="hidenTurma" style="display:none"></select>
+
+      <div class="col-sm-4" style="position:fixed; right:53px; bottom:15px">
+        <div class="col-sm-6">
+          <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
+        </div>
+        <div class="col-sm-6">
+          <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

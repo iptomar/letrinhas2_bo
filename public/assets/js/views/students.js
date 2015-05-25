@@ -13,7 +13,7 @@ window.StudentsView = Backbone.View.extend({
   editAluno: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados do aluno a editar
     window.localStorage.setItem("AlunoEditar", obj.name);
-    app.navigate('/students/edit', {
+    app.navigate('man', {
       trigger: true
     });
   },
@@ -27,8 +27,7 @@ window.StudentsView = Backbone.View.extend({
   render: function() {
     $(this.el).html(this.template());
     var self=this;
-
-  modem('GET', 'students', function(data) {
+    modem('GET', 'students', function(data) {
       $('#studentsBadge').text(data.length);
       var s='';
         var first=true;
@@ -48,36 +47,28 @@ window.StudentsView = Backbone.View.extend({
             }
         }
     }
-
     $('#studentsContent').html(s);
     self.getTurma(data[0].doc.turma);
-
-      document.getElementById(data[0].doc._id).focus();
-
-        // até aqui é o preview
-
-      //Criar Eventos
-      var myEl = document.getElementsByClassName('studSelec');
-      for(j=0;j<myEl.length;j++){
-        myEl[j].addEventListener('click', function() {
-                      self.mudaAluno(this);
-                    }, false);
-      };
-      myEl = document.getElementById('btnStudentsEdit');
-      myEl.addEventListener('click', function() {
+    document.getElementById(data[0].doc._id).focus();
+    // até aqui é o preview
+    //Criar Eventos
+    var myEl = document.getElementsByClassName('studSelec');
+    for(j=0;j<myEl.length;j++){
+      myEl[j].addEventListener('click', function() {
+                    self.mudaAluno(this);
+                  }, false);
+    };
+    myEl = document.getElementById('btnStudentsEdit');
+    myEl.addEventListener('click', function() {
                     self.editAluno(this);
                   }, false);
     }, function(error) {
       console.log('Error getting students list!');
     });
-
       return this;
-
   },
 
-//TESTE
-
-    mudaAluno: function(obj){
+  mudaAluno: function(obj){
     var self=this;
     //vai buscar os dados do aluno:
     modem('GET','students/'+obj.id, function(json){
@@ -131,13 +122,5 @@ window.StudentsView = Backbone.View.extend({
     return html;
 
   },
-
-    //FIM DO TESTE
-
-
-
-
-
-
 
 });

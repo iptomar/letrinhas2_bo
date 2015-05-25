@@ -19,14 +19,19 @@ exports.new = function(req, res) {
       estado=true;
   }
 
+  console.log("estado"+estado);
+  console.log("nome"+req.body.nome);
+  console.log("password"+req.body.password);
+  console.log("pin"+req.body.pin);
+  console.log("telefone"+req.body.telefone);
+  console.log("tipoFuncionario"+req.body.tipo);
+
   var professor={"estado":estado,
                  "nome":req.body.nome,
                  "password":req.body.password,
                  "pin":req.body.pin,
                  "telefone":req.body.telefone,
-                 "tipoFuncionario":req.body.tipo,
-
-  }
+                 "tipoFuncionario":req.body.tipo};
 
   var file;
   if(req.files) file = req.files.file;

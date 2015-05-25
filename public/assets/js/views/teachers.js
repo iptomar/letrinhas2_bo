@@ -34,7 +34,6 @@ window.TeachersView = Backbone.View.extend({
                       +';base64,'
                       +data[i].doc._attachments['prof.png'].data
                       +'" style="height:25px;" > '
-          //'"http://localhost:5984/dev_professores/'+data[i].doc._id+'/prof.png"  style="height:25px;" > '
           + data[i].doc.nome + '</button>';
 
           if(first){
@@ -133,7 +132,7 @@ window.TeachersView = Backbone.View.extend({
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="profNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>E-mail: <label id="profEmail">'+documnt._id+'</label></span>';
     html+= '<br><span>Telefone: <label>'+documnt.telefone+' </label></span>';
-    html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipo+' </label></span></div>';
+    html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipoFuncionario+' </label></span></div>';
     //Botão para Editar
     html+='<div align=right class="col-md-2"><br><br><br>'
         +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px">'
@@ -158,7 +157,7 @@ window.TeachersView = Backbone.View.extend({
   editTeacher: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados do professor a editar
     window.localStorage.setItem("ProfEditar", obj.name);
-    app.navigate('/teachers/edit', {
+    app.navigate('man', {
       trigger: true
     });
   },

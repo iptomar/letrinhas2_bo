@@ -104,7 +104,6 @@ window.TestsView = Backbone.View.extend({
     var f = documnt.tipo;
     switch(f){
       case 'Texto':
-      console.log("enche Predview Texto ");
           self.enchePreviewTexto(documnt);
         break;
       case 'Lista':
@@ -133,7 +132,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="http://localhost:5984/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="'+self.site+'/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'
@@ -182,7 +181,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="http://localhost:5984/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="'+self.site+'/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'
@@ -193,11 +192,6 @@ window.TestsView = Backbone.View.extend({
            +'</div>';
 
            $('#testsPreview').html(d);
-
-           //myEl = document.getElementById('btnTestEdit');
-           //myEl.addEventListener('click', function() {
-          //               self.editTest();
-          //             }, false);
 
     }, function(error2) {
       console.log('Error getting questions\n');
@@ -232,7 +226,11 @@ window.TestsView = Backbone.View.extend({
 
     return coluna;
   },
+
   initialize: function() {
+    var self=this;
+    self.bd='dev_testes';
+    self.site='http://127.0.0.1:5984';
   },
 
   render: function() {

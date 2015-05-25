@@ -1,7 +1,5 @@
 window.TeachersNewView = Backbone.View.extend({
   events: {
-    //"submit":"submeterProfessor",
-    //"click #subProf":"submeterProfessor",
     "click #buttonCancelar": "buttonCancelar",
     "blur .preenche":"verificarCampos",
     "blur #InputEmail":"verificarMail",
@@ -159,12 +157,6 @@ window.TeachersNewView = Backbone.View.extend({
           self.verificarCampos();
         }
       );
-  },
-
-  submeterProfessor: function(e){
-    var estado;
-    if($("#selectEstado").val()=="Ativo") estado=true;
-    else estado = false;
   },
 
   buttonCancelar: function(e) {
