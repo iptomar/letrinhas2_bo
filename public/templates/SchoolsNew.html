@@ -1,34 +1,53 @@
 
 <div class="topcoat-navigation-bar">
     <div class="topcoat-navigation-bar__item center full">
-        <h1 align="center" class="topcoat-navigation-bar__title">Inserção Escola</h1>
+        <h1 align="center" class="topcoat-navigation-bar__title">Registar Escola</h1>
 
     </div>
 </div>
 <div>
-    <legend>Dados Escola</legend>
+    <legend>Dados da Escola</legend>
     <form role="form" method="POST" action="/schools" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="InputNome">Nome</label>
-            <input type="text" class="form-control" id="InputNome" placeholder="Nome" name="nome">
+      <div class="form-group">
+        <div class="col-sm-6">
+          <div class="col-sm-12">
+            <label for="InputNome" >Nome:</label>
+            <input type="text" class="form-control preenche" id="InputNome" placeholder="Ex: Escola Secundária Artur Gonçalves" name="nome">
+          </div>
+          <div class="col-sm-12">
+            <br>
             <label for="InputMorada">Morada</label>
-            <input type="text" class="form-control" id="InputMorada" placeholder="Morada" name="morada">
+            <input type="text" class="form-control preenche" id="InputMorada" placeholder="Ex: Rua das rosas, lote nº 1, Torres Novas" name="morada">
+          </div>
 
-            
-            <div class="form-group">
-                <label for="file">Logotipo:</label>
-                <input type="file" id="InputFile" name="file">
-            </div>
+          <div class="col-sm-6" style="height:350px; background-color:#ff0000">
+            <br>
+            <label for="inputFoto">Logotipo:</label>
+            <input type="file" class="form-control preenche" id="InputFile" name="file">
+            <br>
+            <img id="iFoto" style="display:none; height:230px;" src="../img/inConstruction.jpg">
+          </div>
+        </div>
+        <div class="col-sm-6" style="background-color:#00ff00">
+          <div class="col-sm-4" style="background-color:#ffff00">
+              <button id="addEscola" type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon glyphicon-plus" style="color:#00ff00"></span>
+                Adicionar turma
+                </button>
+              </button>
+          </div>
+          <div class="col-sm-8" style="background-color:#00ffff">
+          </div>
         </div>
 
-
-        <div class="row">
+          <div class="col-sm-4" style="position:fixed; right:53px; bottom:15px">
             <div class="col-sm-6">
-                <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
+              <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
             </div>
             <div class="col-sm-6">
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-created">Submeter</button>
+              <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
             </div>
+          </div>
         </div>
     </form>
 </div>

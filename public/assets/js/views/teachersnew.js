@@ -106,8 +106,6 @@ window.TeachersNewView = Backbone.View.extend({
   },
   initialize: function() {
     var self=this;
-
-
     //verificar se está logado
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){

@@ -20,8 +20,21 @@ editEscola: function (obj) {
 
   initialize: function() {
     var self=this;
-    self.bd='dev_escolas';
-    self.site='http://127.0.0.1:5984';
+    //verificar se está logado
+    var controlo=window.localStorage.getItem("Logged");
+    if(!controlo){
+      console.log('Não Logado');
+      window.history.back();
+    }
+    else{
+      console.log('Logado'); //guardar variavel
+      //para fazer update às escolas selecionadas e respetivas turmas,
+      //caso seja submetido o formulário
+      self.bd='dev_escolas';
+      self.site='http://127.0.0.1:5984';
+    }
+
+
   },
 
    render: function() {
