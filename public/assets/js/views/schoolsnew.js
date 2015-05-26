@@ -24,50 +24,62 @@ window.SchoolsNew = Backbone.View.extend({
     var self=this;
     var myEl = document.getElementById('selectAno');
     var indx = myEl.selectedIndex;
+
+    // primeiro verifica se o nome e ano da turma já existem
+    for(i=0; i < $("#nTurmas").val(); i++){
+
+      if( $('#anoTrm'+(i+1)).val()== myEl.options[indx].value
+        && $('#trm'+(i+1)).val()== $("#InputNomeTurma").val()){
+          alert("A denominação da turma que está a inserir, já foi inserida nesse ano de escolaridade. \nPor favor tente novamente.");
+          $("#InputNomeTurma").val('');
+          $("#InputNomeTurma").focus();
+          $("#addTurma").attr("disabled",true);
+          return null;
+        }
+    }
+
     var turmaAno= myEl.options[indx].text+', '+$("#InputNomeTurma").val();
 
-    indx = $("#nTurmas").val();
-    indx++;
-    $("#nTurmas").val(indx);
-    var d = '<input type="text" id="anoTrm'+indx+'" class="form-control" name="anoturm'+indx+'">'
-            +'<input type="text" id="trm'+indx+'" class="form-control" name="nomTurm'+indx+'">';
+    var i = $("#nTurmas").val();
+    i++;
+    $("#nTurmas").val(i);
+    var d = '<input type="text" id="anoTrm'+i+'" class="form-control " name="anoturm'+i+'">'
+            +'<input type="text" id="trm'+i+'" class="form-control" name="nomTurm'+i+'">';
     $("#hiddenListaTurmas").append(d);
 
-    var s = '<br><label id="lb'+indx+'">'+turmaAno+'</label>'
-            +'<a id="bt'+indx+'" class="glyphicon glyphicon-trash" align="right" style="width:30px; color:#dd0000"></a>';
+    var s = '<div id="d'+i+'"><br><label id="lb'+i+'">'+turmaAno+'</label>'
+            +'<a id="bt'+i+'" class="glyphicon glyphicon-trash" align="right" style="width:30px; color:#dd0000"></a>';
 
     $("#listaTurmas").append(s);
 
 
-    d= '#anoTrm'+indx;
+    d= '#anoTrm'+i;
     $(d).val(myEl.options[indx].value);
 
-    d= '#trm'+indx;
+    d= '#trm'+i;
     $(d).val($("#InputNomeTurma").val());
 
-/*
-myEl.addEventListener('change', function() {
-  var i = this.selectedIndex;
-  //igualar os indexes
-  var hidden = document.getElementById('hidenTurma');
-  hidden.selectedIndex = i;
-  //addicionar os id's necessários de escola:turma;
-  var r=hidden.options[i].value+':'+hidden.options[i].text+';';
-  $("#hidenIDTurma").val(r);
+
+    //evento de apagar a turma adicionada:
+    myEl = document.getElementById('bt'+i);
+    myEl.addEventListener('click', function() {
+      $("#d"+i).remove();
+      //ano e turma vazios, não os posso eliminar, pois terei problemas a identificar os elementos..
+      d= '#anoTrm'+i;
+      $(d).val('');
+      d= '#trm'+i;
+      $(d).val('');
 
 
-<div id="hiddenListaTurmas" style="display:none">
-  <input type="number" id="nTurmas" class="form-control" name="nTurmas">
-</div>
-
-*/
-
+    }, false);
 
     self.hideTurmaForm();
   },
 
   hideTurmaForm:function(){
     var self=this;
+    $("#InputNomeTurma").val('');
+    document.getElementById('selectAno').selectedIndex=0;
     $("#createTurma").attr("style","display:show");
     $("#checkTurma").attr("style","display:none");
     $("#formTurma").attr("style","display:none");
@@ -86,6 +98,9 @@ myEl.addEventListener('change', function() {
 
   initialize: function() {
     var self=this;
+
+    $("#nTurmas").val(0);
+
 
   },
 
