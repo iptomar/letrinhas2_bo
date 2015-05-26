@@ -1,8 +1,8 @@
 window.TeachersNewView = Backbone.View.extend({
   events: {
     "click #buttonCancelar": "buttonCancelar",
-    "blur .preenche":"verificarCampos",
-    "blur #InputEmail":"verificarMail",
+    "change .preenche":"verificarCampos",
+    "change #InputEmail":"verificarMail",
     "focus .preenche":"disabelSub",
     "click #addEscola":"addTurma",
     "click #limpaTurmas":"limpaTurmas",
@@ -16,9 +16,9 @@ window.TeachersNewView = Backbone.View.extend({
   },
 
   disabelSub: function(){
-   console.log("focus");
    document.getElementById("subProf").disabled = true;
- },
+  },
+
   //Martelada à Bruta... Mas funciona.
   verificarCampos: function() {
     var self=this;
@@ -49,9 +49,11 @@ window.TeachersNewView = Backbone.View.extend({
     }
   },
 
-  carregFoto:function(){
+  carregFoto:function(e){
+    var self=this;
     if($("#inputFoto").val().length >0 ){
-      $("#iFoto").attr("src","../img/inConstruction.jpg");
+      var tmppath = URL.createObjectURL(e.target.files[0]);
+      $("#iFoto").attr("src",tmppath);
       $("#iFoto").attr("style"," width:200px; display:show");
 
     }
@@ -70,7 +72,6 @@ window.TeachersNewView = Backbone.View.extend({
     $("#assocTurma").html('');
     //limpa os ids.
     $("#hidden2").val('');
-    console.log("size input: "+$("#hidden2").val().length);
   },
 
   confirmPwd:function(){

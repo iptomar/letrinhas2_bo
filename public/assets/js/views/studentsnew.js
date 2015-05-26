@@ -1,18 +1,76 @@
 window.StudentsNewView = Backbone.View.extend({
     events: {
         "click #buttonCancelar": "buttonCancelarAluno",
+        "change #inputFoto": "carregFoto",
+        "change .preenche":"verificarCampos",
+        "focus .preenche":"disabelSub",
+
 
 
 
     },
-    initialize: function () {},
+
+    disabelSub: function(){
+     document.getElementById("subProf").disabled = true;
+    },
+
+  initialize: function () {var self=this;
+    //verificar se está logado
+    var controlo=window.localStorage.getItem("Logged");
+    if(!controlo){
+      console.log('Não Logado');
+      window.history.back();
+    }
+    else{
+      console.log('Logado'); //guardar variavel
+      //para fazer update às escolas selecionadas e respetivas turmas,
+      //caso seja submetido o formulário
+      }
+  },
+
+
 
     buttonCancelarAluno: function (e) {
         e.preventDefault();
         window.history.back();
     },
 
+    verificarCampos: function() {
+      var self=this;
+      //buscar todos os campos obrigatórios
+      var myEl = document.getElementsByClassName('preenche');
+      var cont=0;
 
+      //verificar se estão preenchidos
+      for(i=0;i<myEl.length; i++){
+        if($(myEl[i]).val().length!=0){
+          cont++;
+        }
+      }
+
+      //se todos estão preenchidos, então hbilita o botão de submeter.
+      if(cont == myEl.length ){
+        //habilitar o botão de submeter
+        document.getElementById("subProf").disabled = false;
+      }
+      else{
+        //senão desabilitar o botão de submeter
+        document.getElementById("subProf").disabled = true;
+      }
+    },
+
+    carregFoto:function(e){
+      var self=this;
+      if($("#inputFoto").val().length >0 ){
+        var tmppath = URL.createObjectURL(e.target.files[0]);
+        $("#iFoto").attr("src",tmppath);
+        $("#iFoto").attr("style"," width:200px; display:show");
+
+      }
+      else{
+        $("#iFoto").attr("style","display:none");
+      }
+    },
 
 
     render: function () {
@@ -64,5 +122,5 @@ window.StudentsNewView = Backbone.View.extend({
         return this;
     },
 
-  
+
 });

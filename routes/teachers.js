@@ -19,12 +19,7 @@ exports.new = function(req, res) {
       estado=true;
   }
 
-  console.log("estado"+estado);
   console.log("nome"+req.body.nome);
-  console.log("password"+req.body.password);
-  console.log("pin"+req.body.pin);
-  console.log("telefone"+req.body.telefone);
-  console.log("tipoFuncionario"+req.body.tipo);
 
   var professor={"estado":estado,
                  "nome":req.body.nome,
@@ -39,9 +34,9 @@ exports.new = function(req, res) {
   var imgData = require('fs').readFileSync(file.path);
 
   db.multipart.insert(professor, [{
-    name: 'prof.png',
+    name: 'prof.jpg',
     data: imgData,
-    content_type: 'image/png'
+    content_type: 'image/jpg'
   }], req.body.email, function(err, body) {
     if (err) {
       return res.status(500).json({

@@ -37,10 +37,10 @@ window.StudentsView = Backbone.View.extend({
           + data[i].doc._id
           + '"  name="' +data[i].doc._id+'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block studSelec" >'+'<img src="data:'
-            +data[i].doc._attachments['aluno.png'].content_type
+            +data[i].doc._attachments['aluno.jpg'].content_type
             +';base64,'
-            +data[i].doc._attachments['aluno.png'].data
-            +'"  style="height:25px;">'+ data[i].doc.nome + '</button>';
+            +data[i].doc._attachments['aluno.jpg'].data
+            +'"  style="height:25px;"> - '+ data[i].doc.nome + '</button>';
             if(first){
               $('#studentsPreview').html(self.encheStudPreview(data[i].doc));
               first=false;
@@ -105,7 +105,7 @@ window.StudentsView = Backbone.View.extend({
   encheStudPreview: function(documnt){
     var self=this;
     var html='';
-    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/aluno.png"  style="height:220px;">';
+    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/aluno.jpg"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="alunoNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>Numero de Aluno: <label>'+documnt.numero+' </label></span>';
     html+= '<br><span >Turma: <label id="turmaAluno">Sem Turma...</label></span></div>';
