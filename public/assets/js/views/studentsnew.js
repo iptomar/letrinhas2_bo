@@ -51,11 +51,11 @@ window.StudentsNewView = Backbone.View.extend({
       //se todos estão preenchidos, então hbilita o botão de submeter.
       if(cont == myEl.length ){
         //habilitar o botão de submeter
-        document.getElementById("subProf").disabled = false;
+        document.getElementById("subAluno").disabled = false;
       }
       else{
         //senão desabilitar o botão de submeter
-        document.getElementById("subProf").disabled = true;
+        document.getElementById("subAluno").disabled = true;
       }
     },
 
