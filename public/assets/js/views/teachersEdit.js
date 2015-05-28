@@ -4,6 +4,15 @@ window.TeachersEditView = Backbone.View.extend({
 
   render: function() {
     var self = this;
+    //verificar se está logado
+    var controlo=window.localStorage.getItem("Logged");
+    if(!controlo){
+      console.log('Não Logado');
+      app.navigate('/#login', {
+          trigger: true
+        });
+        return null;
+    }
 
     $(this.el).html(this.template());
 

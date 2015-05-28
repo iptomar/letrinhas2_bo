@@ -6,16 +6,7 @@ window.MenuPrincipalView = Backbone.View.extend({
   },
 
   initialize: function () {
-    //verificar se está logado
-    var controlo=window.localStorage.getItem("Logged");
-    if(!controlo){
-      console.log('Não Logado');
-      window.history.back();
-    }
-    else{
-      console.log('Logado'); //guardar variavel
-    }
-    //criar restrições a opções consoante as permissões do professor.
+    var self=this;
 
   },
 
@@ -31,6 +22,22 @@ window.MenuPrincipalView = Backbone.View.extend({
 
   render: function () {
     $(this.el).html(this.template());
+
+    //verificar se está logado
+    var controlo=window.localStorage.getItem("Logged");
+    if(!controlo){
+      console.log('Não Logado');
+      app.navigate('/#login', {
+          trigger: true
+        });
+        return null;
+    }
+      console.log('Logado'); //guardar variavel
+    //criar restrições a opções consoante as permissões do professor.
+
+
+
+
     return this;
   },
 

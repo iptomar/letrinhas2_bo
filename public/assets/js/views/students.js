@@ -26,6 +26,16 @@ window.StudentsView = Backbone.View.extend({
 
   render: function() {
     $(this.el).html(this.template());
+    //verificar se está logado
+    var controlo=window.localStorage.getItem("Logged");
+    if(!controlo){
+      console.log('Não Logado');
+      app.navigate('/#login', {
+          trigger: true
+        });
+        return null;
+    }
+
     var self=this;
     modem('GET', 'students', function(data) {
       $('#studentsBadge').text(data.length);

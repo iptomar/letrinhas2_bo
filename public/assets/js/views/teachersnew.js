@@ -176,11 +176,13 @@ window.TeachersNewView = Backbone.View.extend({
           var s='<select class="form-control" id="selectTurma">';
           var d='<select id="hiddenTurma">';
           for(i=0; i<json.length; i++){
-            s+="<optgroup label="+ json[i].doc.nome+'>';
+            s+='<optgroup label="'+ json[i].doc.nome+'">';
             //e adicionar as turmas...
 
             for(j=0;j<json[i].doc.turmas.length;j++){
-              s+='<option value="'+json[i].doc.nome+'">'+json[i].doc.turmas[j].nome+'</option>';
+              console.log(json[i].doc.nome);
+              s+='<option value="'+json[i].doc.nome+'">'+json[i].doc.turmas[j].ano
+                +'º, '+json[i].doc.turmas[j].nome+'</option>';
               d+='<option value="'+json[i].doc._id+'">'+json[i].doc.turmas[j]._id+'</option>';
             }
             s+="</optgroup>";

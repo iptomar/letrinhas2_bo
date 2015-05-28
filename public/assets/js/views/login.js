@@ -114,6 +114,7 @@ window.LoginView = Backbone.View.extend({
       app.navigate('/MenuPrincipal', {
           trigger: true
         });
+        return null;
     }
     $(this.el).html(this.template());
     return this;

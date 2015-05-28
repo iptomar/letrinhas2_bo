@@ -12,7 +12,8 @@ exports.upDate = function(rep, res){
 };
 
 exports.new = function (req, res) {
-  console.log('schools new, NotAvaliable yet'.green);
+  console.log('schools new,'.green);
+  console.log(req.body['nomTurm' + (1)]);
 
   var dati = new Date();
   //se mês anterior a Agosto, etão o ano letivo será o anterior
@@ -26,13 +27,17 @@ exports.new = function (req, res) {
   }
   //criar as turmas da escola
   var turmas = new Array();
+  var indx=0;
   for(i=0; i< req.body.nTurmas; i++){
-      turmas[i]= {"_id":('T'+anoLetivo+req.body['anoturm' + (i+1)]+dati.getTime()+i),
-                  "nome":req.body['trm' + (i+1)],
+    if(req.body['nomTurm' + (i+1)].length > 0){
+      turmas[indx]= {"_id":('T'+anoLetivo+req.body['anoturm' + (i+1)]+dati.getTime()+i),
+                  "nome":req.body['nomTurm' + (i+1)],
                   "ano":req.body['anoturm' + (i+1)],
                   "anoLectivo":anoLetivo,
                   "professores":new Array(),
                 };
+      indx++;
+    }
   }
 
   //criar a escola

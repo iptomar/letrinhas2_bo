@@ -236,6 +236,17 @@ window.TestsView = Backbone.View.extend({
   render: function() {
     $(this.el).html(this.template());
     var self=this;
+
+    //verificar se está logado
+    var controlo=window.localStorage.getItem("Logged");
+    if(!controlo){
+      console.log('Não Logado');
+      app.navigate('/#login', {
+          trigger: true
+        });
+        return null;
+    }
+
     //Constrir os botões
     modem('GET', 'tests', function(data) {
       $('#testBadge').text(data.length);
