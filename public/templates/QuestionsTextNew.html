@@ -21,9 +21,10 @@
           <option>Inglês</option>
           <option>Matemática</option>
           <option>Estudo do Meio</option>
+          <option>Outra</option>
         </select>
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <label for="selectAno">AnoEscolar:</label>
         <select class="form-control" id="selectAno" name="ano_escolar">
           <option>1º</option>
@@ -31,6 +32,15 @@
           <option>3º</option>
           <option>4º</option>
         </select>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="inputSom" >Gravação de Demonstração:</label>
+          <input class="preenche" type="file" id="inputFoto" name="file">
+          <button id="txtGrava" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-record" style="color:#ff0000"></span><br>Gravar</button>
+
+        </div>
+
       </div>
 
       <div class="col-sm-12">
@@ -49,10 +59,7 @@
       <div class="col-sm-12">
         <label for="InputTexto">Texto</label>
         <textarea class="form-control preenche" rows="10" id="InputTexto" name="texto"></textarea>
-        <div class="form-group">
-          <label for="inputSom" >Gravação de Demonstração:</label>
-          <input class="preenche" type="file" id="inputFoto" name="file">
-        </div>
+
       </div>
       <div id="painelInvisivel" class="form-group  col-sm-8" style="display:none">
           <select class="form-control" id="selectEstado" name="estado">
