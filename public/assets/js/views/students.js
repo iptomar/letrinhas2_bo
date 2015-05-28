@@ -101,7 +101,7 @@ window.StudentsView = Backbone.View.extend({
       for(i=0; i< json.length; i++){
         for(j=0; j< json[i].doc.turmas.length; j++){
           if(turma == json[i].doc.turmas[j]._id){
-            $("#turmaAluno").text(""+json[i].doc.turmas[j].nome+" da "+ json[i].doc.nome);
+            $("#turmaAluno").text(json[i].doc.turmas[j].ano+"º ano, "+json[i].doc.turmas[j].nome+" da "+ json[i].doc.nome);
             return;
           }
         }

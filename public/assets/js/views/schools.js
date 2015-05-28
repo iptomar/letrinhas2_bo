@@ -7,12 +7,76 @@ window.SchoolsView = Backbone.View.extend({
    mostraTurma:function(e){
      var self=this;
 
-     var s = '#'+e.toElement.id;
-     console.log(e.toElement.id);
-     console.log($(s).text());
-
      //preencher um modal...
+     var s = '#'+e.toElement.id;
      $("#myModalLabel").text($(s).text()+' - '+ $("#EscolaNome").text());
+     $("#classProfessor").html('');
+     $("#classAlunos").html('');
+     var tID = e.toElement.value;
+     var eID = $("#EscolaNome").attr('value');
+
+     modem('GET','schools/'+eID, function(escola){
+
+       console.log(escola);
+       for(i=0;i< escola.turmas.length; i++ ){
+         if(escola.turmas[i]._id == tID){
+           //preencher professores
+           if(escola.turmas[i].professores.length>0){
+             for(p=0; p< escola.turmas[i].professores.length; p++){
+               modem('GET','teachers/'+escola.turmas[i].professores[p].id,function(professor){
+                 var prof = '<div class="col-md-6 ">'
+                            +'<img src="'+self.site+'/dev_professores/'+professor._id+'/prof.jpg" style="height:30px;" > '
+                            +'<br><label>'+professor.nome+'</label>'
+                            +'</div>';
+                 $("#classProfessor").append(prof);
+               },
+               function(error) {
+                 console.log('Error getting the teacher id:'+escola.turmas[i].professores[p].id);
+               });
+             }
+            }
+            else{
+              $("#classProfessor").append("<label>Esta turma ainda não tem professores.</label>");
+            }
+
+           //preencher alunos
+           modem('GET','students', function(alunos){
+             var contAl=0;
+             for(a=0;a<alunos.length;a++){
+               if(alunos[a].doc.escola == eID &&
+                 alunos[a].doc.turma == tID){
+                 var alun= '<div class="col-md-3 ">'
+                            +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
+                            +';base64,'
+                            + alunos[a].doc._attachments['aluno.jpg'].data
+                            +'" style="height:30px;" > '
+                            +'<br><label>'+alunos[a].doc.nome+'</label>'
+                            +'</div>';
+
+                 $("#classAlunos").append(alun);
+                 contAl++;
+              }
+              console.log(a);
+
+            }
+             if(contAl==0) $("#classAlunos").append("<label>Esta turma ainda não tem alunos.</label>");
+           },
+           function(error) {
+             console.log('Error getting the students list');
+           });
+         }
+       }
+     },
+     function(error) {
+       console.log('Error getting the school id:'+$("#EscolaNome").val());
+     });
+
+     //<label id="EscolaNome" value=_idda escola
+     //e.toElement.value tem o id da turma.
+
+     //classProfessor
+
+     //<div class="col-md-4" ><label>cenas</label></div>
 
      //apresenta o Modal
      $("#myModalTurma").modal("show");
@@ -31,7 +95,7 @@ window.SchoolsView = Backbone.View.extend({
   editEscola: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados da escola a editar
     window.localStorage.setItem("EscolaEditar", obj.name);
-    app.navigate('/schools/edit', {
+    app.navigate('/man', {
       trigger: true
     });
   },
@@ -107,7 +171,6 @@ window.SchoolsView = Backbone.View.extend({
     //vai buscar os dados da escola:
     modem('GET','schools/'+obj.id, function(json){
       $('#schoolsPreview').html(self.encheEscPreview(json));
-      self.makeTurmas();
       var myEl = document.getElementById('btnSchoolsEdit');
       myEl.addEventListener('click', function() {
                     self.editEscola(this);
