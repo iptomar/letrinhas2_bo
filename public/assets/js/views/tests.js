@@ -191,7 +191,7 @@ window.TestsView = Backbone.View.extend({
             && item.conteudo['palavrasCL2'].length==0
             && item.conteudo['palavrasCL3'].length==0
               ){
-                d+='<span class="badge btn-warning">Este itma não tem conteúdo</span>';
+                d+='<span class="badge btn-warning">Este item não tem conteúdo</span>';
            }
 
            d+='</div>'
