@@ -146,7 +146,7 @@ window.TeachersView = Backbone.View.extend({
     html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipoFuncionario+' </label></span></div>';
     //Botão para Editar
     html+='<div align=right class="col-md-2"><br><br><br>'
-        +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px">'
+        +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px" value="'+documnt._id+'">'
         +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
         +' Editar dados'
         +'</button>'
@@ -167,8 +167,8 @@ window.TeachersView = Backbone.View.extend({
 
   editTeacher: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados do professor a editar
-    window.localStorage.setItem("ProfEditar", obj.name);
-    app.navigate('man', {
+    window.sessionStorage.setItem("ProfEditar", obj.value);
+    app.navigate('teachers/edit', {
       trigger: true
     });
   },

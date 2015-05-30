@@ -9,6 +9,7 @@ var db2 = nano.use('dev_escolas');
 
 exports.upDate = function(rep, res){
   console.log('teachers upDate, NotAvaliable yet'.blue);
+  res.redirect('/#teachers');
 };
 
 exports.new = function(req, res) {

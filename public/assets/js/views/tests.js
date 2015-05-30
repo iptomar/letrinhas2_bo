@@ -167,17 +167,34 @@ window.TestsView = Backbone.View.extend({
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
            +'</div>'
-           +'<div class="panel panel-default col-md-12 " style="height:300px;">'
-            +'<div class="col-md-4" style="max-height:290px; overflow:auto">'
-              + self.getColunas(item.conteudo['palavrasCL1'])
-            +'</div>'
-            +'<div class="col-md-4" style="max-height:290px; overflow:auto">'
-              + self.getColunas(item.conteudo['palavrasCL2'])
-            +'</div>'
-            +'<div class="col-md-4" style="max-height:290px; overflow:auto">'
-              + self.getColunas(item.conteudo['palavrasCL3'])
-            +'</div>'
-           +'</div>'
+           +'<div class="panel panel-default col-md-12 " aling="center" style="height:300px; overflow:auto">';
+           if(item.conteudo['palavrasCL1'].length > 0) {
+              d+='<div class="col-md-4">'
+                  +'<span class="badge btn-success">Coluna 1</span>'
+                  + self.getColunas(item.conteudo['palavrasCL1'])
+                +'</div>';
+           }
+           if(item.conteudo['palavrasCL2'].length > 0) {
+              d+='<div class="col-md-4" style="max-height:290px; overflow:auto">'
+                  +'<span class="badge btn-success">Coluna 2</span>'
+                  +self.getColunas(item.conteudo['palavrasCL2'])
+                +'</div>';
+           }
+           if(item.conteudo['palavrasCL3'].length > 0) {
+              d+='<div class="col-md-4" style="max-height:290px; overflow:auto">'
+                  +'<span class="badge btn-success">Coluna 3</span>'
+                  + self.getColunas(item.conteudo['palavrasCL3'])
+                +'</div>';
+           }
+
+           if( item.conteudo['palavrasCL1'].length==0
+            && item.conteudo['palavrasCL2'].length==0
+            && item.conteudo['palavrasCL3'].length==0
+              ){
+                d+='<span class="badge btn-warning">Este itma não tem conteúdo</span>';
+           }
+
+           d+='</div>'
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
@@ -220,7 +237,7 @@ window.TestsView = Backbone.View.extend({
   getColunas:function(lista){
     var coluna='';
 
-    for(i=1;i<lista.length;i++){
+    for(i=0;i<lista.length;i++){
       coluna+='<br>'+lista[i];
     }
 

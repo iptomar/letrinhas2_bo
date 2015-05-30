@@ -37,10 +37,10 @@
         <div class="form-group">
           <label for="inputSom" >Gravação de Demonstração:</label>
           <input class="preenche" type="file" id="inputFoto" name="file">
-          <button id="txtGrava" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-record" style="color:#ff0000"></span><br>Gravar</button>
-
         </div>
-
+      </div>
+      <div class="col-sm-1">
+        <button id="txtGrava" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-record" style="color:#ff0000"></span><br>Gravar</button>
       </div>
 
       <div class="col-sm-12">
@@ -77,18 +77,60 @@
             <button id="subTxt" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
           </div>
       </div>
+    </div>
+</form>
 
+<!-- MODAL para apresentar o equalizador para gravar o som -->
+<div class="modal fade" id="myModaltextRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span></button>
+        <h4 class="modal-title" id="myModalLabel">Estudio de som:</h4>
+      </div>
+      <div class="modal-body" style="height:550px">
+         <div class="col-md-12" align=center>
 
-      <div class="col-sm-10" style="">
+           <div id="viz">
+           		<canvas id="analyser" width="220" height="100"></canvas>
+           		<canvas id="wavedisplay" width="220" height="100"></canvas>
+           	</div>
+           	<div id="controls">
+           		<img id="record" src="../img/rec.png" onclick="toggleRecording(this);">
+           		<a id="save"><img src="../img/play.png"></a>
+           	</div>
+             <script src="../js/audiodisplay.js"></script>
+	           <script src="../js/recorderjs/recorder.js"></script>
+	           <script src="../js/main.js"></script>
+           <!--canvas id="analyser" width="525" height="150" style="display: inline-block;
+       		                                                       background: #202020;
+       		                                                       width: 95%;
+       		                                                       height: 45%;
+       		                                                       box-shadow: 0px 0px 10px blue;" >
+           </canvas>
+
+         </div>
+
+         <div class="col-md-12" align=center>
+           <hr>
+           <canvas id="wavedisplay" width="525" height="150" style="display: inline-block;
+       		                                                       background: #202020;
+       		                                                       width: 95%;
+       		                                                       height: 45%;
+       		                                                       box-shadow: 0px 0px 10px blue;" >
+           </canvas-->
+
+         </div>
+         <div  class="col-md-12" style="max-height:350px; overflow:auto;">
+
+         </div>
+
       </div>
 
-
-
     </div>
+  </div>
+</div>
+<!-- ########################################### -->
 
-
-
-
-</form>
 <!--  -->
 </div>

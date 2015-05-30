@@ -2,8 +2,15 @@ window.QuestionsTextNew = Backbone.View.extend({
   events: {
     "submit":"validaSubmissao",
     "click #buttonCancelar":"cancelTest",
-    "blur .preenche":"verificarCampos"
+    "blur .preenche":"verificarCampos",
+    "click #txtGrava":"showEqualizer",
   },
+
+  showEqualizer:function(){
+    $("#myModaltextRecord").modal("show");
+
+  },
+
 
   cancelTest:function(){
     window.history.back();

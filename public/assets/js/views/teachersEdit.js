@@ -1,6 +1,20 @@
 window.TeachersEditView = Backbone.View.extend({
-  events: {},
-  initialize: function() {},
+  events: {
+    "submit":"submitEdition",
+
+
+  },
+
+  submitEdition:function(e){
+    //mudar a ação para o professor a editar
+    e.target.action="/teachers/"+window.sessionStorage.getItem("ProfEditar");
+    window.sessionStorage.remove("ProfEditar");
+  },
+
+  initialize: function() {
+    var self=this;
+
+  },
 
   render: function() {
     var self = this;
@@ -16,11 +30,14 @@ window.TeachersEditView = Backbone.View.extend({
 
     $(this.el).html(this.template());
 
-    modem('GET', 'teachers', function(data) {
+    modem('GET', 'teachers/'+window.sessionStorage.getItem("ProfEditar"), function(data) {
       $('#subcontent', self.el).html(JSON.stringify(data));
     }, function(error) {
       console.log('Error getting teacher list!');
     });
+
+    console.log(document.getElementById("profEditForm"));
+
 
     return this;
   }

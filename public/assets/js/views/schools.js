@@ -17,7 +17,6 @@ window.SchoolsView = Backbone.View.extend({
 
      modem('GET','schools/'+eID, function(escola){
 
-       console.log(escola);
        for(i=0;i< escola.turmas.length; i++ ){
          if(escola.turmas[i]._id == tID){
            //preencher professores
@@ -45,18 +44,18 @@ window.SchoolsView = Backbone.View.extend({
              for(a=0;a<alunos.length;a++){
                if(alunos[a].doc.escola == eID &&
                  alunos[a].doc.turma == tID){
-                 var alun= '<div class="col-md-3 ">'
+                 var alun;
+                 alun= '<div class="col-md-4 "><br>'
                             +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
                             +';base64,'
                             + alunos[a].doc._attachments['aluno.jpg'].data
                             +'" style="height:30px;" > '
-                            +'<br><label>'+alunos[a].doc.nome+'</label>'
+                            +'<br><label>'+alunos[a].doc.nome+'</label><br>'
                             +'</div>';
 
                  $("#classAlunos").append(alun);
                  contAl++;
               }
-              console.log(a);
 
             }
              if(contAl==0) $("#classAlunos").append("<label>Esta turma ainda não tem alunos.</label>");
@@ -70,14 +69,6 @@ window.SchoolsView = Backbone.View.extend({
      function(error) {
        console.log('Error getting the school id:'+$("#EscolaNome").val());
      });
-
-     //<label id="EscolaNome" value=_idda escola
-     //e.toElement.value tem o id da turma.
-
-     //classProfessor
-
-     //<div class="col-md-4" ><label>cenas</label></div>
-
      //apresenta o Modal
      $("#myModalTurma").modal("show");
 
@@ -187,7 +178,7 @@ window.SchoolsView = Backbone.View.extend({
     html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/escola.jpg"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="EscolaNome" value="'
         + documnt._id+'">'+documnt.nome+'</label></span>';
-    html+= '<br><span>Morada da Escola: <label>'+documnt.morada+' </label></span></div>';
+    html+= '<br><span>Morada: <label>'+documnt.morada+' </label></span></div>';
 
     //Botão para Editar
     html+='<div align=right class="col-md-2"><br><br><br>'
