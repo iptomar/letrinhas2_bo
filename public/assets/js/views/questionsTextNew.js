@@ -24,6 +24,11 @@ window.QuestionsTextNew = Backbone.View.extend({
        //alert("descrição Vaizia");
        return false; //for old browsers
     }
+    //adicioinar parametros invisíveis ao form, para tratamento na inserção
+    var input = $("<input>").attr("type", "hidden")
+                            .attr("name", "profID")
+                            .val(window.localStorage.getItem("ProfID"));
+    $('#txtNewForm').append($(input));
   },
 
 
@@ -48,11 +53,7 @@ window.QuestionsTextNew = Backbone.View.extend({
     if(cont == myEl.length ){
       //habilitar o botão de submeter
       document.getElementById("subTxt").disabled = false;
-      //adicioinar parametros invisíveis ao form, para tratamento na inserção
-      var input = $("<input>").attr("type", "hidden")
-                              .attr("name", "profID")
-                              .val(window.localStorage.getItem("ProfID"));
-      $('#txtNewForm').append($(input));
+
     }
     else{
       //senão desabilitar o botão de submeter

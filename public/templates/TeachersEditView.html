@@ -1,7 +1,7 @@
 <!-- Editar Professor: -->
 <div class="topcoat-navigation-bar">
   <div class="topcoat-navigation-bar__item center full">
-    <h1 align="center" class="topcoat-navigation-bar__title">Editar dados do utilizador</h1>
+    <h1 id="editHead" align="center" class="topcoat-navigation-bar__title">Editar dados do utilizador</h1>
   </div>
 </div>
 <div>
@@ -15,18 +15,23 @@
         <label for="InputNome" >Nome</label>
         <input type="text" class="form-control preenche" id="InputNome" placeholder="Ex: Ana Fernandes" name="nome" disabled>
       </div>
-      <div class="col-sm-6">
-        <span class="btn-sm btn-warning glyphicon glyphicon-edit edita" value="InputEmail"></span>
+      <div class="col-sm-6" style="display:none">
         <label id="lblMAil" for="InputEmail">Email</label><span id="imgMail" style="display:none"><img style="height:20px;" src="../img/page-loader.gif"></span>
         <input type="email" class="form-control preenche" id="InputEmail" placeholder="Ex: ana.fernandes@ipt.pt" name="email" disabled>
       </div>
+      <div class="col-sm-6">
+        <span class="btn-sm btn-warning glyphicon glyphicon-edit edita" value="InputTelefone"></span>
+        <label for="InputTelefone">Telefone</label>
+        <input type="number" min="210000000" max="999999999" class="form-control preenche" id="InputTelefone" placeholder="Ex: 210000000" name="telefone" disabled>
+      </div>
+
       <div class="col-sm-6">
         <br>
         <div class="col-sm-11">
           <span class="btn-sm btn-warning glyphicon glyphicon-edit edita" value="InputPasswd"></span>
           <label for="InputPasswd">Palavra-passe</label>
         </div>
-        <span id="pwdIcon" class="glyphicon glyphicon-eye-open" style="color:#cccccc"></span>
+        <span id="pwdIcon" class="glyphicon glyphicon-eye-open" style="display:none"></span>
         <input type="password" class="form-control preenche" id="InputPasswd" placeholder="*****" name="password" disabled>
         <br>
 
@@ -52,18 +57,13 @@
 
       </div>
 
-      <div class="col-sm-6">
-        <br>
-        <span class="btn-sm btn-warning glyphicon glyphicon-edit edita" value="InputTelefone"></span>
-        <label for="InputTelefone">Telefone</label>
-        <input type="number" min="210000000" max="999999999" class="form-control preenche" id="InputTelefone" placeholder="Ex: 210000000" name="telefone" disabled>
-      </div>
+
 
       <div class="col-sm-3">
         <br>
         <span class="btn-sm btn-warning glyphicon glyphicon-edit edita" value="selectTipo"></span>
         <label for="selectTipo"> Tipo de utilizador </label>
-        <select class="form-control" id="selectTipo" name="tipo" disabled>
+        <select class="form-control preenche" id="selectTipo" name="tipo" disabled>
           <option>Administrador do Sistema</option>
           <option>Professor</option>
           <option>Auxiliar</option>
@@ -74,7 +74,7 @@
         <br>
         <span class="btn-sm btn-warning glyphicon glyphicon-edit edita" value="selectEstado"></span>
         <label for="select" >Estado</label>
-        <select class="form-control" id="selectEstado" name="estado" disabled>
+        <select class="form-control preenche" id="selectEstado" name="estado" disabled>
           <option>Ativo</option>
           <option>Não Ativo</option>
         </select>
@@ -91,7 +91,7 @@
           <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
         </div>
         <div class="col-sm-6">
-          <button id="subProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+          <button id="subEdProf" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
         </div>
     </div>
 

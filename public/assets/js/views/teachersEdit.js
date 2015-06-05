@@ -1,15 +1,61 @@
 window.TeachersEditView = Backbone.View.extend({
   events: {
+    "click #buttonCancelar": "buttonCancelar",
     "click .edita":"habilitaEdicao",
     "submit":"submitEdition",
+    "change #inputFoto": "carregaFoto",
+    "mouseover #pwdIcon":"verPwd",
+    "mouseout #pwdIcon":"escondePwd",
+    "keyup #ConfirmPasswd": "confirmPwd",
 
 
   },
+
+  confirmPwd:function(){
+    if($("#InputPasswd").val()==$("#ConfirmPasswd").val()){
+      $("#confIcon").addClass("glyphicon-ok");
+      $("#confIcon").removeClass("glyphicon-remove");
+      $("#confIcon").attr("style","color:#66dd66");
+    }
+    else{
+      $("#confIcon").addClass("glyphicon-remove");
+      $("#confIcon").removeClass("glyphicon-ok");
+      $("#confIcon").attr("style","color:#dd6666");
+
+    }
+  },
+
+  escondePwd:function(){
+    $("#pwdIcon").attr("style","color:#cccccc");
+    $("#InputPasswd").attr("type","password");
+  },
+
+  verPwd:function(){
+    $("#pwdIcon").attr("style","color:#66cc66");
+    $("#InputPasswd").attr("type","text");
+
+  },
+
+  buttonCancelar: function(e) {
+    e.preventDefault();
+    window.sessionStorage.removeItem("ProfEditar");
+    window.history.back();
+  },
+
 
   habilitaEdicao:function(e){
     var self=this;
       var obj=e.toElement;
       if($("#"+$(e.toElement).attr('value')).attr('disabled')){
+        var myEl = document.getElementsByClassName("edita");
+        //esconder todos os outros botões de edição.
+        for(i=0; i< myEl.length;i++){
+          if(myEl[i].value != $(e.toElement).attr('value')){
+            $(myEl[i]).attr('style','visibility:hidden');
+          }
+
+        }
+
         self.valor = $("#"+$(e.toElement).attr('value')).val();
         $("#"+$(e.toElement).attr('value')).val('');
 
@@ -19,41 +65,99 @@ window.TeachersEditView = Backbone.View.extend({
         $(e.toElement).addClass("glyphicon-ok");
         $(e.toElement).addClass("btn-success");
         $(e.toElement).attr('style','');
+        $("#subEdProf").attr("disabled",true);
+
+        if($(e.toElement).attr('value') == "InputPasswd"){
+          $("#pwdIcon").attr("style","display:show; color:#cccccc");
+          $("#ConfirmPasswd").attr('disabled',false);
+        }
+
+
       }
       else{
         try{
           if($("#"+$(e.toElement).attr('value')).val().length == 0){
+            //$("#subEdProf").attr("disabled",true);
             self.alterado=false;
             $("#"+$(e.toElement).attr('value')).val(self.valor);
           }
           else{
             if($("#"+$(e.toElement).attr('value')).val() == self.valor){
+              //$("#subEdProf").attr("disabled",true);
               self.alterado=false;
             }
             else{
               self.alterado=true;
+
             }
           }
         }
         catch(e){
           self.alterado=false;
+          //$("#subEdProf").attr("disabled",true);
+
         };
+        console.log(self.alterado);
+
+        if(self.alterado && $(e.toElement).attr('value') == "InputPasswd"){
+          if($("#ConfirmPasswd").val() != $("#InputPasswd").val()){
+            $("#subEdProf").attr("disabled",true);
+            alert("A Password e a sua confirmção não correspondem, por favor confirme a nova password");
+            return 0;
+          }
+        }
+
         $("#"+$(e.toElement).attr('value')).attr('disabled',true);
         $(e.toElement).removeClass("glyphicon-ok");
         $(e.toElement).removeClass("btn-success");
         $(e.toElement).addClass("glyphicon-edit");
         $(e.toElement).addClass("btn-warning");
+        $("#pwdIcon").attr("style","display:none");
+        $("#ConfirmPasswd").attr('disabled',true);
+        //habilitar o botão de submeter.
+        $("#subEdProf").attr("disabled",false);
 
+        var myEl = document.getElementsByClassName("edita");
+        //mostrar todos os outros botões de edição.
+        for(i=0; i< myEl.length;i++){
+          if(myEl[i].value != $(e.toElement).attr('value')){
+            $(myEl[i]).attr('style','');
+          }
+
+        }
       }
 
   },
 
+  carregaFoto:function(e){
+    var self=this;
+    if($("#inputFoto").val().length >0 ){
+      var tmppath = URL.createObjectURL(e.target.files[0]);
+      $("#iFoto").attr("src",tmppath);
+      $("#iFoto").attr("style"," width:200px; display:show");
 
+    }
+    else{
+      $("#iFoto").attr("style","display:none");
+      $("#iFoto").attr("src",'');
+
+    }
+  },
 
   submitEdition:function(e){
-    //mudar a ação para o professor a editar
-    e.target.action="/teachers/"+window.sessionStorage.getItem("ProfEditar");
-    window.sessionStorage.remove("ProfEditar");
+    var self=this;
+    if(self.alterado){
+      var myElements = document.getElementsByClassName('preenche');
+      //re-habilitar os input's para que passem no form..
+      for(i=0; i<myElements.length; i++){
+        $(myElements[i]).attr("disabled",false);
+      }
+
+      //mudar a ação para o professor a editar
+      e.target.action="/teachers/"+window.sessionStorage.getItem("ProfEditar");
+      window.sessionStorage.removeItem("ProfEditar");
+    }
+
   },
 
   initialize: function() {
@@ -87,6 +191,8 @@ window.TeachersEditView = Backbone.View.extend({
       self.tipoFunc = professor.tipoFuncionario;
 
       $("#InputNome").val(self.nome);
+
+      $("#editHead").text("Editar dados de "+self.eMail);
       $("#InputEmail").val(self.eMail);
       $("#InputPasswd").val(self.pwd);
       $("#inputPin").val(self.pin);

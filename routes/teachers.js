@@ -7,9 +7,122 @@ var db = nano.use('dev_professores');
 var db2 = nano.use('dev_escolas');
 
 
-exports.upDate = function(rep, res){
+exports.upDate = function(req, res){
   console.log('teachers upDate, NotAvaliable yet'.blue);
-  res.redirect('/#teachers');
+  var estado=false;
+  if(req.body.estado=="Ativo"){
+      estado=true;
+  }
+
+  console.log("nome: "+req.body.nome);
+
+  console.log(req);
+
+
+//começo do upDate...
+ db.get(req.body.email, function(err, body) {
+   if (err) {
+     return res.status(500).json({
+       'result': 'nok',
+       'message': err
+     });
+   }
+
+   db.update = function(obj, key, callback) {
+    db.get(key, function (error, existing) {
+      if(!error) obj._rev = existing._rev;
+      db.insert(obj, key, callback);
+    });
+   };
+
+
+
+   //para upDate à foto, tenho de a destruir e depois voltar a inserir
+   var file;
+   console.log("Foto".blue +req.files.file);
+   if(req.files && req.files.file.size>0) {
+     console.log("existe ficheiro");
+
+
+      db.attachment.destroy(body._id, 'prof.jpg', {rev: body._rev}, function(err2, bodi) {
+        if (err2)
+          console.log("Deu erro a destruir: "+err2);
+         else{
+          console.log("Destruida foto: "+ body.nome);
+
+          db.get(body._id, function(err3, bode) {
+            if (err3) {
+              return res.status(500).json({
+                'result': 'nok',
+                'message': err3
+              });
+            }
+
+            console.log("insert foto");
+            file = req.files.file;
+            var imgData = require('fs').readFileSync(file.path);
+            console.log("path: "+file.path);
+            db.attachment.insert(req.body.email, 'prof.jpg', imgData, 'image/jpg',
+                                  {rev: bode._rev},
+                                  function(err4, boda) {
+                                    if (!err4){
+                                      console.log("inserido foto".green);
+                                      //alterar dados à unha, visto ter tido problemas com o attachments foto
+                                      body.estado=estado;
+                                      body.nome=req.body.nome;
+                                      body.password=req.body.password;
+                                      body.pin=req.body.pin;
+                                      body.telefone=req.body.telefone;
+                                      body.tipoFuncionario=req.body.tipo;
+
+                                      db.update(body, body._id, function(err1, res) {
+                                        if (err1) return console.log('No update!'.red + err1);
+                                        console.log(body.nome+' was Updated!'.green);
+                                      });
+                                    }
+                                    else {
+                                      console.log("não inserido".red + err4);
+
+                                    }
+                                      /**/
+                                  });
+          });
+        }
+      });
+
+   }
+   else{
+     console.log('Sem foto'.red);
+     //alterar dados à unha, visto ter tido problemas com o attachments foto
+     body.estado=estado;
+     body.nome=req.body.nome;
+     body.password=req.body.password;
+     body.pin=req.body.pin;
+     body.telefone=req.body.telefone;
+     body.tipoFuncionario=req.body.tipo;
+     db.update(body, body._id, function(err1, res) {
+       if (err1) return console.log('No update!'.red + err1);
+       console.log(body.nome+' was Updated!'.green);
+
+
+
+
+
+     });
+   }
+
+
+
+
+
+
+
+
+
+   res.redirect('/#teachers');
+ });
+
+
 };
 
 exports.new = function(req, res) {
@@ -125,8 +238,6 @@ function insertProfTurma(idProf, escola){
     };
 
     db2.update = function(obj, key, callback) {
-     var db = this;
-
      db2.get(key, function (error, existing) {
        if(!error) obj._rev = existing._rev;
        db2.insert(obj, key, callback);

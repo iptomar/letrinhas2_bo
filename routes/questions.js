@@ -180,10 +180,10 @@ exports.get = function (req, res) {
 //Função para devolver um array de palavras
 function getPalavras(texto){
   var listaPalavras= new Array();
-  var contaPalavra=0;
   var palavra='';
 
   var isCaracter=false;
+  console.log(texto);
 
   for(i=0;i<texto.length;i++){
     //de acordo com a tabela ascii 1º caracter possivel '!' CODE 33
@@ -191,9 +191,7 @@ function getPalavras(texto){
       //se o caracter anterior for válido
       if(isCaracter){
         //enterga a palavra à lista
-        listaPalavras[contaPalavra]=palavra;
-        //incrementa o ponteiro do array
-        contaPalavra++;
+        listaPalavras.push(palavra);
         //limpa a palavra
         palavra='';
         //não e um caracter válido (ex: "enter", "space", "tab")
@@ -206,6 +204,11 @@ function getPalavras(texto){
       //confirma que era uma caracter
       isCaracter=true;
     }
+  }
+
+  //entregar o resto
+  if(palavra.length>0){
+    listaPalavras.push(palavra);
   }
 
   return listaPalavras;

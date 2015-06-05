@@ -6,6 +6,7 @@ window.TeachersView = Backbone.View.extend({
 
   initialize: function() {
     var self=this;
+
     self.bd='dev_professores';
     self.site='http://127.0.0.1:5984';
   },
@@ -40,12 +41,19 @@ window.TeachersView = Backbone.View.extend({
           + data[i].doc._id
           + '"  name="' + data[i].doc._id
           +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
-          +' class="btn btn-lg btn-block profSelec" >'
-          +' <img src="data:'+data[i].doc._attachments['prof.jpg'].content_type
-                      +';base64,'
-                      +data[i].doc._attachments['prof.jpg'].data
-                      +'" style="height:25px;" > '
-          + data[i].doc.nome + '</button>';
+          +' class="btn btn-lg btn-block profSelec" >';
+          try {
+            s+=' <img src="data:'+data[i].doc._attachments['prof.jpg'].content_type
+                        +';base64,'
+                        +data[i].doc._attachments['prof.jpg'].data
+                        +'" style="height:25px;" > ';
+
+          } catch (e) {
+            s+=' <img src="../img/page-loader.gif" style="height:25px;">';
+          } finally {
+            s+= data[i].doc.nome + '</button>';
+          }
+
 
           if(first){
             $('#teachersPreview').html(self.enchePreview(data[i].doc));

@@ -18,15 +18,12 @@ window.QuestionsListNew = Backbone.View.extend({
        return false; //for old browsers
     } else{
 
-      app.navigate('/tests', {
-          trigger: true
-        });
-
-
-       //form was OK - you can add some pre-send script in here
+      //adicioinar parametros invisíveis ao form, para tratamento na inserção
+      var input = $("<input>").attr("type", "hidden")
+                              .attr("name", "profID")
+                              .val(window.localStorage.getItem("ProfID"));
+      $('#listNewForm').append($(input));
     }
-
-
 
   },
 
@@ -65,11 +62,7 @@ window.QuestionsListNew = Backbone.View.extend({
     if(cont == myEl.length ){
       //habilitar o botão de submeter
       document.getElementById("subList").disabled = false;
-      //adicioinar parametros invisíveis ao form, para tratamento na inserção
-      var input = $("<input>").attr("type", "hidden")
-                              .attr("name", "profID")
-                              .val(window.localStorage.getItem("ProfID"));
-      $('#listNewForm').append($(input));
+
     }
     else{
       //senão desabilitar o botão de submeter
