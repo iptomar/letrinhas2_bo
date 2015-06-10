@@ -8,7 +8,7 @@ var db2 = nano.use('dev_escolas');
 
 
 exports.upDate = function(req, res){
-  console.log('teachers upDate, NotAvaliable yet'.blue);
+  console.log('teachers upDate, almost full functional'.blue);
   var estado=false;
   if(req.body.estado=="Ativo"){
       estado=true;
