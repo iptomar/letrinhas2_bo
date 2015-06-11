@@ -8,24 +8,18 @@ var db2 = nano.use('dev_escolas');
 
 
 exports.upDate = function(req, res){
-  console.log('teachers upDate, almost full functional'.blue);
+  console.log('teachers upDate'.cyan);
   var estado=false;
   if(req.body.estado=="Ativo"){
       estado=true;
   }
 
-  console.log("nome: "+req.body.nome);
-
-  console.log(req);
-
-
-//começo do upDate...
- db.get(req.body.email, function(err, body) {
+  //começo do upDate...
+  db.get(req.body.email, function(err, body) {
    if (err) {
-     return res.status(500).json({
-       'result': 'nok',
-       'message': err
-     });
+     console.log("(L-20) - Não foi possivel aceder a "+req.body.email+'\n'
+                +"erro: "+err);
+     res.redirect('/#teachers');
    }
 
    db.update = function(obj, key, callback) {
@@ -35,89 +29,70 @@ exports.upDate = function(req, res){
     });
    };
 
-
-
-   //para upDate à foto, tenho de a destruir e depois voltar a inserir
-   var file;
-   console.log("Foto".blue +req.files.file);
-   if(req.files && req.files.file.size>0) {
-     console.log("existe ficheiro");
-
-
-      db.attachment.destroy(body._id, 'prof.jpg', {rev: body._rev}, function(err2, bodi) {
-        if (err2)
-          console.log("Deu erro a destruir: "+err2);
-         else{
-          console.log("Destruida foto: "+ body.nome);
-
-          db.get(body._id, function(err3, bode) {
-            if (err3) {
-              return res.status(500).json({
-                'result': 'nok',
-                'message': err3
-              });
-            }
-
-            console.log("insert foto");
-            file = req.files.file;
-            var imgData = require('fs').readFileSync(file.path);
-            console.log("path: "+file.path);
-            db.attachment.insert(req.body.email, 'prof.jpg', imgData, 'image/jpg',
-                                  {rev: bode._rev},
-                                  function(err4, boda) {
-                                    if (!err4){
-                                      console.log("inserido foto".green);
-                                      //alterar dados à unha, visto ter tido problemas com o attachments foto
-                                      body.estado=estado;
-                                      body.nome=req.body.nome;
-                                      body.password=req.body.password;
-                                      body.pin=req.body.pin;
-                                      body.telefone=req.body.telefone;
-                                      body.tipoFuncionario=req.body.tipo;
-
-                                      db.update(body, body._id, function(err1, res) {
-                                        if (err1) return console.log('No update!'.red + err1);
-                                        console.log(body.nome+' was Updated!'.green);
-                                      });
-                                    }
-                                    else {
-                                      console.log("não inserido".red + err4);
-
-                                    }
-                                      /**/
-                                  });
-          });
-        }
-      });
-
-   }
-   else{
-     console.log('Sem foto'.red);
-     //alterar dados à unha, visto ter tido problemas com o attachments foto
+   /* para upDate à foto, tenho de a destruir e depois voltar a inserir */
+     //atualizar dados ao body.
      body.estado=estado;
      body.nome=req.body.nome;
      body.password=req.body.password;
      body.pin=req.body.pin;
      body.telefone=req.body.telefone;
      body.tipoFuncionario=req.body.tipo;
+     //executar o upDate
      db.update(body, body._id, function(err1, res) {
-       if (err1) return console.log('No update!'.red + err1);
-       console.log(body.nome+' was Updated!'.green);
-
-
-
-
-
+       if (err1) return console.log(body.nome+" wasn't update!".red +'\n'+ err1);
+       console.log("The data of "+body.nome+' was Updated!'.green);
+       if(req.files){
+         try{
+           if(req.files.file.size>0) {
+           console.log("Também existe uma foto!");
+           //get doc
+           db.get(req.body.email, function(err2, bodi) {
+             if (err2) {
+               console.log("(L-51) - Não foi possivel aceder a "+req.body.email+'\n'
+                          +"erro: "+err2);
+               res.redirect('/#teachers');
+             }
+            //destroy foto
+            db.attachment.destroy(body._id, 'prof.jpg', {rev: bodi._rev}, function(err3, bode) {
+              if (err3)
+                console.log("(L-58) - Deu erro a destruir a foto "+err3);
+              else{
+                console.log("Destruida a foto de "+ body.nome);
+                //get doc novamente, para actualizar a versão documento
+                db.get(body._id, function(err4, boda) {
+                  if (err4) {
+                    console.log("(L-64) - Não foi possivel aceder a "+req.body.email+'\n'
+                               +"erro: "+err2);
+                    res.redirect('/#teachers');
+                  }
+                  //e insert new foto
+                  var file;
+                  file = req.files.file;
+                  var imgData = require('fs').readFileSync(file.path);
+                  console.log("path: "+file.path);
+                  db.attachment.insert(req.body.email,
+                                      'prof.jpg',
+                                      imgData,
+                                      'image/jpg',
+                                      {rev: boda._rev},
+                                      function(err5, bodu) {
+                                        if (err5){
+                                          console.log("Foto not inserted :".red
+                                                      + err5);
+                                        }
+                                        console.log("New foto was inserted".green);
+                  });
+                });
+              }
+            });
+          });
+          }
+        }
+        catch (error){
+          console.log("L 97 - "+error +'\n'+ "Foto não alterada.");
+        }
+      }
      });
-   }
-
-
-
-
-
-
-
-
 
    res.redirect('/#teachers');
  });
@@ -153,10 +128,9 @@ exports.new = function(req, res) {
     content_type: 'image/jpg'
   }], req.body.email, function(err, body) {
     if (err) {
-      return res.status(500).json({
-        'result': 'nok',
-        'message': err
-      });
+      console.log("(L-131) - Não foi possivel inserir "+req.body.email+'\n'
+                 +"erro: "+err);
+      res.redirect('/#teachers');
     }
 
     //fazer udate nas escolas caso precise:
@@ -171,7 +145,6 @@ exports.new = function(req, res) {
     console.log('New teacher was inserted'.green);
 
     res.redirect('/#teachers');
-
   });
 };
 
