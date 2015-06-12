@@ -45,7 +45,6 @@ window.TeachersEditView = Backbone.View.extend({
 
   habilitaEdicao:function(e){
     var self=this;
-      var obj=e.toElement;
       if($("#"+$(e.toElement).attr('value')).attr('disabled')){
         var myEl = document.getElementsByClassName("edita");
         //esconder todos os outros botões de edição.
@@ -55,10 +54,11 @@ window.TeachersEditView = Backbone.View.extend({
           }
 
         }
-
-        self.valor = $("#"+$(e.toElement).attr('value')).val();
-        $("#"+$(e.toElement).attr('value')).val('');
-
+        if( $(e.toElement).attr('value') != "selectTipo" &&
+            $(e.toElement).attr('value') != "selectEstado"){
+                      self.valor = $("#"+$(e.toElement).attr('value')).val();
+                      $("#"+$(e.toElement).attr('value')).val('');
+        }
         $("#"+$(e.toElement).attr('value')).attr('disabled',false);
         $(e.toElement).removeClass("glyphicon-edit");
         $(e.toElement).removeClass("btn-warning");
@@ -71,11 +71,10 @@ window.TeachersEditView = Backbone.View.extend({
           $("#pwdIcon").attr("style","display:show; color:#cccccc");
           $("#ConfirmPasswd").attr('disabled',false);
         }
-
-
       }
       else{
         try{
+
           if($("#"+$(e.toElement).attr('value')).val().length == 0){
             //$("#subEdProf").attr("disabled",true);
             self.alterado=false;
@@ -88,16 +87,14 @@ window.TeachersEditView = Backbone.View.extend({
             }
             else{
               self.alterado=true;
-
             }
           }
         }
         catch(e){
           self.alterado=false;
-          //$("#subEdProf").attr("disabled",true);
-
+          console.log("algum erro em :" + $(e.toElement).attr('value') );
+          console.log(e);
         };
-        console.log(self.alterado);
 
         if(self.alterado && $(e.toElement).attr('value') == "InputPasswd"){
           if($("#ConfirmPasswd").val() != $("#InputPasswd").val()){
@@ -173,11 +170,26 @@ window.TeachersEditView = Backbone.View.extend({
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
       console.log('Não Logado');
-      app.navigate('/#login', {
+      app.navigate('/#', {
           trigger: true
         });
         return null;
     }
+
+    var role = ''+window.localStorage.getItem('Role');
+    var profID = ''+window.localStorage.getItem('ProfID');
+    var editProf = ''+window.sessionStorage.getItem("ProfEditar");
+    //se não é administrador nem  próprio, volta para menuprincipal
+    if( role != "Administrador do Sistema"){
+      if(editProf != profID){
+        app.navigate('/#', {
+          trigger: true
+        });
+        return null;
+      }
+    }
+
+
 
     $(this.el).html(this.template());
 

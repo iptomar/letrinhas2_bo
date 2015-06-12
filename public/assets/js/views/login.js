@@ -48,7 +48,7 @@ window.LoginView = Backbone.View.extend({
                   //verificar o estado
                   if(json.estado==1 || json.estado=='Ativo'){
                     window.localStorage.setItem("Logged", true);
-                    window.localStorage.setItem("Roll", json.roll);
+                    window.localStorage.setItem("Role", json.tipoFuncionario);
                     window.localStorage.setItem("ProfID", json._id); //guardar variavel
                     //Segue para o Menu Principal.
                     app.navigate('/MenuPrincipal', {
@@ -100,9 +100,6 @@ window.LoginView = Backbone.View.extend({
 
         }
       }
-      //testes....
-      //console.log(confirm("cenas de pergunta"));
-      //console.log(prompt("cenas de pergunta"));
 
       return false;
     },

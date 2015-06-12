@@ -3,7 +3,7 @@ window.QuestionsInterpEdit = Backbone.View.extend({
   initialize: function() {},
 
   render: function() {
-    $(this.el).html(this.template());
+    var self=this;
     //verificar se está logado
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
@@ -13,6 +13,16 @@ window.QuestionsInterpEdit = Backbone.View.extend({
         });
         return null;
     }
+    var role = ''+window.localStorage.getItem('Role');
+    //se não é professor, volta para menuprincipal
+    if(role != "Professor"){
+        app.navigate('/#', {
+          trigger: true
+        });
+        return null;
+    }
+
+    $(this.el).html(this.template());
 
     return this;
   }

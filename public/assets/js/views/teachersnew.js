@@ -106,19 +106,6 @@ window.TeachersNewView = Backbone.View.extend({
   },
   initialize: function() {
     var self=this;
-    //verificar se está logado
-    var controlo=window.localStorage.getItem("Logged");
-    if(!controlo){
-      console.log('Não Logado');
-      window.history.back();
-    }
-    else{
-      console.log('Logado'); //guardar variavel
-      //para fazer update às escolas selecionadas e respetivas turmas,
-      //caso seja submetido o formulário
-    }
-
-
   },
 
   addTurma:function(){
@@ -166,6 +153,16 @@ window.TeachersNewView = Backbone.View.extend({
   render: function() {
     var sefl=this;
 
+    //Se não está logado nem é administrador, sai daqui!
+    var controlo=window.localStorage.getItem("Logged");
+    var role = ''+window.localStorage.getItem('Role');
+    if(!controlo || role != "Administrador do Sistema"){
+      console.log('Não Logado');
+      app.navigate('/#', {
+          trigger: true
+        });
+        return null;
+    }
 
     $(this.el).html(this.template());
     //Teste de associar a(s) turmas ao professor.
@@ -194,7 +191,6 @@ window.TeachersNewView = Backbone.View.extend({
           $("#hiddenEscola").html(d);
           //no hidden, contém no value o id da escola
           //e no text o id da turma.
-
           //adicionar os eventos para o select da turma.
           var myEl = document.getElementById('selectTurma');
           myEl.addEventListener('change', function() {
@@ -219,7 +215,6 @@ window.TeachersNewView = Backbone.View.extend({
             $("#limpaTurmas").attr("style","display:show");
 
           }, false);
-
 
         },
 

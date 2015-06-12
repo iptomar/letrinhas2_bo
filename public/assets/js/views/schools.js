@@ -2,7 +2,43 @@ window.SchoolsView = Backbone.View.extend({
   events: {
     "click #btnSchoolNew":"newEscola",
     "click .mostraTurma":"mostraTurma",
+    "click #btnProcura":"showEscola",
+    "keyup #escolaProcurar":"searchEscola",
    },
+
+   showEscola: function(){
+     var self=this;
+     var myBotoes = document.getElementsByClassName('schoolSelec');
+     for(i=0; i< myBotoes.length; i++){
+       if($(myBotoes[i]).attr("style") != "display:none" ){
+         self.mudaEscola(myBotoes[i]);
+         $(myBotoes[i]).focus();
+         return false;
+       }
+     }
+   },
+
+   searchEscola: function(){
+     var self=this;
+     var str1= $("#escolaProcurar").val();
+     var myBotoes = document.getElementsByClassName('schoolSelec');
+     var cont=0;
+     for(i=0; i< myBotoes.length; i++){
+       var position = $(myBotoes[i]).text().toLowerCase().search( str1.toLowerCase() );
+       if(position == -1){
+         $(myBotoes[i]).attr("style","display:none");
+       }
+       else{
+         cont++;
+         $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+       }
+       $('#schoolsBadge').text(cont);
+
+     }
+
+   },
+
+
 
    mostraTurma:function(e){
      var self=this;
@@ -24,7 +60,7 @@ window.SchoolsView = Backbone.View.extend({
              for(p=0; p< escola.turmas[i].professores.length; p++){
                modem('GET','teachers/'+escola.turmas[i].professores[p].id,function(professor){
                  var prof = '<div class="col-md-6 ">'
-                            +'<img src="'+self.site+'/dev_professores/'+professor._id+'/prof.jpg" style="height:30px;" > '
+                            +'<img src="'+self.site+'/dev_professores/'+professor._id+'/prof.jpg" style="height:80px;" > '
                             +'<br><label>'+professor.nome+'</label>'
                             +'</div>';
                  $("#classProfessor").append(prof);
@@ -49,7 +85,7 @@ window.SchoolsView = Backbone.View.extend({
                             +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
                             +';base64,'
                             + alunos[a].doc._attachments['aluno.jpg'].data
-                            +'" style="height:30px;" > '
+                            +'" style="height:80px;" > '
                             +'<br><label>'+alunos[a].doc.nome+'</label><br>'
                             +'</div>';
 
@@ -100,6 +136,17 @@ window.SchoolsView = Backbone.View.extend({
 
   },
 
+  validaUser:function(){
+    var self=this;
+    //esconder os botões de inserir e editar a todos excepto o Administrador
+    var role = ''+window.localStorage.getItem('Role');
+
+    if( role != "Administrador do Sistema"){
+      $("#btnSchoolsEdit").attr("style","visibility:hidden");
+      $("#btnSchoolNew").attr("style","visibility:hidden");
+    }
+  },
+
   render: function() {
     $(this.el).html(this.template());
     var self=this;
@@ -108,7 +155,7 @@ window.SchoolsView = Backbone.View.extend({
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
       console.log('Não Logado');
-      app.navigate('/#login', {
+      app.navigate('/#', {
           trigger: true
         });
         return null;
@@ -131,6 +178,7 @@ window.SchoolsView = Backbone.View.extend({
         + data[i].doc.nome + '</button>';
         if(first){
           $('#schoolsPreview').html(self.encheEscPreview(data[i].doc));
+          self.validaUser();
           first=false;
         }
       }
@@ -162,6 +210,7 @@ window.SchoolsView = Backbone.View.extend({
     //vai buscar os dados da escola:
     modem('GET','schools/'+obj.id, function(json){
       $('#schoolsPreview').html(self.encheEscPreview(json));
+      self.validaUser();
       var myEl = document.getElementById('btnSchoolsEdit');
       myEl.addEventListener('click', function() {
                     self.editEscola(this);

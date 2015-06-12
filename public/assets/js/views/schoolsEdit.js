@@ -23,6 +23,14 @@ window.SchoolsEdit = Backbone.View.extend({
         });
         return null;
     }
+    var role = ''+window.localStorage.getItem('Role');
+    //se não é administrador, volta para menuprincipal
+    if( role != "Administrador do Sistema"){
+        app.navigate('/#', {
+          trigger: true
+        });
+        return null;
+    }
 
 
     return this;

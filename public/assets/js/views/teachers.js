@@ -1,6 +1,58 @@
 window.TeachersView = Backbone.View.extend({
   events: {
     "click #btnTeachersNew": "newTeacher",
+    "click #btnProcura":"showProf",
+    "keyup #profProcurar":"searchProf",
+    },
+
+  showProf: function(){
+    var self=this;
+    var myBotoes = document.getElementsByClassName('profSelec');
+    for(i=0; i< myBotoes.length; i++){
+     if($(myBotoes[i]).attr("style") != "display:none" ){
+       self.mudaProf(myBotoes[i]);
+       $(myBotoes[i]).focus();
+       return false;
+     }
+   }
+  },
+
+  searchProf: function(){
+   var self=this;
+   var str1= $("#profProcurar").val();
+   var myBotoes = document.getElementsByClassName('profSelec');
+   var cont=0;
+   for(i=0; i< myBotoes.length; i++){
+     var position = $(myBotoes[i]).text().toLowerCase().search( str1.toLowerCase() );
+     if(position == -1){
+       $(myBotoes[i]).attr("style","display:none");
+     }
+     else{
+       cont++;
+       $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+     }
+     $('#teachersBadge').text(cont);
+   }
+  },
+
+  validaUser:function(prof){
+    var self=this;
+    //esconder os botões de inserir e editar a todos excepto o Administrador
+    var role = ''+window.localStorage.getItem('Role');
+    var profID = ''+window.localStorage.getItem('ProfID');
+
+    //se não é administrador nem o próprio, esconde os botões
+    if( role != "Administrador do Sistema" && prof._id != profID){
+      $("#btnTeachersEdit").attr("style","visibility:hidden");
+      $("#btnTeachersNew").attr("style","visibility:hidden");
+    }
+    else{
+      //se não é administrador, mas é o próprio, esconde apenas a criação de prof.
+      if( role != "Administrador do Sistema" && prof._id == profID){
+        $("#btnTeachersNew").attr("style","visibility:hidden");
+      }
+    }
+
 
   },
 
@@ -25,9 +77,7 @@ window.TeachersView = Backbone.View.extend({
         return null;
     }
 
-
     var self=this;
-
     modem('GET', 'teachers', function(data) {
       //indicar quantos items existem
       $('#teachersBadge').text(data.length);
@@ -57,6 +107,8 @@ window.TeachersView = Backbone.View.extend({
 
           if(first){
             $('#teachersPreview').html(self.enchePreview(data[i].doc));
+            self.validaUser(data[i].doc);
+
             first=false;
           }
         }
@@ -83,6 +135,8 @@ window.TeachersView = Backbone.View.extend({
     }, function(error) {
       console.log('Error getting teachers list!');
     });
+
+
 
     return this;
   },
@@ -133,6 +187,7 @@ window.TeachersView = Backbone.View.extend({
     //vai buscar os dados do professor:
     modem('GET','teachers/'+obj.id, function(json){
       $('#teachersPreview').html(self.enchePreview(json));
+      self.validaUser(json);
       var myEl = document.getElementById('btnTeachersEdit');
       myEl.addEventListener('click', function() {
                     self.editTeacher(this);

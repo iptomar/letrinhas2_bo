@@ -6,9 +6,41 @@ window.TestsView = Backbone.View.extend({
     "click #btnLista":"criarLista",
     "click #btnMult":"criarMultimedia",
     "click #btnInterp":"criarInterpr",
+    "click #btnProcura":"showTeste",
+    "keyup #testProcurar":"searchTeste",
+   },
 
+   showTeste: function(){
+     var self=this;
+     var myBotoes = document.getElementsByClassName('testSelect');
+     for(i=0; i< myBotoes.length; i++){
+       if($(myBotoes[i]).attr("style") != "display:none" ){
+         self.mudaTest(myBotoes[i]);
+         $(myBotoes[i]).focus();
+         return false;
+       }
+     }
+   },
 
-  },
+   searchTeste: function(){
+     var self=this;
+     var str1= $("#testProcurar").val();
+     var myBotoes = document.getElementsByClassName('testSelect');
+     var cont=0;
+     for(i=0; i< myBotoes.length; i++){
+       var position = $(myBotoes[i]).text().toLowerCase().search( str1.toLowerCase() );
+       if(position == -1){
+         $(myBotoes[i]).attr("style","display:none");
+       }
+       else{
+         cont++;
+         $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+
+       }
+       $('#testBadge').text(cont);
+     }
+
+   },
 
   criarTexto:function(){
     var sefl=this;
@@ -92,6 +124,7 @@ window.TestsView = Backbone.View.extend({
     var self=this;
     modem('GET', 'tests/'+obj.id, function(item) {
       self.encheTestPreview(item);
+
     }, function(error2) {
       console.log('Error getting questions\n');
       console.log(error2);
@@ -148,6 +181,7 @@ window.TestsView = Backbone.View.extend({
            myEl.addEventListener('click', function() {
                          self.editTest();
                        }, false);
+           self.validaUser();
 
     }, function(error2) {
       console.log('Error getting questions\n');
@@ -209,6 +243,8 @@ window.TestsView = Backbone.View.extend({
            +'</div>';
 
            $('#testsPreview').html(d);
+           self.validaUser();
+
 
     }, function(error2) {
       console.log('Error getting questions\n');
@@ -223,6 +259,8 @@ window.TestsView = Backbone.View.extend({
         +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
 
         $('#testsPreview').html(d);
+        self.validaUser();
+
   },
 
   //Em construção
@@ -232,6 +270,8 @@ window.TestsView = Backbone.View.extend({
         +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
 
         $('#testsPreview').html(d);
+        self.validaUser();
+
   },
 
   getColunas:function(lista){
@@ -242,6 +282,17 @@ window.TestsView = Backbone.View.extend({
     }
 
     return coluna;
+  },
+
+  validaUser:function(){
+    var self=this;
+    //esconder os botões de inserir e editar a todos excepto o Administrador
+    var role = ''+window.localStorage.getItem('Role');
+
+    if( role != "Professor"){
+      $("#btnTestEdit").attr("style","visibility:hidden");
+      $("#btnTestNew").attr("style","visibility:hidden");
+    }
   },
 
   initialize: function() {
@@ -258,7 +309,7 @@ window.TestsView = Backbone.View.extend({
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
       console.log('Não Logado');
-      app.navigate('/#login', {
+      app.navigate('/#', {
           trigger: true
         });
         return null;

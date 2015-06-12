@@ -23,7 +23,14 @@ window.StudentsEdit = Backbone.View.extend({
         });
         return null;
     }
-
+    var role = ''+window.localStorage.getItem('Role');
+    //se não é administrador nem o professor deste alunot, volta para menuprincipal
+    if( role != "Administrador do Sistema" && role != "Professor"){
+        app.navigate('/#', {
+          trigger: true
+        });
+        return null;
+    }
 
     return this;
   }

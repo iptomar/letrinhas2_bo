@@ -62,16 +62,23 @@
 
       <div align="center">Testes: <span id="testBadge"class="badge"></span></div>
       <hr>
+      <div >
+        <input id="testProcurar" type="texto" class="pesqui-control" placeholder="Procurar">
+        <span id="btnProcura" class="badge btn" ><span class="glyphicon glyphicon-search"></span></span>
+      </div>
+      <hr>
+
       <span>
         <span class="glyphicon glyphicon-filter"></span>
         Filtrar por:
         <img src="../img/inConstruction.jpg" style='height:25px;'>
       </span>
+      <br>
 
       <!-- Split button Tipo-->
       <div class="btn-group" >
-        <button id="testFiltTipo" type="button" class="btn btn" style="width:100px">Tipo</button>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <button id="testFiltTipo" type="button" class="btn btn-sm" style="width:100px">Tipo</button>
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>
@@ -115,10 +122,36 @@
       <br>
       <br>
 
+      <!-- Split button Ano escolar-->
+      <div class="btn-group">
+        <button type="button" class="btn btn-sm" style="width:100px">Ano Escolar</button>
+        <button id="testFiltAno" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a id="ano01">1º ano</a></li>
+          <li><a id="ano02">2º ano</a></li>
+          <li><a id="ano03">3º ano</a></li>
+          <li><a id="ano04">4º ano</a></li>
+          <li><a id="ano05">5º ano</a></li>
+          <li><a id="ano06">6º ano</a></li>
+          <li><a id="ano07">7º ano</a></li>
+          <li><a id="ano08">8º ano</a></li>
+          <li><a id="ano09">9º ano</a></li>
+          <li><a id="ano10">10º ano</a></li>
+          <li><a id="ano11">11º ano</a></li>
+          <li><a id="ano12">12º ano</a></li>
+          <li><a id="anoAll">Todos</a></li>
+        </ul>
+      </div>
+      <br>
+      <br>
+
       <!-- Split button Disciplna-->
       <div class="btn-group" >
-        <button type="button" class="btn btn" style="width:100px">Disciplina</button>
-        <button id="testFiltDiscip" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-sm" style="width:100px">Disciplina</button>
+        <button id="testFiltDiscip" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>
@@ -171,36 +204,10 @@
       <br>
       <br>
 
-      <!-- Split button Ano escolar-->
-      <div class="btn-group">
-        <button type="button" class="btn " style="width:100px">Ano Escolar</button>
-        <button id="testFiltAno" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a id="ano01">1º ano</a></li>
-          <li><a id="ano02">2º ano</a></li>
-          <li><a id="ano03">3º ano</a></li>
-          <li><a id="ano04">4º ano</a></li>
-          <li><a id="ano05">5º ano</a></li>
-          <li><a id="ano06">6º ano</a></li>
-          <li><a id="ano07">7º ano</a></li>
-          <li><a id="ano08">8º ano</a></li>
-          <li><a id="ano09">9º ano</a></li>
-          <li><a id="ano10">10º ano</a></li>
-          <li><a id="ano11">11º ano</a></li>
-          <li><a id="ano12">12º ano</a></li>
-          <li><a id="anoAll">Todos</a></li>
-        </ul>
-      </div>
-      <br>
-      <br>
-
       <!-- Split button Cronologia-->
       <div class="btn-group">
-        <button type="button" class="btn" style="width:100px">Cronologia</button>
-        <button id="testFiltCrono" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-sm" style="width:100px">Cronologia</button>
+        <button id="testFiltCrono" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>

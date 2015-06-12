@@ -1,6 +1,40 @@
 window.StudentsView = Backbone.View.extend({
   events: {
      "click #btnStudentsNew":"newAluno",
+     "click #btnProcura":"showAluno",
+     "keyup #alunoProcurar":"searchAluno",
+     },
+
+
+
+   showAluno: function(){
+     var self=this;
+     var myBotoes = document.getElementsByClassName('studSelec');
+     for(i=0; i< myBotoes.length; i++){
+      if($(myBotoes[i]).attr("style") != "display:none" ){
+        self.mudaAluno(myBotoes[i]);
+        $(myBotoes[i]).focus();
+        return false;
+      }
+    }
+   },
+
+   searchAluno: function(){
+    var self=this;
+    var str1= $("#alunoProcurar").val();
+    var myBotoes = document.getElementsByClassName('studSelec');
+    var cont=0;
+    for(i=0; i< myBotoes.length; i++){
+      var position = $(myBotoes[i]).text().toLowerCase().search( str1.toLowerCase() );
+      if(position == -1){
+        $(myBotoes[i]).attr("style","display:none");
+      }
+      else{
+        cont++;
+        $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+      }
+      $('#studentsBadge').text(cont);
+    }
    },
 
    newAluno: function(e) {
@@ -53,6 +87,7 @@ window.StudentsView = Backbone.View.extend({
             +'"  style="height:25px;"> - '+ data[i].doc.nome + '</button>';
             if(first){
               $('#studentsPreview').html(self.encheStudPreview(data[i].doc));
+              self.validaUser();
               first=false;
             }
         }
@@ -83,6 +118,7 @@ window.StudentsView = Backbone.View.extend({
     //vai buscar os dados do aluno:
     modem('GET','students/'+obj.id, function(json){
       $('#studentsPreview').html(self.encheStudPreview(json));
+      self.validaUser();
       var myEl = document.getElementById('btnStudentsEdit');
       myEl.addEventListener('click', function() {
                     self.editAluno(this);
@@ -131,6 +167,17 @@ window.StudentsView = Backbone.View.extend({
 
     return html;
 
+  },
+
+  validaUser:function(){
+    var self=this;
+    //esconder os botões de inserir e editar a todos excepto o Administrador
+    var role = ''+window.localStorage.getItem('Role');
+
+    if( role != "Professor" && role != "Administrador do Sistema"){
+      $("#btnStudentsEdit").attr("style","visibility:hidden");
+      $("#btnStudentsNew").attr("style","visibility:hidden");
+    }
   },
 
 });

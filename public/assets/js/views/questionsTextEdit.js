@@ -13,6 +13,14 @@ window.QuestionsTextEdit = Backbone.View.extend({
         });
         return null;
     }
+    var role = ''+window.localStorage.getItem('Role');
+    //se não é professor, volta para menuprincipal
+    if(role != "Professor"){
+        app.navigate('/#', {
+          trigger: true
+        });
+        return null;
+    }
 
     return this;
   }
