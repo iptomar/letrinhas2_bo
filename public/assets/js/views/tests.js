@@ -6,20 +6,7 @@ window.TestsView = Backbone.View.extend({
     "click #btnLista":"criarLista",
     "click #btnMult":"criarMultimedia",
     "click #btnInterp":"criarInterpr",
-    "click #btnProcura":"showTeste",
     "keyup #testProcurar":"searchTeste",
-   },
-
-   showTeste: function(){
-     var self=this;
-     var myBotoes = document.getElementsByClassName('testSelect');
-     for(i=0; i< myBotoes.length; i++){
-       if($(myBotoes[i]).attr("style") != "display:none" ){
-         self.mudaTest(myBotoes[i]);
-         $(myBotoes[i]).focus();
-         return false;
-       }
-     }
    },
 
    searchTeste: function(){
@@ -65,7 +52,7 @@ window.TestsView = Backbone.View.extend({
   criarMultimedia:function(){
     var sefl=this;
     sefl.tipoTeste="Multimedia";
-    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ff0000');
+    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
     $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
@@ -96,7 +83,7 @@ window.TestsView = Backbone.View.extend({
           });
         break;
       case 'Multimedia':
-        app.navigate('man', {
+        app.navigate('questionsMultimedia/new', {
             trigger: true
           });
         break;

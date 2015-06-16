@@ -1,21 +1,8 @@
 window.TeachersView = Backbone.View.extend({
   events: {
     "click #btnTeachersNew": "newTeacher",
-    "click #btnProcura":"showProf",
     "keyup #profProcurar":"searchProf",
     },
-
-  showProf: function(){
-    var self=this;
-    var myBotoes = document.getElementsByClassName('profSelec');
-    for(i=0; i< myBotoes.length; i++){
-     if($(myBotoes[i]).attr("style") != "display:none" ){
-       self.mudaProf(myBotoes[i]);
-       $(myBotoes[i]).focus();
-       return false;
-     }
-   }
-  },
 
   searchProf: function(){
    var self=this;

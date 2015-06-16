@@ -1,23 +1,8 @@
 window.StudentsView = Backbone.View.extend({
   events: {
      "click #btnStudentsNew":"newAluno",
-     "click #btnProcura":"showAluno",
      "keyup #alunoProcurar":"searchAluno",
      },
-
-
-
-   showAluno: function(){
-     var self=this;
-     var myBotoes = document.getElementsByClassName('studSelec');
-     for(i=0; i< myBotoes.length; i++){
-      if($(myBotoes[i]).attr("style") != "display:none" ){
-        self.mudaAluno(myBotoes[i]);
-        $(myBotoes[i]).focus();
-        return false;
-      }
-    }
-   },
 
    searchAluno: function(){
     var self=this;

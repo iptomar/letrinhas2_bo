@@ -16,7 +16,7 @@ exports.new = function (req, res) {
   var obj={"nome":"cenaças",
             "porto":8085,
             "tiago":"fernandes"};
-  console.log(obj.nome);
+  console.log(obj);
 
 };
 

@@ -2,20 +2,7 @@ window.SchoolsView = Backbone.View.extend({
   events: {
     "click #btnSchoolNew":"newEscola",
     "click .mostraTurma":"mostraTurma",
-    "click #btnProcura":"showEscola",
     "keyup #escolaProcurar":"searchEscola",
-   },
-
-   showEscola: function(){
-     var self=this;
-     var myBotoes = document.getElementsByClassName('schoolSelec');
-     for(i=0; i< myBotoes.length; i++){
-       if($(myBotoes[i]).attr("style") != "display:none" ){
-         self.mudaEscola(myBotoes[i]);
-         $(myBotoes[i]).focus();
-         return false;
-       }
-     }
    },
 
    searchEscola: function(){

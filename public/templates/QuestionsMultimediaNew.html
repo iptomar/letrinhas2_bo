@@ -1,0 +1,209 @@
+<!-- Inserção Pergunta do tipo Mutimédia: -->
+<div class="topcoat-navigation-bar">
+  <div class="topcoat-navigation-bar__item center ">
+    <h3 align="center" class="topcoat-navigation-bar__title">Criar Teste de Multimédia</h3>
+  </div>
+</div>
+
+<div>
+  <!--  -->
+  <form id="multimNewForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <div class="col-sm-4">
+        <label for="InputTitulo" >Título:</label>
+        <input type="text" class="form-control preenche" id="InputTitulo" placeholder="Ex: Anita vai às compras" name="titulo">
+      </div>
+      <div class="col-sm-2">
+        <label for="selectDiscip">Disciplina:</label>
+        <select class="form-control actLista" id="selectDiscip" name="disciplina">
+          <optgroup label="Linguas">
+          <option>Português</option>
+          <option>Inglês</option>
+          <option>Outra lingua</option>
+          <optgroup label="Outras">
+          <option>Matemática</option>
+          <option>Estudo do Meio</option>
+          <option>Outra</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <label for="selectAno">AnoEscolar:</label>
+        <select class="form-control actLista" id="selectAno" name="ano_escolar">
+          <optgroup label="1º Ciclo do Ensino Básico">
+            <option>1º</option>
+            <option>2º</option>
+            <option>3º</option>
+            <option>4º</option>
+          <optgroup label="2º Ciclo Ensino Básico">
+            <option>5º</option>
+            <option>6º</option>
+          <optgroup label="3º Ciclo Ensino Básico">
+            <option>7º</option>
+            <option>8º</option>
+            <option>9º</option>
+          <optgroup label="Ensino Secundário">
+            <option>10º</option>
+            <option>11º</option>
+            <option>12º</option>
+        </select>
+      </div>
+
+      <div class="col-sm-12">
+        <br>
+        <label for="InputDescricao" >Descrição:</label>
+        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao">
+        <hr>
+      </div>
+
+      <div class="col-sm-5" >
+        <label>Lista de perguntas existentes na BD: <span id="multBadge" class="badge">0</span></label>
+        <div style="height:350px; overflow:auto">
+          <select class="form-control" id="listMultQuestions" size=19 MULTIPLE>
+
+          </select>
+        </div>
+        <button id="criarPerg" class="btn btn-success ">
+          <span class="glyphicon glyphicon-plus-sign" style="color:#20ee20"></span>
+          Criar
+        </button>
+        <button id="aproveitarPerg" class="btn btn-warning ">
+          <span class="glyphicon glyphicon-edit" style="color:#dddd00"></span>
+          Alterar
+        </button>
+      </div>
+      <div class="col-sm-2" align="center" style="top:150px;">
+        <span id="add" class="btn btn-info" style="width:150px"><span class="glyphicon glyphicon-arrow-right" style="color:#20ee20"></span> adicionar</span>
+        <br>
+        <br>
+        <span id="remove" class="btn btn-info" style="width:150px"><span class="glyphicon glyphicon-arrow-left" style="color:#ee2020"></span> retirar</span>
+      </div>
+
+      <div class="col-sm-5">
+        <label>Lista de perguntas para este teste: <span id="multBadge2" class="badge">0</span></label>
+        <div class="col-sm-10" style="height:350px; overflow:auto">
+          <select class="form-control" id="newlistMultQuestions" size=19 MULTIPLE>
+          </select>
+        </div>
+
+          <div class="col-sm-1" align="center">
+            <label>Ordenar</label>
+            <span id="up" class="btn btn-info"  style="width:50px; vertical-align:top">
+              <span class="glyphicon glyphicon-arrow-up" style="color:#6faaee"></span>
+            </span>
+            <br>
+            <br>
+
+            <br>
+            <br>
+            <span id="down" class="btn btn-info"  style="width:50px; vertical-align:top">
+              <span class="glyphicon glyphicon-arrow-down" style="color:#6faaee"></span>
+            </span>
+          </div>
+
+      </div>
+
+      <div id="panelCriar" class="col-sm-7" style="visibility:hidden">
+        <label for="InputDescricao" >Pergunta:</label>
+        <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Escolha a resposta mais adequada" name="pergunta">
+        <br>
+        <!-- Split button Tipo-->
+        <div class="btn-group">
+          <button id="tipoPergunta" type="button" class="btn btn-default btn-sm" style="">Tipo do corpo da pergunta:</button>
+          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a id="tipPText">
+                <span>
+                  <img src="../img/text.png" style='height:32px;'>
+                </span>
+                Texto
+              </a>
+            </li>
+            <li>
+              <a id="tipPImg">
+                <span>
+                  <img src="../img/img.png" style='height:32px;'>
+                </span>
+                Imagem
+              </a>
+            </li>
+            <li>
+              <a id="tipPAudio">
+                <span>
+                  <img src="../img/audio_file.png" style='height:32px;'>
+                </span>
+                Audio
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="pergContent">
+        </div>
+
+        <br>
+        <!--Respostas-->
+          <!-- Split button Tipo-->
+          <div class="btn-group">
+            <button id="tipoRespostas" type="button" class="btn btn-default btn-sm" style="width:100px">Respostas:</button>
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a id="tipRText">
+                  <span>
+                    <img src="../img/text.png" style='height:32px;'>
+                  </span>
+                  Texto
+                </a>
+              </li>
+              <li>
+                <a id="tipRImg">
+                  <span>
+                    <img src="../img/img.png" style='height:32px;'>
+                  </span>
+                  Imagens
+                </a>
+              </li>
+              <!--<li>
+                <a id="tipRAudio">
+                  <span>
+                    <img src="../img/audio_file.png" style='height:32px;'>
+                  </span>
+                  Multimédia
+                </a>
+              </li>-->
+            </ul>
+          </div>
+          <div id="respContent" class="col-sm-12">
+          </div>
+      </div>
+
+
+
+      <div id="painelInvisivel" class="form-group  col-sm-8" style="display:none">
+          <select class="form-control" id="selectEstado" name="estado">
+            <option>1</option>
+          </select>
+          <select class="form-control" id="selectTipo" name="tipo">
+            <option>Multimédia</option>
+          </select>
+      </div>
+      <div class="col-sm-4" style="position:fixed; right:53px; bottom:15px">
+          <div class="col-sm-6">
+            <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
+          </div>
+          <div class="col-sm-6">
+            <button id="subMultim" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+          </div>
+      </div>
+    </div>
+</form>
+
+</div>
