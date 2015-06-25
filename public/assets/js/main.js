@@ -62,7 +62,7 @@ var Router = Backbone.Router.extend({
   //Resoluções:
     "submissions": "submissions",
 
-  
+
   //Menu Principal
     "MenuPrincipal": "MenuPrincipal",
 
@@ -72,15 +72,17 @@ var Router = Backbone.Router.extend({
   //Controlo de acesso
     "login": "login",
 
+  //Pagina Inicial
+    "inicio": "inicio",
+
   //Default Page
     "": "index"
   },
 
   index: function() {
-    app.navigate("/login", {
+    app.navigate("/inicio", {
       trigger: true
-    });
-  },
+    });  },
 
   login: function() {
     var login = new LoginView({
@@ -89,6 +91,16 @@ var Router = Backbone.Router.extend({
     $('#header').html("");
     $('#footer').html("");
     $('#content').html(login.render().el);
+  },
+
+  inicio: function() {
+    var self = this;
+    templateLoader.load(["Inicio"],
+      function() {
+        var v = new Inicio({});
+        self.showView(v, $('#content'));
+      }
+    );
   },
 
   teachers: function() {

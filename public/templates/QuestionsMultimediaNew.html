@@ -125,11 +125,23 @@
               <form id="multimNewPergForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
 
                  <div id="panelCriar" class="col-sm-12">
-                   <label for="InputPTitulo" >Titulo:</label>
-                   <input type="text" class="form-control preencheP" id="InputPTitulo" placeholder="Ex: Anita vai ao zoo" name="tituloPerg">
-                   <label for="InputPPergunta" >Pergunta:</label>
-                   <input type="text" class="form-control preencheP" id="InputPPergunta" placeholder="Ex: Escolha a resposta mais adequada" name="pergunta">
-                   <br>
+                  <div class="col-sm-2">
+                    <label for="InputPTitulo" >Titulo:</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control preencheCr" id="InputPTitulo" placeholder="Ex: Anita vai ao zoo" name="tituloPerg">
+                  </div>
+                  <div class="col-sm-2">
+                    <br>
+                    <label for="InputPPergunta" >Pergunta:</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <br>
+                    <input type="text" class="form-control preencheCr" id="InputPPergunta" placeholder="Ex: Escolha a resposta mais adequada" name="pergunta">
+                  </div>
+                  <div class="col-sm-12">
+                    <br>
+
                    <!-- Split button Tipo-->
                    <div class="btn-group">
                      <button id="tipoCPergunta" type="button" class="btn btn-default btn-sm" style="">Tipo do corpo da pergunta:</button>
@@ -167,8 +179,10 @@
 
                    <div id="pergContent">
                    </div>
+                  </div>
 
-                   <br>
+                  <div class="col-sm-12">
+                    <hr>
                    <!--Respostas-->
                    <label for="tipoRespostas">Respostas:</label>
 
@@ -206,8 +220,11 @@
                          </li>-->
                        </ul>
                      </div>
-                     <div id="respContent" class="col-sm-12">
-                     </div>
+                     <span id="testBadge"class="badge btn" style="background-color:#00cc00; visibility:hidden"><span class="glyphicon glyphicon-plus"></span></span>
+                     <span id="testBadge2"class="badge btn" style="background-color:#cc0000; visibility:hidden"><span class="glyphicon glyphicon-minus"></span></span>
+                     <div id="respContent" class="col-sm-12"></div>
+                  </div>
+                  <div id="criarPergHidden" style="display:none"></div>
                </div>
              </form>
             </div>
