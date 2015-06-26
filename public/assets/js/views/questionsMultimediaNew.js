@@ -117,6 +117,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     var self=this;
     if(self.nRespostas>2){
       self.nRespostas--;
+      $("#nRespNew").val(self.nRespostas);
       $("#lbl"+self.nRespostas).remove();
       $("#inpt"+self.nRespostas).remove();
       $("#img"+self.nRespostas).remove();
@@ -157,6 +158,9 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         default:
       }
       self.nRespostas++;
+      $("#nRespNew").val(self.nRespostas);
+      console.log(self.nRespostas);
+      console.log($("#nRespNew").val());
 
       if(self.nRespostas==3){
         document.getElementById("testBadge2").style.visibility="initial";
@@ -170,6 +174,21 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
   },
 
   subNPerg:function(e){
+    var s= '<input type="text" name="tipo" value="Multimédia">';
+    $("#criarPergHidden").append(s);
+
+    //titulo
+    window.sessionStorage.setItem("titulo", $("#inputTitulo").val());
+    //descricao
+    window.sessionStorage.setItem("descricao", $("#inputDescricao").val());
+    //indexAno
+    var obj = document.getElementById("selectAno");
+    window.sessionStorage.setItem("indexAno", obj.selectedIndex);
+
+    //indexDiscipl
+    obj = document.getElementById("selectDiscip");
+    window.sessionStorage.setItem("indexDiscipl", obj.selectedIndex);
+
     $("#multimNewPergForm").submit();
   },
 
@@ -278,7 +297,12 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           +'<input type="text" class="form-control preencheCr" id="InputPerguntaTxt" placeholder="Ex: 5 + 5 - 2 = ?" name="CrpTxtPergunta">'
         +'</div>';
     $("#pergContent").html(s);
-    $("#tipoCPergunta").text("Texto");
+    //apagar se possível o anterior corpo
+    $("#crpPergunta").remove();
+    //add no hidden o tipo de corpo
+    s='<input id="crpPergunta" type="text" name="MtipoPerg" value="texto">';
+    $("#criarPergHidden").append(s);
+    $("#tipoCPergunta").text("Tipo do corpo da pergunta: Texto");
   },
 
   perguntaImg: function(){
@@ -292,7 +316,13 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           +'<img id="imgPrg" src="" style="visibility:hidden; height:60px;">'
         +'</div>';
     $("#pergContent").html(s);
-    $("#tipoCPergunta").text("Imagem");
+    $("#tipoCPergunta").text("Tipo do corpo da pergunta: Imagem");
+
+    //apagar se possível o anterior corpo
+    $("#crpPergunta").remove();
+    //add no hidden o tipo de corpo
+    s='<input id="crpPergunta" type="text" name="MtipoPerg" value="img">';
+    $("#criarPergHidden").append(s);
 
   },
 
@@ -304,7 +334,12 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           +'<audio id="playPlayer" style="width:100%; visibility:hidden" controls></audio>'
         +'</div>';
     $("#pergContent").html(s);
-    $("#tipoCPergunta").text("Audio");
+    $("#tipoCPergunta").text("Tipo do corpo da pergunta: Audio");
+    //apagar se possível o anterior corpo
+    $("#crpPergunta").remove();
+    //add no hidden o tipo de corpo
+    s='<input id="crpPergunta" type="text" name="MtipoPerg" value="audio">';
+    $("#criarPergHidden").append(s);
 
   },
 
@@ -327,6 +362,17 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           +'<br><input type="text" class="form-control preencheCr" id="InputRespTxt1" placeholder="Ex: Laranja" name="resposta1">'
         +'</div>';
     $("#respContent").html(s);
+
+    $("#tipoRespostas").text("Tipo de corpo das respostas: Texto");
+    //apagar se possível o anterior corpo
+    $("#crpRespostas").remove();
+    //add no hidden o tipo de corpo
+    s= '<input id="crpRespostas" type="text" name="MtipoResp" value="texto">';
+    $("#nRespNew").val(self.nRespostas);
+
+    $("#criarPergHidden").append(s);
+
+
     document.getElementById("testBadge").style.visibility="initial";
     document.getElementById("testBadge2").style.visibility="hidden";
 
@@ -358,16 +404,30 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         ;
 
     $("#respContent").html(s);
+
+    $("#tipoRespostas").text("Tipo de corpo das respostas: Imagens");
+    //apagar se possível o anterior corpo
+    $("#crpRespostas").remove();
+    //add no hidden o tipo de corpo
+    s='<input id="crpRespostas" type="text" name="MtipoResp" value="img">';
+    $("#nRespNew").val(self.nRespostas);
+
+    $("#criarPergHidden").append(s);
+
     document.getElementById("testBadge").style.visibility="initial";
     document.getElementById("testBadge2").style.visibility="hidden";
 
 
   },
 
-  initialize: function() {},
+  initialize: function() {
+    var self=this;
+
+  },
 
   render: function() {
     var self=this;
+
 
     $(this.el).html(this.template());
     //verificar se está logado
@@ -387,11 +447,44 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         return null;
     }
 
-    self.getPerguntas();
+
+
+
+
+
+
+    setTimeout(function(){
+      $("#newPrgIdProf").val(window.localStorage.getItem("ProfID"));
+      //titulo
+      $("#inputTitulo").val(window.sessionStorage.getItem("titulo"));
+      //descricao
+      $("#inputDescricao").val(window.sessionStorage.getItem("descricao"));
+      //indexAno
+      var obj = document.getElementById("selectAno");
+      obj.selectedIndex = window.sessionStorage.getItem("indexAno");
+      console.log(window.sessionStorage.getItem("indexAno"));
+      //indexDiscipl
+      obj = document.getElementById("selectDiscip");
+      obj.selectedIndex = window.sessionStorage.getItem("indexDiscipl");
+      console.log("cenas");
+      window.sessionStorage.removeItem("titulo");
+      window.sessionStorage.removeItem("descricao");
+      window.sessionStorage.removeItem("indexAno");
+      window.sessionStorage.removeItem("indexDiscipl");
+      //atualizar campos escondidos:
+      $("#newPrgAno").val($("#selectAno").val());
+      $("#newPrgDiscip").val($("#selectDiscip").val());
+      self.getPerguntas();
+
+    },50);
+
+
+
     return this;
   },
 
   getPerguntas:function(){
+
     //Modem para consultar as questões do tipo multimédia da disciplina seleccionada e ano escolar
     //Constrir as opções
     modem('GET', '/questions', function(data) {

@@ -11,8 +11,8 @@
 
     <div class="form-group">
       <div class="col-sm-4">
-        <label for="InputTitulo" >Título:</label>
-        <input type="text" class="form-control preenche" id="InputTitulo" placeholder="Ex: Anita vai às compras" name="titulo">
+        <label for="inputTitulo" >Título:</label>
+        <input type="text" class="form-control preenche" id="inputTitulo" placeholder="Ex: Anita vai às compras" name="titulo">
       </div>
       <div class="col-sm-2">
         <label for="selectDiscip">Disciplina:</label>
@@ -51,8 +51,8 @@
 
       <div class="col-sm-12">
         <br>
-        <label for="InputDescricao" >Descrição:</label>
-        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao">
+        <label for="inputDescricao" >Descrição:</label>
+        <input type="text" class="form-control preenche" id="inputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao">
         <hr>
       </div>
 
@@ -137,7 +137,7 @@
                   </div>
                   <div class="col-sm-10">
                     <br>
-                    <input type="text" class="form-control preencheCr" id="InputPPergunta" placeholder="Ex: Escolha a resposta mais adequada" name="pergunta">
+                    <input type="text" class="form-control preencheCr" id="InputPPergunta" placeholder="Ex: Escolha a resposta mais adequada" name="Mpergunta">
                   </div>
                   <div class="col-sm-12">
                     <br>
@@ -224,7 +224,12 @@
                      <span id="testBadge2"class="badge btn" style="background-color:#cc0000; visibility:hidden"><span class="glyphicon glyphicon-minus"></span></span>
                      <div id="respContent" class="col-sm-12"></div>
                   </div>
-                  <div id="criarPergHidden" style="display:none"></div>
+                  <div id="criarPergHidden" style="display:none">
+                    <input id="nRespNew" type="number" name="numResp" value=0>
+                    <input id="newPrgAno" type="text" name="ano_escolar" value="1º">
+                    <input id="newPrgIdProf" type="text" name="profID">
+                    <input id="newPrgDiscip" type="text" name="disciplina" value="Português">
+                  </div>
                </div>
              </form>
             </div>
