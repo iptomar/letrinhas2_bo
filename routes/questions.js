@@ -155,8 +155,8 @@ exports.new = function (req, res) {
       console.log("2º - titulo ".red + req.body.tituloPerg);
       console.log("3º - pergunta ".red + req.body.Mpergunta);
       console.log("4º - tipo de corpo pergunta ".red + req.body.MtipoPerg);
-      console.log("4.1º - a pergunta ".red + req.body.CrpTxtPergunta);
-      console.log("5º - tipo de corpo de resposta ".red + req.body.MtipoPerg);
+      console.log("4.1º - a pergunta ".red + req.body.corpo);
+      console.log("5º - tipo de corpo de resposta ".red + req.body.MtipoResp);
       console.log("5.1º - resposta certa ".red + req.body.resposta0);
       console.log("5.2º - 1ª errada ".red + req.body.resposta1);
       console.log("5.3º - Nº respostas ".red + req.body.numResp);
@@ -164,10 +164,36 @@ exports.new = function (req, res) {
       console.log("7º - Disciplina ".red + req.body.disciplina);
       console.log("8º - Ano_escolar ".red + req.body.ano_escolar);
 
-      var opcoes;
+      var opcoes= new Array();
+      var anexos= new Array();
 
-      for (i=0; i<req.body.numResp; i++ ){
-        console.log('respostas '.yellow + req.body['resposta' + i]);
+
+
+      for (i=0; i< req.body.numResp; i++ ){
+        var cntd;
+        switch (req.body.MtipoResp) {
+          case 'texto':
+            cntd=req.body['resposta' + i];
+            break;
+          case 'imagem':
+            cntd="";
+
+            var file;
+            if(req.files) file = req.files['resposta'+i];
+
+            var imgData = require('fs').readFileSync(file.path);
+
+            var anx={ name: 'op'+(i+1)+'.jpg',
+                      data: imgData,
+                      content_type: 'image/jpg'
+                    };
+            anexos.push(anx);
+            break;
+          default:
+        }
+        var op={"tipo":req.body.MtipoResp,
+                "conteudo":cntd,};
+        opcoes.push(op);
       }
 
       var conteudo;
@@ -175,10 +201,44 @@ exports.new = function (req, res) {
         case 'texto':
           conteudo= { "idCategoria":0,
                       "tipoDoCorpo":req.body.MtipoPerg,
-                      "corpo":req.body.CrpTxtPergunta,
+                      "corpo":req.body.corpo,
                       "opcoes":opcoes,
-                      }
+                    };
+          break;
+        case 'imagem':
+          var file;
+          if(req.files) file = req.files.corpo;
 
+          var imgData = require('fs').readFileSync(file.path);
+          conteudo= { "idCategoria":0,
+                      "tipoDoCorpo":req.body.MtipoPerg,
+                      "corpo":"",
+                      "opcoes":opcoes,
+                      "opcaoCerta":"1",
+                    };
+          var anx={ name: 'corpo.jpg',
+                    data: imgData,
+                    content_type: 'image/jpg'
+                  };
+          anexos.push(anx);
+          break;
+
+        case 'audio':
+          var file;
+          if(req.files) file = req.files.corpo;
+
+          var imgData = require('fs').readFileSync(file.path);
+          conteudo= { "idCategoria":0,
+                      "tipoDoCorpo":req.body.MtipoPerg,
+                      "corpo":"",
+                      "opcoes":opcoes,
+                      "opcaoCerta":"1",
+                    };
+          var anx={ name: 'corpo.mp3',
+                    data: imgData,
+                    content_type: 'audio/mp3'
+                  };
+          anexos.push(anx);
           break;
         default:
 
@@ -189,10 +249,34 @@ exports.new = function (req, res) {
         "titulo":req.body.tituloPerg,
         "disciplina":req.body.disciplina,
         "pergunta":req.body.Mpergunta,
+        "conteudo":conteudo,
+        "tipoTeste":req.body.tipo,
+        "dataCri":dati,
+        "estado":true,
+        "professorId":req.body.profID,
+
       };
 
+      console.log("contudo: "+conteudo);
+      console.log("pergunta: "+pergunta);
+      console.log("attatchments: "+anexos);
 
-      console.log(pergunta);
+
+      db.multipart.insert(pergunta, anexos, idPerg, function(err, body) {
+        if (err) {
+          console.log('questions new, an error ocourred'.green);
+
+          return res.status(500).json({
+            'result': 'nok',
+            'message': err
+          });
+        }
+        console.log('questions Multimedia added'.green);
+
+        res.redirect('/#questionsMultimedia/new');
+      });
+
+
     /*  pergunta={
         "anoEscolar":req.body.ano_escolar,
         "titulo":req.body.titulo,
@@ -213,7 +297,7 @@ exports.new = function (req, res) {
         "professorId":req.body.profID,
 
       };*/
-      res.redirect('/#questionsMultimedia/new');
+
       //Terminar
       break;
     case "Interpretação":

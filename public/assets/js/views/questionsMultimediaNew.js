@@ -140,7 +140,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           +'</div>'
           +'<div class="col-sm-9" id="inpt'+self.nRespostas+'">'
             +'<br><input type="text" class="form-control preencheCr" id="InputRespTxt'+self.nRespostas
-            +'" placeholder="Ex: '+parseInt(Math.random()*100)+'" name="resposta'+(self.nRespostas-1)+'">'
+            +'" placeholder="Ex: '+parseInt(Math.random()*100)+'" name="resposta'+(self.nRespostas)+'">'
           +'</div>';
           break;
         case "img":
@@ -149,7 +149,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
             +'</div>'
             +'<div class="col-sm-7" id="inpt'+self.nRespostas+'">'
               +'<br><input type="file" accept="image/jpg" class="form-control imags preencheCr" id="InputRespImg'+self.nRespostas
-              +'" name="resposta'+(self.nRespostas-1)+'">'
+              +'" name="resposta'+(self.nRespostas)+'">'
             +'</div>'
             +'<div class="col-sm-2" id="img'+self.nRespostas+'" >'
               +'<br><img id="imgResp'+self.nRespostas+'" src="" style="visibility:hidden">'
@@ -188,6 +188,8 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     //indexDiscipl
     obj = document.getElementById("selectDiscip");
     window.sessionStorage.setItem("indexDiscipl", obj.selectedIndex);
+
+    console.log($("#nRespNew").val());
 
     $("#multimNewPergForm").submit();
   },
@@ -294,7 +296,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     var s='';
       s='<div class="col-sm-12" >'
           +'<br>'
-          +'<input type="text" class="form-control preencheCr" id="InputPerguntaTxt" placeholder="Ex: 5 + 5 - 2 = ?" name="CrpTxtPergunta">'
+          +'<input type="text" class="form-control preencheCr" id="InputPerguntaTxt" placeholder="Ex: 5 + 5 - 2 = ?" name="corpo">'
         +'</div>';
     $("#pergContent").html(s);
     //apagar se possível o anterior corpo
@@ -309,7 +311,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     var s='';
       s= '<div class="col-sm-9" >'
           +'<br>'
-          +'<input type="file" class="form-control preencheCr" id="InputPerguntaImg" accept="image/jpg" name="CrpImgPergunta">'
+          +'<input type="file" class="form-control preencheCr" id="InputPerguntaImg" accept="image/jpg" name="corpo">'
         +'</div>'
         +'<div class="col-sm-3" >'
           +'<br>'
@@ -321,7 +323,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     //apagar se possível o anterior corpo
     $("#crpPergunta").remove();
     //add no hidden o tipo de corpo
-    s='<input id="crpPergunta" type="text" name="MtipoPerg" value="img">';
+    s='<input id="crpPergunta" type="text" name="MtipoPerg" value="imagem">';
     $("#criarPergHidden").append(s);
 
   },
@@ -330,7 +332,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     var s='';
       s='<div class="col-sm-12" >'
           +'<br>'
-          +'<input type="file" class="form-control preencheCr" id="InputPerguntaAudio" accept="audio/mp3" name="CrpAudioPergunta">'
+          +'<input type="file" class="form-control preencheCr" id="InputPerguntaAudio" accept="audio/mp3" name="corpo">'
           +'<audio id="playPlayer" style="width:100%; visibility:hidden" controls></audio>'
         +'</div>';
     $("#pergContent").html(s);
@@ -387,7 +389,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           +'<br><label for="InputRespImg0">Correta:</label>'
         +'</div>'
         +'<div class="col-sm-7">'
-          +'<br><input type="file" input type="file" accept="image/jpg" class="form-control imags preencheCr" id="InputRespImg0">'
+          +'<br><input type="file" input type="file" accept="image/jpg" class="form-control imags preencheCr" id="InputRespImg0" name="resposta0">'
         +'</div>'
         +'<div class="col-sm-2">'
           +'<br><img id="imgResp0" src="" style="visibility:hidden">'
@@ -396,7 +398,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
             +'<br><label for="InputRespImg1">1ª Errada:</label>'
         +'</div>'
         +'<div class="col-sm-7">'
-          +'<br><input type="file" input type="file" accept="image/jpg" class="form-control imags preencheCr" id="InputRespImg1">'
+          +'<br><input type="file" input type="file" accept="image/jpg" class="form-control imags preencheCr" id="InputRespImg1" name="resposta1">'
         +'</div>'
         +'<div class="col-sm-2">'
           +'<br><img id="imgResp1" src="" style="visibility:hidden">'
@@ -409,7 +411,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     //apagar se possível o anterior corpo
     $("#crpRespostas").remove();
     //add no hidden o tipo de corpo
-    s='<input id="crpRespostas" type="text" name="MtipoResp" value="img">';
+    s='<input id="crpRespostas" type="text" name="MtipoResp" value="imagem">';
     $("#nRespNew").val(self.nRespostas);
 
     $("#criarPergHidden").append(s);
@@ -454,7 +456,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
 
     setTimeout(function(){
-      $("#newPrgIdProf").val(window.localStorage.getItem("ProfID"));
       //titulo
       $("#inputTitulo").val(window.sessionStorage.getItem("titulo"));
       //descricao
@@ -503,7 +504,8 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
       for(i=0; i<data.length; i++){
         //por tipo, ano e disciplina
-        if( //data[i].doc.tipoTeste == "Multimédia" &&
+        if( data[i].doc.estado &&
+          data[i].doc.tipoTeste == "Multimédia" &&
           data[i].doc.anoEscolar <= selAno.item(ind).text &&
           data[i].doc.disciplina == selDiscip.item(ind2).text){
             var opt='';
