@@ -77,13 +77,13 @@ window.TeachersView = Backbone.View.extend({
         s+= '<button id="'
           + data[i].doc._id
           + '"  name="' + data[i].doc._id
-          +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
+          +'"  type="button" style="height:60px; text-align:left; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block profSelec" >';
           try {
             s+=' <img src="data:'+data[i].doc._attachments['prof.jpg'].content_type
                         +';base64,'
                         +data[i].doc._attachments['prof.jpg'].data
-                        +'" style="height:25px;" > ';
+                        +'" style="height:30px;" > ';
 
           } catch (e) {
             s+=' <img src="../img/page-loader.gif" style="height:25px;">';

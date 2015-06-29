@@ -32,41 +32,41 @@ window.TestsView = Backbone.View.extend({
   criarTexto:function(){
     var sefl=this;
     sefl.tipoTeste="texto";
-    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#00ff00');
+    $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
-    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
   },
 
   criarLista:function(){
     var sefl=this;
     sefl.tipoTeste="lista";
-    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#00ff00');
+    $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
-    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
   },
 
   criarMultimedia:function(){
     var sefl=this;
     sefl.tipoTeste="Multimedia";
-    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffff00');
+    $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
-    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
   },
 
   criarInterpr:function(){
     var sefl=this;
     sefl.tipoTeste="interpr";
-    $("#btnInterp").attr('style','height:50px; background-color: #53BDDC; color:#ff0000');
+    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ff0000');
     $("#btnTesteCriar").attr('style','visibility:initial');
-    $("#btnTexto").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnMult").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
-    $("#btnLista").attr('style','height:50px; background-color: #53BDDC; color:#ffffff');
+    $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
+    $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
   },
 
   criarTeste:function(){
@@ -355,10 +355,10 @@ window.TestsView = Backbone.View.extend({
 
 
           s+= '<button id="' + data[i].doc._id
-            +'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
+            +'"  type="button" style="height:60px; text-align:left; background-color: #53BDDC; color: #ffffff;"'
             +' class="btn btn-lg btn-block testSelect" >'
-            +' <img src="'+img+'"  style="height:25px;" > '
-            +' <img src="'+img2+'"  style="height:25px;" > '
+            +' <img src="'+img+'"  style="height:30px;" > '
+            +' <img src="'+img2+'"  style="height:30px;" > '
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
 
           if(first){

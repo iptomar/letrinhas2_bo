@@ -12,7 +12,6 @@ window.MenuPrincipalView = Backbone.View.extend({
 
   Logout:function(e){
     e.preventDefault();
-    console.log("sair");
     window.localStorage.removeItem("Logged");
     window.localStorage.removeItem("ProfID");
     window.localStorage.removeItem("Roll");
@@ -32,11 +31,14 @@ window.MenuPrincipalView = Backbone.View.extend({
         });
         return null;
     }
-      console.log('Logado'); //guardar variavel
-    //criar restrições a opções consoante as permissões do professor.
+    var role = ''+window.localStorage.getItem('Role');
+    //criar restrições a opções consoante as permissões do utiizador.
+    if(role == "Administrador do Sistema"){
+      setTimeout(function(){
+        $("#opDef").attr("style","display:show");
+      },1);
 
-
-
+    }
 
     return this;
   },

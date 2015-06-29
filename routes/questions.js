@@ -20,9 +20,6 @@ exports.new = function (req, res) {
 
   var pergunta;
 
-
-
-
   switch(req.body.tipo){
     case "Texto":
       pergunta={

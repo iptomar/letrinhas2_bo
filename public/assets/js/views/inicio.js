@@ -20,10 +20,7 @@ window.Inicio = Backbone.View.extend({
     //se já estiver logado, então não pára aqui, e passa para o menuPrincipal
     var controlo=window.localStorage.getItem("Logged");
     if(controlo){
-      ///Construir um modal para selecionar o S.O. do tablet.
-      $("#iApp").attr("src","../img/inConstruction.jpg");
       $("#mApp").modal("show");
-
     }else{
       self.item="app";
       $("#mLogin").modal("show");
@@ -97,10 +94,7 @@ window.Inicio = Backbone.View.extend({
 
                         break;
                       case 'app':
-
-                        alert("Fazer download da app... em construção..");
-                        ///Construir um modal para selecionar o S.O. di tablet.
-
+                        $("#mApp").modal("show");
                         break;
                       default:
 

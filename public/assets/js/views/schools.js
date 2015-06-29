@@ -156,12 +156,12 @@ window.SchoolsView = Backbone.View.extend({
       for(i=0;i<data.length;i++){
          s+= '<button id="'
           + data[i].doc._id
-          + '"  name="' +data[i].doc._id+'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
+          + '"  name="' +data[i].doc._id+'"  type="button" style="height:60px; text-align:left; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block schoolSelec" >'
           +' <img src="data:'+data[i].doc._attachments['escola.jpg'].content_type
                     +';base64,'
                     +data[i].doc._attachments['escola.jpg'].data
-                    +'" style="height:25px;" > '
+                    +'" style="height:30px;" > '
         + data[i].doc.nome + '</button>';
         if(first){
           $('#schoolsPreview').html(self.encheEscPreview(data[i].doc));

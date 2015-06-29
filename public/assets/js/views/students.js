@@ -64,12 +64,12 @@ window.StudentsView = Backbone.View.extend({
           if(data[i].doc.estado=='Ativo' || data[i].doc.estado==true || data[i].doc.estado== 1){
         s+= '<button id="'
           + data[i].doc._id
-          + '"  name="' +data[i].doc._id+'"  type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;"'
+          + '"  name="' +data[i].doc._id+'"  type="button" style="height:60px; text-align:left; background-color: #53BDDC; color: #ffffff;"'
           +' class="btn btn-lg btn-block studSelec" >'+'<img src="data:'
             +data[i].doc._attachments['aluno.jpg'].content_type
             +';base64,'
             +data[i].doc._attachments['aluno.jpg'].data
-            +'"  style="height:25px;"> - '+ data[i].doc.nome + '</button>';
+            +'"  style="height:30px;"> - '+ data[i].doc.nome + '</button>';
             if(first){
               $('#studentsPreview').html(self.encheStudPreview(data[i].doc));
               self.validaUser();

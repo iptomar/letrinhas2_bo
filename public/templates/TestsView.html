@@ -3,7 +3,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" aria-expanded="false">
+        <a class="navbar-brand" aria-expanded="false" href="/#">
           <span>
             <img src="../img/letrinhas2.png" style='height:32px;'title="Projeto final de Engª Informática de:
             Alexandre Carvalho, aluno nº14922
@@ -12,7 +12,7 @@
 
             ESTT-IPT-Tomar 2014/2015">
           </span>
-          Letrinhas
+          <label title="Pagina inicial">Letrinhas</label>
         </a>
       </div>
 
@@ -25,25 +25,19 @@
               </a>
           </li>
           <li>
-              <a href="#submissions" aria-expanded="false">
-                <img src="../img/resultados.png" style='height:32px;'>
-                Resoluções
-              </a>
-          </li>
-          <li>
-              <a href="#teachers" aria-expanded="false">
+              <a href="#teachers" aria-expanded="false" title="Ver funcionários">
                 <img src="../img/docentes.png" style='height:32px;'>
-                Professores
+                Professor/es
               </a>
           </li>
           <li>
-              <a href="#schools" aria-expanded="false">
+              <a href="#schools" aria-expanded="false" title="Ver escolas">
                 <img src="../img/escola1.png" style='height:32px;'>
                 Escolas
               </a>
           </li>
           <li>
-              <a href="#students" aria-expanded="false">
+              <a href="#students" aria-expanded="false" title="Ver alunos">
                 <img src="../img/alunos.png" style='height:32px;'>
                 Alunos
               </a>
@@ -51,7 +45,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="#MenuPrincipal" aria-expanded="false" role="button">
+            <a href="#MenuPrincipal" aria-expanded="false" role="button" title="Voltar ao menu principal">
               voltar
               <img src="../img/voltar.png" style='height:32px;'>
             </a>
@@ -249,37 +243,39 @@
   </div>
 
   <!-- MODAL para escolher o tipo de teste a criar -->
-  <div class="modal fade" id="myModalTest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModalTest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" >
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Escolha o tipo de teste que quer criar.</h4>
+          <h3 class="modal-title" id="myModalLabel">
+            <img src="../img/letrinhas2.png" style="height:50px">
+            Escolha o tipo de teste que quer criar.</h3>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" >
            <div align="center">
-             <button id="btnTexto" type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
+             <button id="btnTexto" type="button" style="height:50px; width:200px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
                <img src="../img/testeTexto.png"  style="height:25px;" >
                Texto
              </button>
-             <button id="btnLista" type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
+             <button id="btnLista" type="button" style="height:50px; width:200px;background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
                <img src="../img/testLista.png"  style="height:25px;" >
                Lista de Palavras
              </button>
              <p></p>
-             <button id="btnMult" type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
+             <button id="btnMult" type="button" style="height:50px; width:200px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
                <img src="../img/testMul.png"  style="height:25px;" >
                Multimédia
              </button>
-             <button id="btnInterp" type="button" style="height:50px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
+             <button id="btnInterp" type="button" style="height:50px; width:200px; background-color: #53BDDC; color: #ffffff;" class="btn btn-lg " >
                <img src="../img/testInterpretacao.png"  style="height:25px;" >
                Interpretação
              </button>
 
            </div>
         </div>
-        <div class="modal-footer">
-          <button id="btnTesteCriar" type="button" class="btn btn-primary btn-conf btn_mine-MediumLarge" style="visibility:hidden">Criar</button>
+        <div class="modal-footer" style="background-color: #53BDDC;">
+          <button id="btnTesteCriar" type="button" class="btn btn-success btn-conf btn_mine-MediumLarge" style="visibility:hidden">Criar</button>
         </div>
       </div>
     </div>

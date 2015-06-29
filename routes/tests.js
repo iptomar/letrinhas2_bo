@@ -12,7 +12,11 @@ exports.upDate = function(rep, res){
 };
 
 exports.new = function (req, res) {
-  console.log('tests new, NotAvaliable yet'.green);
+  console.log('tests new, NotAvaliable yet'.yellow);
+  
+
+
+
   var obj={"nome":"cenaças",
             "porto":8085,
             "tiago":"fernandes"};
