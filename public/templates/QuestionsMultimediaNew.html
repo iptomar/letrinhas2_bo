@@ -210,14 +210,6 @@
                              Imagens
                            </a>
                          </li>
-                         <!--<li>
-                           <a id="tipRAudio">
-                             <span>
-                               <img src="../img/audio_file.png" style='height:32px;'>
-                             </span>
-                             Multimédia
-                           </a>
-                         </li>-->
                        </ul>
                      </div>
                      <span id="testBadge"class="badge btn" style="background-color:#00cc00; visibility:hidden"><span class="glyphicon glyphicon-plus"></span></span>
@@ -226,8 +218,8 @@
                   </div>
                   <div id="criarPergHidden" style="display:none">
                     <input id="nRespNew" type="number" name="numResp">
-                    <input id="newPrgAno" type="text" name="ano_escolar" value="1º">
-                    <input id="newPrgDiscip" type="text" name="disciplina" value="Português">
+                    <input id="newPrgAno" type="text" name="ano_escolar">
+                    <input id="newPrgDiscip" type="text" name="disciplina">
                   </div>
                </div>
              </form>
@@ -240,110 +232,6 @@
       </div>
       <!-- ########################################### -->
 
-      <!--Modal de alterar teste Multimédia -->
-      <div class="modal fade" id="editPerg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><img src="../img/testMul.png"  style="height:25px;" > Alterar pergunta Multimédia.</h4>
-            </div>
-            <div class="modal-body" style="height:500px">
-              <form id="multimEditPergForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
-
-                 <div id="panelCriar" class="col-sm-12">
-                   <label for="InputPTitulo" >Titulo:</label>
-                   <input type="text" class="form-control preencheP" id="InputPTitulo" placeholder="Ex: Anita vai ao zoo" name="titulo">
-                   <label for="InputPergunta" >Pergunta:</label>
-                   <input type="text" class="form-control preencheP" id="InputPergunta" placeholder="Ex: Escolha a resposta mais adequada" name="pergunta">
-                   <br>
-                   <!-- Split button Tipo-->
-                   <div class="btn-group">
-                     <button id="tipoPergunta" type="button" class="btn btn-default btn-sm" style="">Tipo do corpo da pergunta:</button>
-                     <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                       <span class="caret"></span>
-                       <span class="sr-only">Toggle Dropdown</span>
-                     </button>
-                     <ul class="dropdown-menu" role="menu">
-                       <li>
-                         <a id="tipPText">
-                           <span>
-                             <img src="../img/text.png" style='height:32px;'>
-                           </span>
-                           Texto
-                         </a>
-                       </li>
-                       <li>
-                         <a id="tipPImg">
-                           <span>
-                             <img src="../img/img.png" style='height:32px;'>
-                           </span>
-                           Imagem
-                         </a>
-                       </li>
-                       <li>
-                         <a id="tipPAudio">
-                           <span>
-                             <img src="../img/audio_file.png" style='height:32px;'>
-                           </span>
-                           Audio
-                         </a>
-                       </li>
-                     </ul>
-                   </div>
-
-                   <div id="pergContent">
-                   </div>
-
-                   <br>
-                   <!--Respostas-->
-                     <!-- Split button Tipo-->
-                     <div class="btn-group">
-                       <button id="tipoRespostas" type="button" class="btn btn-default btn-sm" style="width:100px">Respostas:</button>
-                       <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                         <span class="caret"></span>
-                         <span class="sr-only">Toggle Dropdown</span>
-                       </button>
-                       <ul class="dropdown-menu" role="menu">
-                         <li>
-                           <a id="tipRText">
-                             <span>
-                               <img src="../img/text.png" style='height:32px;'>
-                             </span>
-                             Texto
-                           </a>
-                         </li>
-                         <li>
-                           <a id="tipRImg">
-                             <span>
-                               <img src="../img/img.png" style='height:32px;'>
-                             </span>
-                             Imagens
-                           </a>
-                         </li>
-                         <!--<li>
-                           <a id="tipRAudio">
-                             <span>
-                               <img src="../img/audio_file.png" style='height:32px;'>
-                             </span>
-                             Multimédia
-                           </a>
-                         </li>-->
-                       </ul>
-                     </div>
-                     <div id="respContent" class="col-sm-12">
-                     </div>
-
-
-               </div>
-             </form>
-            </div>
-            <div class="modal-footer">
-              <button id="btnPergAlter" type="button" class="btn btn-primary btn-conf btn_mine-MediumLarge" disabled>Criar</button>
-            </div>
-          </div>
-        </div>
-      </div>
       <!--Modal de preview do teste-->
       <div class="modal fade" id="pergPreview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -353,11 +241,9 @@
               <h4 class="modal-title" id="prevTitle"><img src="../img/testMul.png"  style="height:25px;" > Preview...</h4>
             </div>
             <div class="modal-body" >
-                 <img src="../img/inConstruction.jpg" style="max-height:400px"
+                 <img src="../img/inConstruction.jpg" style="max-height:400px">
             </div>
-            <div class="modal-footer">
-              <button id="btnPeAlter" type="button" class="btn btn-primary btn-conf btn_mine-MediumLarge" disabled>Criar</button>
-            </div>
+
           </div>
         </div>
       </div>

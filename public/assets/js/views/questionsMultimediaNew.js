@@ -8,12 +8,10 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     "click #tipPImg":"perguntaImg",
     "click #tipPAudio":"perguntaAudio",
 
-
     "click #tipRText":"respostaTexto",
     "click #tipRImg":"respostaImg",
     "click #testBadge":"addCrResposta",
     "click #testBadge2":"removeCrResposta",
-
 
     "click #add":"addLista",
     "click #remove":"removeLista",
@@ -69,7 +67,9 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
   cancelForm: function(e){
     e.preventDefault();
-    window.history.back();
+    window.history.go(parseInt(window.sessionStorage.getItem("nPG")));
+    window.sessionStorage.removeItem("nPG");
+
   },
 
   verRespImg: function(e){
@@ -159,8 +159,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       }
       self.nRespostas++;
       $("#nRespNew").val(self.nRespostas);
-      console.log(self.nRespostas);
-      console.log($("#nRespNew").val());
 
       if(self.nRespostas==3){
         document.getElementById("testBadge2").style.visibility="initial";
@@ -174,7 +172,13 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
   },
 
   subNPerg:function(e){
+    var i = window.sessionStorage.getItem("nPG");
+    i--;
+    window.sessionStorage.setItem("nPG",i);
+
     var s= '<input type="text" name="tipo" value="Multimédia">';
+
+
     $("#criarPergHidden").append(s);
 
     //titulo
@@ -188,8 +192,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     //indexDiscipl
     obj = document.getElementById("selectDiscip");
     window.sessionStorage.setItem("indexDiscipl", obj.selectedIndex);
-
-    console.log($("#nRespNew").val());
 
     $("#multimNewPergForm").submit();
   },
@@ -282,13 +284,26 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
   showCriar:function(e){
     e.preventDefault();
+    $("#newPrgAno").val($("#selectAno").val());
+    $("#newPrgDiscip").val($("#selectDiscip").val());
     $("#createPerg").modal("show");
-
   },
 
   showEditar:function(e){
     e.preventDefault();
-    $("#editPerg").modal("show");
+    var self=this;
+
+
+    //preencher:
+    //titulo
+    //pergunta
+    //corpo da pergunta
+    //n respostas
+    // corpo das respostas.
+
+    self.showCriar(e);
+
+    //$("#editPerg").modal("show");
   },
 
   //Perguntas
@@ -435,7 +450,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     //verificar se está logado
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
-      app.navigate('/#login', {
+      app.navigate('/#', {
           trigger: true
         });
         return null;
@@ -449,11 +464,10 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         return null;
     }
 
-
-
-
-
-
+    //para usar no botão voltar.
+    if(!window.sessionStorage.getItem("nPG")){
+      window.sessionStorage.setItem("nPG",-1);
+    }
 
     setTimeout(function(){
       //titulo
@@ -463,18 +477,13 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       //indexAno
       var obj = document.getElementById("selectAno");
       obj.selectedIndex = window.sessionStorage.getItem("indexAno");
-      console.log(window.sessionStorage.getItem("indexAno"));
       //indexDiscipl
       obj = document.getElementById("selectDiscip");
       obj.selectedIndex = window.sessionStorage.getItem("indexDiscipl");
-      console.log("cenas");
       window.sessionStorage.removeItem("titulo");
       window.sessionStorage.removeItem("descricao");
       window.sessionStorage.removeItem("indexAno");
       window.sessionStorage.removeItem("indexDiscipl");
-      //atualizar campos escondidos:
-      $("#newPrgAno").val($("#selectAno").val());
-      $("#newPrgDiscip").val($("#selectDiscip").val());
       self.getPerguntas();
 
     },50);
@@ -506,7 +515,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         //por tipo, ano e disciplina
         if( data[i].doc.estado &&
           data[i].doc.tipoTeste == "Multimédia" &&
-          data[i].doc.anoEscolar <= selAno.item(ind).text &&
+          parseInt(data[i].doc.anoEscolar) <= parseInt(selAno.item(ind).text) &&
           data[i].doc.disciplina == selDiscip.item(ind2).text){
             var opt='';
 

@@ -151,24 +151,8 @@ exports.new = function (req, res) {
     });
       break;
     case "Multimédia":
-      console.log("1º - tipo ".red + req.body.tipo);
-      console.log("2º - titulo ".red + req.body.tituloPerg);
-      console.log("3º - pergunta ".red + req.body.Mpergunta);
-      console.log("4º - tipo de corpo pergunta ".red + req.body.MtipoPerg);
-      console.log("4.1º - a pergunta ".red + req.body.corpo);
-      console.log("5º - tipo de corpo de resposta ".red + req.body.MtipoResp);
-      console.log("5.1º - resposta certa ".red + req.body.resposta0);
-      console.log("5.2º - 1ª errada ".red + req.body.resposta1);
-      console.log("5.3º - Nº respostas ".red + req.body.numResp);
-      console.log("6º - ProfID ".red + req.body.profID);
-      console.log("7º - Disciplina ".red + req.body.disciplina);
-      console.log("8º - Ano_escolar ".red + req.body.ano_escolar);
-
       var opcoes= new Array();
       var anexos= new Array();
-
-
-
       for (i=0; i< req.body.numResp; i++ ){
         var cntd;
         switch (req.body.MtipoResp) {
@@ -257,14 +241,9 @@ exports.new = function (req, res) {
 
       };
 
-      console.log("contudo: "+conteudo);
-      console.log("pergunta: "+pergunta);
-      console.log("attatchments: "+anexos);
-
-
       db.multipart.insert(pergunta, anexos, idPerg, function(err, body) {
         if (err) {
-          console.log('questions new, an error ocourred'.green);
+          console.log('questions multimédia new, an error ocourred'.green);
 
           return res.status(500).json({
             'result': 'nok',
@@ -275,28 +254,6 @@ exports.new = function (req, res) {
 
         res.redirect('/#questionsMultimedia/new');
       });
-
-
-    /*  pergunta={
-        "anoEscolar":req.body.ano_escolar,
-        "titulo":req.body.titulo,
-        "disciplina":req.body.disciplina,
-        "pergunta":req.body.pergunta,
-        "conteudo":{
-          "idCategoria":0,//numero,
-          "tipoDoCorpo":"imagem , texto, audio",//uma destas opções
-          "corpo":"string" //a preencher em tipo=texto
-          "opcoes":[
-              "tipo":"imagem, texto",
-              "conteudo":"string", //se tipo=texto
-          ],
-          "opcaoCerta":0,//numero
-        },
-        "tipoTeste":req.body.tipo,
-        "dataCri":dati,
-        "professorId":req.body.profID,
-
-      };*/
 
       //Terminar
       break;
@@ -360,8 +317,6 @@ function getPalavras(texto){
   var palavra='';
 
   var isCaracter=false;
-  console.log(texto);
-
   for(i=0;i<texto.length;i++){
     //de acordo com a tabela ascii 1º caracter possivel '!' CODE 33
     if(texto.charCodeAt(i)<33){

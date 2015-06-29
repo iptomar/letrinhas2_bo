@@ -15,17 +15,7 @@ window.StudentsNewView = Backbone.View.extend({
     },
 
   initialize: function () {var self=this;
-    //verificar se está logado
-    var controlo=window.localStorage.getItem("Logged");
-    if(!controlo){
-      console.log('Não Logado');
-      window.history.back();
-    }
-    else{
-      console.log('Logado'); //guardar variavel
-      //para fazer update às escolas selecionadas e respetivas turmas,
-      //caso seja submetido o formulário
-      }
+    
   },
 
 
@@ -81,7 +71,7 @@ window.StudentsNewView = Backbone.View.extend({
         var controlo=window.localStorage.getItem("Logged");
         if(!controlo){
           console.log('Não Logado');
-          app.navigate('/#login', {
+          app.navigate('/#', {
               trigger: true
             });
             return null;

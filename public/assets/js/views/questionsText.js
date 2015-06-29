@@ -11,7 +11,7 @@ window.QuestionsText = Backbone.View.extend({
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
       console.log('Não Logado');
-      app.navigate('/#login', {
+      app.navigate('/#', {
           trigger: true
         });
         return null;

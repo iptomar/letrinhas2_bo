@@ -166,9 +166,10 @@ window.TeachersEditView = Backbone.View.extend({
 
   render: function() {
     var self = this;
-    //verificar se está logado
+    //Se não está logado nem é administrador, sai daqui!
     var controlo=window.localStorage.getItem("Logged");
-    if(!controlo){
+    var role = ''+window.localStorage.getItem('Role');
+    if(!controlo || role != "Administrador do Sistema"){
       console.log('Não Logado');
       app.navigate('/#', {
           trigger: true

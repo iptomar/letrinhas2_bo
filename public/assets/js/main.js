@@ -69,9 +69,6 @@ var Router = Backbone.Router.extend({
   //Pagina de Manutenção
     "man":"man",
 
-  //Controlo de acesso
-    "login": "login",
-
   //Pagina Inicial
     "inicio": "inicio",
 
@@ -82,15 +79,7 @@ var Router = Backbone.Router.extend({
   index: function() {
     app.navigate("/inicio", {
       trigger: true
-    });  },
-
-  login: function() {
-    var login = new LoginView({
-      model: new LoginModel()
     });
-    $('#header').html("");
-    $('#footer').html("");
-    $('#content').html(login.render().el);
   },
 
   inicio: function() {
@@ -446,7 +435,7 @@ var Router = Backbone.Router.extend({
 
 });
 
-templateLoader.load(["LoginView"],
+templateLoader.load(["Inicio"],
   function() {
     app = new Router();
     Backbone.history.start();
