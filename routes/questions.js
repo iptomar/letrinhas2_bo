@@ -6,14 +6,57 @@ var nano = require('nano')('http://127.0.0.1:5984');
 var db = nano.use('dev_perguntas');
 var db2 = nano.use('dev_testes');
 
+//Como as perguntas nuca se poderão alterar
+//usa-se o upDate apenas para desabilitar a pergunta
 exports.upDate = function(rep, res){
   console.log('questions upDate, NotAvaliable yet'.blue);
+  console.log(rep.params['id']);
+  var estado=false;
+
+
+  db.get(rep.params['id'], function(err, body) {
+    if (err) {
+      console.log("Não foi possivel aceder a "+rep.params['id']+'\n'
+                 +"erro: "+err);
+    }
+
+    db.update = function(obj, key, callback) {
+     db.get(key, function (error, existing) {
+       if(!error) obj._rev = existing._rev;
+       db.insert(obj, key, callback);
+     });
+    };
+
+    body.estado=estado;
+
+    db.update(body, body._id, function(err1, res) {
+      if (err1) return console.log(rep.params['id']+" wasn't update!".red +'\n'+ err1);
+      console.log("The data of "+rep.params['id']+' was Updated!'.green);
+    });
+    switch (rep.body.tipo) {
+      case 'Texto':
+        //res.redirect('/#tests');
+        break;
+      case 'Lista':
+        //res.redirect('/#tests');
+        break;
+      case 'Multimédia':
+        res.redirect('/#questionsMultimedia/new');
+        break;
+      case 'Interpretacao':
+        //res.redirect('/#tests');
+        break;
+      default:
+        res.redirect('/#tests');
+    }
+  });
+
 
 
 };
 
 exports.new = function (req, res) {
-  console.log('questions new, inConstruction'.green);
+  console.log('questions new, allmost complete!'.green);
 
   var dati = new Date();
   var idPerg = 'P'+dati.getTime();
@@ -129,7 +172,7 @@ exports.new = function (req, res) {
             'message': err
           });
         }
-        console.log('questions added'.green);
+        console.log('new question added'.green);
         //res.json(body);
         //res.json({'result': 'ok'});
         res.redirect('/#tests');

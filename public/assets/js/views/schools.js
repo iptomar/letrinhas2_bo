@@ -32,7 +32,9 @@ window.SchoolsView = Backbone.View.extend({
 
      //preencher um modal...
      var s = '#'+e.toElement.id;
-     $("#myModalLabel").text($(s).text()+' - '+ $("#EscolaNome").text());
+     $("#myModalLabel").html('<img src="../img/letrinhas2.png" style="height:40px">'
+                        +'<img src="../img/escola1.png"  style="height:40px;" >'
+                        +$(s).text()+' - '+ $("#EscolaNome").text());
      $("#classProfessor").html('');
      $("#classAlunos").html('');
      var tID = e.toElement.value;

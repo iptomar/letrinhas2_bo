@@ -48,11 +48,16 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
     //construir o inputs de perguntas
     var lista2 = document.getElementById("newlistMultQuestions");
-    var s='<input type="number" class="inptsH" name="nPrg" value='+lista2.length+'> ';
+    var s= '<input type="number" class="inptsH" name="nPrg" value='+lista2.length+'> ';
     for(i=0; i< lista2.length; i++ ){
       s+='<input type="text" class="inptsH" name="p'+i+'" value='+lista2[i].value+'> ';
     }
     $("#painelInvisivel").append(s);
+
+    var input = $("<input>").attr("type", "hidden")
+                            .attr("name", "profID")
+                            .val(window.localStorage.getItem("ProfID"));
+    $("#painelInvisivel").append($(input));
 
     $("#multimNewForm").submit();
   },
@@ -72,6 +77,17 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
   desabilitarPreg:function(e){
     e.preventDefault();
+    var self = this;
+    var form = $("<form>").attr("role", "form")
+                          .attr("method", "POST")
+                          .attr("method", "POST")
+                          .attr("action", "/questions/"+self.idPergunta);
+    var input = $("<input>").attr("type", "hidden")
+                            .attr("name", "tipo")
+                            .val("Multimédia");
+    $(form).append($(input));
+    $(form).submit();
+
     $("#pergPreview").modal("hide");
   },
 
@@ -234,6 +250,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     window.sessionStorage.setItem("indexDiscipl", obj.selectedIndex);
 
     $("#multimNewPergForm").submit();
+    $("#mLoad").attr("style","height:25px; display:show");
   },
 
   cima:function(e){
@@ -320,11 +337,12 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
   showPergunta:function(e){
     var self=this;
     var obj = e.toElement;
+    self.idPergunta=obj.value;
     $("#pergPreview").modal("show");
     $("#pLoad").attr("style","display:show; height:25px");
     $("#putAudio").html('');
-    console.log(obj.value);
-    modem('GET', '/questions/'+obj.value, function(data) {
+
+    modem('GET', '/questions/'+self.idPergunta, function(data) {
       var date = new Date(data.dataCri);
       var day = date.getDate().toString();
       var month = date.getMonth().toString();
@@ -355,11 +373,11 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           $("#pTipoCrp").val("audio");
           s= '<div id="pCorpo"><img src="../img/paly_off.png" style=" width:70px">'
             + '<br>'
-            +'<audio controls style="width:100%">'
+            +'<audio controls class="players" style="width:100%">'
             +'<source id="srcAudio" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.mp3" type="audio/mpeg">'
             +'</audio></div>';
             $("#prvCorpo").append(s);
-            s= '<audio id="pAudio" controls style="width:100%">'
+            s= '<audio class="players" controls style="width:100%">'
                 +'<source id="srcAudio" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.mp3" type="audio/mpeg">'
               +'</audio>';
             $("#putAudio").append(s);
@@ -370,14 +388,24 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       for (var i = 1; i <5; i++) {
         $("#pR0"+i).remove();
       }
+      self.nResptt=data.conteudo.opcoes.length;
       var size = 12/data.conteudo.opcoes.length;
-      console.log(size);
       for (var i = 0; i < data.conteudo.opcoes.length; i++) {
         switch (data.conteudo.opcoes[i].tipo) {
           case 'texto':
-            s= '<div id="pR0'+(i+1)+'"  class="col-sm-'+size+'">'
-                +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
+            $("#pTipoResp").val("texto");
+            s= '<div id="pR0'+(i+1)+'" class="col-sm-'+size+'">'
+                +'<span class="btn-lg btn-block" id="r0'+(i+1)+'"style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
                   +data.conteudo.opcoes[i].conteudo
+                +'</span>'
+              +'</div>'
+            $("#prvRespostas").append(s);
+            break;
+          case 'imagem':
+            $("#pTipoResp").val("imagem");
+            s= '<div id="pR0'+(i+1)+'" class="col-sm-'+size+'">'
+                +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
+                  +'<img id="r0'+(i+1)+'" src="'+self.site+'/'+self.bd+'/'+data._id+'/op'+(i+1)+'.jpg" style=" height:45px">'
                 +'</span>'
               +'</div>'
             $("#prvRespostas").append(s);
@@ -388,13 +416,27 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       }
       $("#pLoad").attr("style","display:none");
     }, function(error) {
-      console.log('Error getting questions list!');
+      console.log('Error getting question! \n'+error);
     });
   },
 
   showCriar:function(e){
     e.preventDefault();
     $("#myModalLabel").text("Criar pergunta Multimédia.");
+    $("#InputPTitulo").attr("placeholder","Ex: Anita vai ao zoo");
+    $("#InputPPergunta").attr("placeholder","Ex: Escolha a resposta mais adequada");
+    $("#tipoCPergunta").text("Tipo do corpo da pergunta:");
+    $("#pergContent").html('');
+    //apagar se possível o anterior corpo
+    $("#crpPergunta").remove();
+
+    $("#tipoRespostas").text("Tipo de corpo das respostas:");
+    $("#respContent").html('');
+    //apagar se possível o anterior corpo
+    $("#crpRespostas").remove();
+
+    document.getElementById("testBadge2").style.visibility="hidden";
+    document.getElementById("testBadge").style.visibility="hidden";
     $("#newPrgAno").val($("#selectAno").val());
     $("#newPrgDiscip").val($("#selectDiscip").val());
     $("#createPerg").modal("show");
@@ -404,7 +446,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     e.preventDefault();
     var self=this;
     $("#pergPreview").modal("hide");
-    $("#mLoad").attr("style","height:25px; display:show");
+
     $("#myModalLabel").text("Alterar pergunta Multimédia.");
     $("#newPrgAno").val($("#selectAno").val());
     $("#newPrgDiscip").val($("#selectDiscip").val());
@@ -412,10 +454,60 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     $("#InputPTitulo").attr("placeholder",self.titulo);
     $("#InputPPergunta").attr("placeholder",
                             $("#pPergunta").text());
+
+    //corpo pergunta
+    $("#createPerg").modal("show");
+
+    switch ($("#pTipoCrp").val()) {
+      case "texto":
+        $("#tipPText").click();
+        $("#InputPerguntaTxt").attr("placeholder",$("#pCorpo").text());
+        break;
+      case "imagem":
+        $("#tipPImg").click();
+        $("#imgPrg").attr("src",$("#pCorpo").attr("src"));
+        $("#imgPrg").attr("style","height:60px; visibility:initial");
+        break;
+      case "audio":
+        $("#tipPAudio").click();
+        $("#playPlayer").attr("src",$("#srcAudio").attr("src"));
+        $("#playPlayer").attr("style","width:100%; visibility:initial");
+        break;
+      default:
+    }
+
+    //respostas
+    switch ($("#pTipoResp").val()) {
+      case 'texto':
+        $("#tipRText").click();
+        for (var i = 0; i < (self.nResptt-2); i++) {
+          $("#testBadge").click();
+        }
+        for (var i = 0; i < self.nResptt; i++) {
+          $("#InputRespTxt"+i).attr("placeholder",$("#r0"+(i+1)).text());
+        }
+        break;
+      case 'imagem':
+        $("#tipRImg").click();
+        for (var i = 0; i < (self.nResptt-2); i++) {
+          $("#testBadge").click();
+        }
+        for (var i = 0; i < self.nResptt; i++) {
+
+
+          $("#imgResp"+i).attr("src",$("#r0"+(i+1)).attr("src"));
+          $("#imgResp"+i).attr("style","height:40px; width:40px; visibility:initial");
+        }
+        break;
+      default:
+
+    }
+
+    self.nResptt;
+
     //mais???
     //Questão para o professor Manso
 
-    $("#createPerg").modal("show");
 
 
 
@@ -468,7 +560,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       s='<div class="col-sm-12" >'
           +'<br>'
           +'<input type="file" class="form-control preencheCr" id="InputPerguntaAudio" accept="audio/mp3" name="corpo">'
-          +'<audio id="playPlayer" style="width:100%; visibility:hidden" controls></audio>'
+          +'<audio id="playPlayer" class="players" style="width:100%; visibility:hidden" controls></audio>'
         +'</div>';
     $("#pergContent").html(s);
     $("#tipoCPergunta").text("Tipo do corpo da pergunta: Audio");
@@ -607,6 +699,18 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       window.sessionStorage.removeItem("indexAno");
       window.sessionStorage.removeItem("indexDiscipl");
       self.getPerguntas();
+
+      //parar os players quando se fecham os modal's
+      var modals = document.getElementsByClassName('modal');
+      for (var i = 0; i < modals.length; i++) {
+        $(modals[i]).on('hide.bs.modal', function (e) {
+          var players = document.getElementsByClassName('players');
+          for (var j = 0; j < players.length; j++) {
+            players[j].pause();
+          }
+        });
+      }
+
 
     },50);
 

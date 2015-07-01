@@ -1,7 +1,11 @@
 <!-- Inserção Pergunta do tipo Mutimédia: -->
-<div class="topcoat-navigation-bar">
+<div class="topcoat-navigation-bar" >
   <div class="topcoat-navigation-bar__item center ">
-    <h3 align="center" class="topcoat-navigation-bar__title">Criar Teste de Multimédia</h3>
+    <h3 align="center" class="topcoat-navigation-bar__title">
+      <img src="../img/letrinhas2.png" style="height:40px">
+      <img src="../img/testMul.png"  style="height:25px;" >
+      Criar Teste de Multimédia
+    </h3>
   </div>
 </div>
 
@@ -9,18 +13,18 @@
   <!--  -->
   <form id="multimNewForm" role="form" method="POST" action="/tests" enctype="multipart/form-data">
 
-    <div class="form-group">
-      <div class="col-sm-4">
+    <div class="form-group" >
+      <div class="col-sm-4" >
         <label for="inputTitulo" >Título:</label>
-        <input type="text" class="form-control preenche" id="inputTitulo" placeholder="Ex: Anita vai às compras" name="titulo">
+        <input type="text" class="form-control preenche" id="inputTitulo" placeholder="Ex: Anita vai às compras" name="titulo" style="background-color:#e9e9ff;">
       </div>
       <div class="col-sm-2">
         <label for="selectDiscip">Disciplina:</label>
-        <select class="form-control actLista" id="selectDiscip" name="disciplina">
-          <optgroup label="Linguas">
-          <option>Português</option>
+        <select class="form-control actLista" id="selectDiscip" name="disciplina" style="background-color:#e9e9ff;">
+          <optgroup label="Linguas" >
+          <option >Português</option>
           <option>Inglês</option>
-          <option>Outra lingua</option>
+          <option>Outra língua</option>
           <optgroup label="Outras">
           <option>Matemática</option>
           <option>Estudo do Meio</option>
@@ -29,7 +33,7 @@
       </div>
       <div class="col-sm-2">
         <label for="selectAno">AnoEscolar:</label>
-        <select class="form-control actLista" id="selectAno" name="ano_escolar">
+        <select class="form-control actLista" id="selectAno" name="ano_escolar" style="background-color:#e9e9ff;">
           <optgroup label="1º Ciclo do Ensino Básico">
             <option>1º</option>
             <option>2º</option>
@@ -52,14 +56,14 @@
       <div class="col-sm-12">
         <br>
         <label for="inputDescricao" >Descrição:</label>
-        <input type="text" class="form-control preenche" id="inputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao">
+        <input type="text" class="form-control preenche" id="inputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao" style="background-color:#e9e9ff;">
         <hr>
       </div>
 
       <div class="col-sm-5" >
         <label>Lista de perguntas existentes na BD: <span id="multBadge" class="badge">0</span></label>
         <div style="height:350px; overflow:auto">
-          <select class="form-control" id="listMultQuestions" size=19 MULTIPLE>
+          <select class="form-control" id="listMultQuestions" size=19 MULTIPLE style="background-color:#e9e9ff;">
 
           </select>
         </div>
@@ -79,7 +83,7 @@
       <div class="col-sm-5">
         <label>Lista de perguntas para este teste: <span id="multBadge2" class="badge">0</span></label>
         <div class="col-sm-10" style="height:350px; overflow:auto">
-          <select class="form-control" id="newlistMultQuestions" size=19 MULTIPLE>
+          <select class="form-control" id="newlistMultQuestions" size=19 MULTIPLE style="background-color:#e9e9ff;">
           </select>
         </div>
 
@@ -115,6 +119,8 @@
             <button id="subMultim" class="btn btn-lg btn-success btn-block btn-created" disabled >Submeter</button>
           </div>
       </div>
+      </div>
+
     </form>
 
 
@@ -123,15 +129,15 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign" style="color:#ee3030"></span></button>
               <h3 class="modal-title">
                 <img src="../img/letrinhas2.png" style="height:40px">
                 <img src="../img/testMul.png"  style="height:25px;" >
-                <span id="myModalLabel"> Criar pergunta Multimédia.</span >
+                <span id="myModalLabel"> Criar Pergunta Multimédia.</span >
                 <img id="mLoad" src="../img/page-loader.gif" style="display:none">
               </h3>
             </div>
-            <div class="modal-body" style="height:485px; overflow:auto">
+            <div class="modal-body" style="height:485px; overflow:auto;background-color:#e9ffe9;">
               <form id="multimNewPergForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
                  <div id="panelCriar" class="col-sm-12">
                   <div class="col-sm-2">
@@ -242,11 +248,11 @@
       <!-- ########################################### -->
 
       <!--Modal de preview do teste-->
-      <div class="modal fade" id="pergPreview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="pergPreview" tabindex="-1" role="dialog" aria-labelledby="prevLabel" aria-hidden="true">
         <div class="modal-dialog" style="width:655px">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"class="glyphicon glyphicon-remove-sign" style="color:#ee3030"></span></button>
               <h3 class="modal-title">
                 <img src="../img/letrinhas2.png" style="height:40px">
                 <img src="../img/testMul.png"  style="height:25px;" >
@@ -306,7 +312,6 @@
 
 
 
-    </div>
 
 
 

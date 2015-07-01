@@ -169,25 +169,15 @@ window.TeachersEditView = Backbone.View.extend({
     //Se não está logado nem é administrador, sai daqui!
     var controlo=window.localStorage.getItem("Logged");
     var role = ''+window.localStorage.getItem('Role');
-    if(!controlo || role != "Administrador do Sistema"){
+    var profID = ''+window.localStorage.getItem('ProfID');
+    var editProf = ''+window.sessionStorage.getItem("ProfEditar");
+    if(!controlo || role != "Administrador do Sistema" && editProf != profID){
       console.log('Não Logado');
+      window.sessionStorage.removeItem("ProfEditar");
       app.navigate('/#', {
           trigger: true
         });
         return null;
-    }
-
-    var role = ''+window.localStorage.getItem('Role');
-    var profID = ''+window.localStorage.getItem('ProfID');
-    var editProf = ''+window.sessionStorage.getItem("ProfEditar");
-    //se não é administrador nem  próprio, volta para menuprincipal
-    if( role != "Administrador do Sistema"){
-      if(editProf != profID){
-        app.navigate('/#', {
-          trigger: true
-        });
-        return null;
-      }
     }
 
 
@@ -205,7 +195,9 @@ window.TeachersEditView = Backbone.View.extend({
 
       $("#InputNome").val(self.nome);
 
-      $("#editHead").text("Editar dados de "+self.eMail);
+      $("#editHead").html('<img src="../img/letrinhas2.png" style="height:40px">'
+                         +'<img src="../img/docentes.png"  style="height:40px;" >'
+                         +"Editar dados de "+self.eMail);
       $("#InputEmail").val(self.eMail);
       $("#InputPasswd").val(self.pwd);
       $("#inputPin").val(self.pin);
@@ -230,7 +222,6 @@ window.TeachersEditView = Backbone.View.extend({
       else{
         document.getElementById('selectEstado').selectedIndex=1;
       }
-
 
     }, function(error) {
       console.log('Error getting teacher list!');

@@ -52,7 +52,7 @@ window.TestsView = Backbone.View.extend({
   criarMultimedia:function(){
     var sefl=this;
     sefl.tipoTeste="Multimedia";
-    $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffff00');
+    $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
     $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -336,6 +336,10 @@ window.TestsView = Backbone.View.extend({
             case 'Matemática': img2="../img/mate.png";
               break;
             case 'Estudo do Meio': img2="../img/estudoMeio.png";
+              break;
+            case 'Outra língua': img2="../img/outroLinguas2.png";
+              break;
+            case 'Outra': img2="../img/outro.png";
               break;
             default:  img2="../img/page-loader.gif";
               break;
