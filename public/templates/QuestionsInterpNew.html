@@ -55,30 +55,52 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="inputSom" >Gravação de Demonstração:</label>
-          <input class="preenche" type="file" id="inputFoto" accept="audio/mp3" name="file">
+          <input class="preenche" type="file" id="inputSom" accept="audio/mp3" name="file">
         </div>
       </div>
       <div class="col-sm-1">
-        <button id="txtGrava" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-record" style="color:#ff0000"></span><br>Gravar</button>
+        <button id="txtGrava" class="btn btn-sm btn-default">
+          <span class="glyphicon glyphicon-record" style="color:#ff0000"></span>
+          <br>
+          Gravar
+        </button>
       </div>
 
       <div class="col-sm-12">
         <hr>
         <label for="InputDescricao" >Descrição:</label>
-        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para alunos con dificuldades de leitura" name="descricao" style="background-color:#e9e9ff;">
+        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para alunos com dificuldades de gramática" name="descricao" style="background-color:#e9e9ff;">
         <br>
       </div>
 
       <div class="col-sm-12">
         <label for="InputPergunta" >Pergunta:</label>
-        <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Leia o segunte texto" name="pergunta" style="background-color:#e9e9ff;">
+        <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Identifiqua as palavras acabadas em 'ão'." name="pergunta" style="background-color:#e9e9ff;">
         <br>
       </div>
 
       <div class="col-sm-12">
-        <label for="InputTexto">Texto</label>
-        <textarea class="form-control preenche" rows="10" id="InputTexto" name="texto" style="background-color:#e9e9ff;"></textarea>
+        <label for="InputTexto">Texto:</label>
+        <span id="help" style="color:#aaaaaa"></span>
+        <textarea class="form-control preenche panel" rows="10" id="InputTexto" name="texto" style="background-color:#e9e9ff;"></textarea>
+        <panel id="marcador" class="form-control panel" style="display:none; height:220px; background-color:#ffe9e9; overflow:auto">
+          <!--p><span style="cursor:pointer;">Era</span> <a>uma</a> <a>vez.</a></p>
+          <p><a>Um</a> <a>gato</a> <a>maltez</a-->
+        </panel>
+      </div>
 
+
+      <div class="col-sm-2">
+        <button id="txtMarca" class="btn btn-sm btn-info">
+          <span class="glyphicon glyphicon-screenshot" style="font-size:22px;color:#ff0000"></span>
+          <br>
+          <label>Marcar o texto</label>
+        </button>
+        <button id="txtEdita" class="btn btn-sm btn-warning" style="display:none">
+          <span class="glyphicon glyphicon-pencil" style="font-size:18px;color:#ffdd00"></span>
+          <br>
+          <label>Alterar o texto</label>
+        </button>
       </div>
       <div id="painelInvisivel" class="form-group  col-sm-8" style="display:none">
           <select class="form-control" id="selectEstado" name="estado">
@@ -100,7 +122,7 @@
 </form>
 
 <!-- MODAL para apresentar o equalizador para gravar o som -->
-<div class="modal fade" id="myModaltextRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+<div class="modal fade" id="myModalInterpRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
