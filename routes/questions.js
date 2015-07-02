@@ -60,7 +60,7 @@ exports.new = function (req, res) {
 
   var dati = new Date();
   var idPerg = 'P'+dati.getTime();
-
+  var idTeste = 'T'+dati.getTime();
   var pergunta;
 
   switch(req.body.tipo){
@@ -113,7 +113,7 @@ exports.new = function (req, res) {
         res.redirect('/#tests');
       });
 
-      db2.insert(teste, function(err,body){
+      db2.insert(teste,idTeste, function(err,body){
         if (err) {
         console.log('questions new, an error ocourred'.green);
 
@@ -178,7 +178,7 @@ exports.new = function (req, res) {
         res.redirect('/#tests');
       });
 
-      db2.insert(teste, function(err,body){
+      db2.insert(teste, idTeste, function(err,body){
         if (err) {
         console.log('questions new, an error ocourred'.green);
 
@@ -298,6 +298,88 @@ exports.new = function (req, res) {
       //Terminar
       break;
     case "Interpretação":
+      console.log("ano: "+req.body.ano_escolar);
+      console.log("titulo: "+req.body.titulo);
+      console.log("disciplina: "+req.body.disciplina);
+      console.log("pergunta: "+req.body.pergunta);
+      console.log("text: "+req.body.texto);
+      console.log("tipoTeste: "+req.body.tipo);
+      console.log("dataCri: "+dati);
+      console.log("professorId: "+req.body.profID);
+      console.log("nMarcadas: "+req.body.nMarcas);
+      console.log("pos0: "+req.body['pos0']);
+
+      var posicoes=new Array();
+      for (var i = 0; i < req.body.nMarcas; i++) {
+        posicoes[i]=req.body['pos'+i];
+      }
+
+      pergunta={
+          "anoEscolar":req.body.ano_escolar,
+          "titulo":req.body.titulo,
+          "disciplina":req.body.disciplina,
+          "pergunta":req.body.pergunta,
+          "conteudo":{
+            "text":req.body.texto,
+            "posicaoResposta":posicoes,
+          },
+          "tipoTeste":req.body.tipo,
+          "dataCri":dati,
+          "professorId":req.body.profID,
+
+        };
+
+        var teste={
+          "titulo":req.body.titulo,
+          "descricao":req.body.descricao,
+          "disciplina":req.body.disciplina,
+          "anoEscolar":req.body.ano_escolar,
+          "perguntas":[idPerg],
+          "data":dati,
+          "estado":true,
+          "professorId":req.body.profID,
+          "tipo":req.body.tipo,
+        };
+
+        var file;
+        if(req.files) file = req.files.file;
+
+        var imgData = require('fs').readFileSync(file.path);
+
+        db.multipart.insert(pergunta, [{
+          name: 'voz.mp3',
+          data: imgData,
+          content_type: 'audio/mp3'
+        }], idPerg, function(err, body) {
+          if (err) {
+            console.log('questions interp new, an error ocourred'.red);
+
+            return res.status(500).json({
+              'result': 'nok',
+              'message': err
+            });
+          }
+          console.log('questions interp added'.green);
+          //res.json(body);
+          //res.json({'result': 'ok'});
+          res.redirect('/#tests');
+        });
+
+
+        db2.insert(teste,idTeste, function(err,body){
+          if (err) {
+          console.log('questions interp new, an error ocourred in new test'.red);
+
+          return res.status(500).json({
+            'result': 'nok',
+            'message': err
+          });
+        }
+        console.log('teste added'.green);
+      });
+
+
+
     /*  pergunta={
         "anoEscolar":req.body.ano_escolar,
         "titulo":req.body.titulo,

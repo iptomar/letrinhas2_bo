@@ -5,7 +5,78 @@ window.QuestionsInterpNew = Backbone.View.extend({
     "click #txtMarca":"mostraMarcador",
     "click #txtEdita":"mostraTextArea",
     "click .picavel":"picaPalavra",
+    "change .preenche":"verificarCampos",
+    "submit":"contarMarcados",
   },
+
+  contarMarcados:function(){
+    var self=this;
+    //guardar o id do prof
+    var input = $("<input>").attr("type", "hidden")
+                        .attr("name", "profID")
+                        .val(window.localStorage.getItem("ProfID"));
+    $("#painelInvisivel").append($(input));
+
+    //conta quantas palavras estão marcadas!
+    var conta=0;
+
+    var myPic = document.getElementsByClassName('picavel');
+    for (var j = 0; j < myPic.length; j++) {
+      if($(myPic[j]).attr("value")==1){
+        //entregar a posição
+        input = $("<input>").attr("type", "hidden")
+                            .attr("name", "pos"+conta)
+                            .val($(myPic[j]).attr("val"));
+        $("#painelInvisivel").append($(input));
+        conta++
+      }
+    }
+
+    //entregar quantas estão marcadas
+    input = $("<input>").attr("type", "hidden")
+                            .attr("name", "nMarcas")
+                            .val(conta);
+    $("#painelInvisivel").append($(input));
+
+  },
+
+  verificarCampos: function() {
+    var self=this;
+    //buscar todos os campos obrigatórios
+    var myEl = document.getElementsByClassName('preenche');
+    var cont=0;
+
+    //verificar se os campos estão preenchidos
+    for(i=0;i<myEl.length; i++){
+      if($(myEl[i]).val().length!=0){
+        cont++;
+      }
+    }
+
+    //verifica se pelo menos uma palavra está marcada!
+    var myPic = document.getElementsByClassName('picavel');
+    for (var j = 0; j < myPic.length; j++) {
+      if($(myPic[j]).attr("value")==1){
+        self.isMarcado=true;
+        break;
+      }
+      else{
+        self.isMarcado=false;
+      }
+    }
+
+    //se todos estão preenchidos, então hbilita o botão de submeter.
+    if(cont == myEl.length && self.isMarcado){
+      //habilitar o botão de submeter
+      document.getElementById("subTesteInt").disabled = false;
+
+    }
+    else{
+      //senão desabilitar o botão de submeter
+      document.getElementById("subTesteInt").disabled = true;
+    }
+  },
+
 
   mostraTextArea:function(e){
     e.preventDefault();
@@ -17,7 +88,8 @@ window.QuestionsInterpNew = Backbone.View.extend({
     $("#txtMarca").attr("style","display:show");
     $("#txtEdita").attr("style","display:none");
     $("#help").text('');
-
+    self.isMarcado=false;
+    self.verificarCampos();
 
   },
 
@@ -89,6 +161,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
 
   picaPalavra:function(e){
     e.preventDefault();
+    var self = this;
     var obj=e.toElement;
 
     console.log("picou! na "+(parseInt($(obj).attr("val"))+1)+"ª posição. value:"+$(obj).attr("value"));
@@ -101,7 +174,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
       $(obj).attr("value",0);
     }
 
-
+    self.verificarCampos();
   },
 
   showEqualizador:function(e){
@@ -110,6 +183,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
 
   initialize: function() {
     var self=this;
+    self.isMarcado=false;
   },
 
   render: function() {
