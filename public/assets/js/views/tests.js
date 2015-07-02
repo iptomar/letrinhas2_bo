@@ -6,6 +6,8 @@ window.TestsView = Backbone.View.extend({
     "click #btnLista":"criarLista",
     "click #btnMult":"criarMultimedia",
     "click #btnInterp":"criarInterpr",
+    "click #myne":"soOsMeus",
+
     "keyup #testProcurar":"searchTeste",
    },
 
@@ -345,6 +347,11 @@ window.TestsView = Backbone.View.extend({
               break;
           };
 
+          var cor='#53BDDC';
+
+          if(window.localStorage.getItem('ProfID')==data[i].doc.professorId){
+            cor='#60cc60';
+          }
 
           var date = new Date(data[i].doc.data);
           var day = date.getDate().toString();
@@ -357,10 +364,14 @@ window.TestsView = Backbone.View.extend({
           hours = hours.length === 2 ? hours : '0' + hours;
           minutes = minutes.length === 2 ? minutes : '0' + minutes;
 
-
+          //tentar colocar mais campos nos botões para evitar muitas chamadas ao servidor
           s+= '<button id="' + data[i].doc._id
-            +'"  type="button" style="height:60px; text-align:left; background-color: #53BDDC; color: #ffffff;"'
-            +' class="btn btn-lg btn-block testSelect" >'
+            +'"  type="button" style="height:60px; text-align:left; background-color:'+cor+'; color: #ffffff;"'
+            +' class="btn btn-lg btn-block testSelect" '
+            +' data="'+data[i].doc.data+'"'
+            +' disciplina="'+data[i].doc.disciplina+'"'
+            +' professor="'+data[i].doc.professorId+'"'
+            +' tipo="'+data[i].doc.tipo+'">'
             +' <img src="'+img+'"  style="height:30px;" > '
             +' <img src="'+img2+'"  style="height:30px;" > '
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
@@ -373,9 +384,7 @@ window.TestsView = Backbone.View.extend({
 
       }
       $('#testsContent').html(s);
-      //enchePreviewTexto
-
-      document.getElementById(data[0].doc._id).focus();
+      self.destacaOsMeus();
 
       //Criar Eventos
       var myEl = document.getElementsByClassName('testSelect');
@@ -390,5 +399,46 @@ window.TestsView = Backbone.View.extend({
     });
 
     return this;
+  },
+
+  destacaOsMeus:function(){
+
+    //subir os meus para cima!
+    var btns = document.getElementsByClassName('testSelect');
+
+    for (var i = 0; i < btns.length; i++) {
+      $('#testsContent').prepend($(btns[i]));
+    }
+
+    //enchePreviewTexto
+    btns[0].focus();
+
+  },
+
+  soOsMeus:function(e){
+    console.log("cenas");
+    var btns = document.getElementsByClassName('testSelect');
+
+      for (var i = 0; i < btns.length; i++) {
+        if(window.localStorage.getItem('ProfID')== $(btns[i]).attr('professor') ){
+          $(btns[i]).attr("style","height:60px; text-align:left; background-color:#60cc60; color: #ffffff;");
+        }
+        else{
+          if($(e.toElement).attr("val")==0){
+            $(btns[i]).attr("style","display:none");
+          }
+          else{
+            $(btns[i]).attr("style","height:60px; text-align:left; background-color:#53BDDC; color: #ffffff;");
+          }
+        }
+      }
+
+      if($(e.toElement).attr("val")==0)
+        $(e.toElement).attr("val",1);
+      else {
+        $(e.toElement).attr("val",0);
+      }
+
+
   },
 });
