@@ -1,0 +1,155 @@
+<!-- Inserção Pergunta do tipo Interpretação: -->
+<div class="topcoat-navigation-bar">
+  <div class="topcoat-navigation-bar__item center ">
+    <h3 align="center" class="topcoat-navigation-bar__title">
+      <img src="../img/letrinhas2.png" style="height:40px">
+      <img src="../img/testInterpretacao.png"  style="height:40px;" >
+      Criar Teste de Gramática (Intrepetação)
+    </h3>
+  </div>
+</div>
+
+<div>
+  <!--  -->
+  <form id="interpNewForm" role="form" method="POST" action="/questions" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <div class="col-sm-4">
+        <label for="InputTitulo" >Título:</label>
+        <input type="text" class="form-control preenche" id="InputTitulo" placeholder="Ex: Anita vai às compras" name="titulo" style="background-color:#e9e9ff;">
+      </div>
+      <div class="col-sm-2">
+        <label for="selectDiscip">Disciplina:</label>
+        <select class="form-control" id="selectDiscip" name="disciplina" style="background-color:#e9e9ff;">
+          <optgroup label="Linguas">
+          <option>Português</option>
+          <option>Inglês</option>
+          <option>Outra língua</option>
+          <optgroup label="Outras">
+          <option>Matemática</option>
+          <option>Estudo do Meio</option>
+          <option>Outra</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <label for="selectAno">AnoEscolar:</label>
+        <select class="form-control" id="selectAno" name="ano_escolar" style="background-color:#e9e9ff;">
+          <optgroup label="1º Ciclo do Ensino Básico">
+            <option>1º</option>
+            <option>2º</option>
+            <option>3º</option>
+            <option>4º</option>
+          <optgroup label="2º Ciclo Ensino Básico">
+            <option>5º</option>
+            <option>6º</option>
+          <optgroup label="3º Ciclo Ensino Básico">
+            <option>7º</option>
+            <option>8º</option>
+            <option>9º</option>
+          <optgroup label="Ensino Secundário">
+            <option>10º</option>
+            <option>11º</option>
+            <option>12º</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="inputSom" >Gravação de Demonstração:</label>
+          <input class="preenche" type="file" id="inputFoto" accept="audio/mp3" name="file">
+        </div>
+      </div>
+      <div class="col-sm-1">
+        <button id="txtGrava" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-record" style="color:#ff0000"></span><br>Gravar</button>
+      </div>
+
+      <div class="col-sm-12">
+        <hr>
+        <label for="InputDescricao" >Descrição:</label>
+        <input type="text" class="form-control preenche" id="InputDescricao" placeholder="Ex: Teste de apoio para alunos con dificuldades de leitura" name="descricao" style="background-color:#e9e9ff;">
+        <br>
+      </div>
+
+      <div class="col-sm-12">
+        <label for="InputPergunta" >Pergunta:</label>
+        <input type="text" class="form-control preenche" id="InputPergunta" placeholder="Ex: Leia o segunte texto" name="pergunta" style="background-color:#e9e9ff;">
+        <br>
+      </div>
+
+      <div class="col-sm-12">
+        <label for="InputTexto">Texto</label>
+        <textarea class="form-control preenche" rows="10" id="InputTexto" name="texto" style="background-color:#e9e9ff;"></textarea>
+
+      </div>
+      <div id="painelInvisivel" class="form-group  col-sm-8" style="display:none">
+          <select class="form-control" id="selectEstado" name="estado">
+            <option>1</option>
+          </select>
+          <select class="form-control" id="selectTipo" name="tipo">
+            <option>Texto</option>
+          </select>
+      </div>
+      <div class="col-sm-4" style="position:fixed; right:53px; bottom:15px">
+          <div class="col-sm-6">
+            <button id="buttonCancelar" type="reset" class="btn btn-lg btn-default btn-block btn-cancel">Cancelar</button>
+          </div>
+          <div class="col-sm-6">
+            <button id="subTxt" type="submit" class="btn btn-lg btn-success btn-block btn-created" disabled>Submeter</button>
+          </div>
+      </div>
+    </div>
+</form>
+
+<!-- MODAL para apresentar o equalizador para gravar o som -->
+<div class="modal fade" id="myModaltextRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign" style="color:#ee3030"></span></button>
+        <h4 class="modal-title" id="myModalLabel">Estudio de som:</h4>
+      </div>
+      <div class="modal-body" style="height:550px; background-color:#ddeeff">
+         <div class="col-md-12" align=center>
+
+           <div id="viz">
+           		<canvas id="analyser" width="220" height="100"></canvas>
+           		<canvas id="wavedisplay" width="220" height="100"></canvas>
+           	</div>
+           	<div id="controls">
+           		<img id="record" src="../img/rec.png" onclick="toggleRecording(this);">
+           		<a id="save"><img src="../img/play.png"></a>
+           	</div>
+             <script src="../js/audiodisplay.js"></script>
+	           <script src="../js/recorderjs/recorder.js"></script>
+	           <script src="../js/main.js"></script>
+           <!--canvas id="analyser" width="525" height="150" style="display: inline-block;
+       		                                                       background: #202020;
+       		                                                       width: 95%;
+       		                                                       height: 45%;
+       		                                                       box-shadow: 0px 0px 10px blue;" >
+           </canvas>
+
+         </div>
+
+         <div class="col-md-12" align=center>
+           <hr>
+           <canvas id="wavedisplay" width="525" height="150" style="display: inline-block;
+       		                                                       background: #202020;
+       		                                                       width: 95%;
+       		                                                       height: 45%;
+       		                                                       box-shadow: 0px 0px 10px blue;" >
+           </canvas-->
+
+         </div>
+         <div  class="col-md-12" style="max-height:350px; overflow:auto;">
+
+         </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- ########################################### -->
+
+<!--  -->
+</div>

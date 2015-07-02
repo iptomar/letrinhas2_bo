@@ -62,7 +62,7 @@ window.TestsView = Backbone.View.extend({
   criarInterpr:function(){
     var sefl=this;
     sefl.tipoTeste="interpr";
-    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ff0000');
+    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
     $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -88,7 +88,7 @@ window.TestsView = Backbone.View.extend({
           });
         break;
       case 'interpr':
-        app.navigate('man', {
+        app.navigate('questionsInterp/new', {
             trigger: true
           });
         break;

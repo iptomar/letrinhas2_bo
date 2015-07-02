@@ -19,7 +19,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     "click #up":"cima",
     "click #down":"baixo",
     "click #btnPergCriar":"subNPerg",
-    "click #btnPergAlter":"subAPerg",
     "click #subMultim":"submitTeste",
 
 
@@ -78,16 +77,21 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
   desabilitarPreg:function(e){
     e.preventDefault();
     var self = this;
-    var form = $("<form>").attr("role", "form")
-                          .attr("method", "POST")
-                          .attr("method", "POST")
-                          .attr("action", "/questions/"+self.idPergunta);
-    var input = $("<input>").attr("type", "hidden")
-                            .attr("name", "tipo")
-                            .val("Multimédia");
-    $(form).append($(input));
-    $(form).submit();
 
+    if(confirm("Tem a certeza que quer eliminar esta pergunta?") == 1){
+      var i = window.sessionStorage.getItem("nPG");
+      i--;
+      window.sessionStorage.setItem("nPG",i);
+      var form = $("<form>").attr("role", "form")
+                            .attr("method", "POST")
+                            .attr("method", "POST")
+                            .attr("action", "/questions/"+self.idPergunta);
+      var input = $("<input>").attr("type", "hidden")
+                              .attr("name", "tipo")
+                              .val("Multimédia");
+      $(form).append($(input));
+      $(form).submit();
+    }
     $("#pergPreview").modal("hide");
   },
 
@@ -452,6 +456,9 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     $("#newPrgDiscip").val($("#selectDiscip").val());
 
     $("#InputPTitulo").attr("placeholder",self.titulo);
+    $("#InputPTitulo").val('');
+
+    $("#InputPPergunta").val('');
     $("#InputPPergunta").attr("placeholder",
                             $("#pPergunta").text());
 
@@ -502,18 +509,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
       default:
 
     }
-
-    self.nResptt;
-
-    //mais???
-    //Questão para o professor Manso
-
-
-
-
-
-
-
     $("#mLoad").attr("style","display:none");
 
   },
