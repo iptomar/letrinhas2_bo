@@ -49,7 +49,7 @@ function gotBuffers( buffers ) {
 
 function doneEncoding( blob ) {
     var myRecording = (document.getElementById("InputTitulo").value || "voz");
-    Recorder.setupDownload( blob, myRecording + ((recIndex<10)?"0":"") + recIndex + ".wav" );
+    Recorder.setupDownload( blob, myRecording + ((recIndex<10)?"0":"") + recIndex + ".mp3" );
     recIndex++;
 }
 

@@ -30,6 +30,7 @@ window.QuestionsTextNew = Backbone.View.extend({
     $("#myModaltextRecord").modal("show");
 
     initAudio();
+
   },
 
 
