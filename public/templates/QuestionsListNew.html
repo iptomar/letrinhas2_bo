@@ -31,7 +31,7 @@
         </select>
       </div>
       <div class="col-sm-2">
-        <label for="selectAno">AnoEscolar:</label>
+        <label for="selectAno">Ano Escolar:</label>
         <select class="form-control" id="selectAno" name="ano_escolar" style="background-color:#e9e9ff;">
           <optgroup label="1º Ciclo do Ensino Básico">
             <option>1º</option>
@@ -51,6 +51,22 @@
             <option>12º</option>
         </select>
       </div>
+      <div class="col-sm-4">
+        <label for="inputSom" >Gravação de Demonstração:</label>
+        <div class="col-sm-9">
+          <input class="preenche form-control" type="file" id="inputSom" accept="audio/mp3" name="file">
+        </div>
+        <div class="col-sm-3" style="vertical-align:bottom">
+
+          <button id="lstGrava" class="btn btn-sm btn-default" >
+            <span class="glyphicon glyphicon-record" style="color:#ff0000"></span>
+            <br>
+            Gravar
+          </button>
+
+        </div>
+      </div>
+
       <div class="col-sm-12">
         <hr>
         <label for="InputDescricao" >Descrição:</label>
@@ -84,12 +100,7 @@
       </div>
 
 
-      <div class="col-sm-4">
-        <div class="form-group">
-          <label for="inputSom" >Gravação de Demonstração:</label>
-          <input class="preenche" type="file" id="inputSom" accept="audio/mp3" name="file">
-        </div>
-      </div>
+
 
       <div id="painelInvisivel" class="form-group  col-sm-4" style="visibility:hidden">
         <div class="col-sm-2" >
@@ -124,5 +135,58 @@
 
 
 </form>
+
+<!-- MODAL para apresentar o equalizador para gravar o som -->
+<div class="modal fade" id="myModalListRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove-sign" style="color:#ee3030"></span></button>
+        <h3 class="modal-title" id="myModalLabel">
+          <img src="../img/letrinhas2.png" style="height:40px">
+          <img src="../img/audio_file.png"  style="height:40px;" >
+          Estudio de som:
+        </h3>
+      </div>
+      <div class="modal-body" style="height:550px; background-color:#ddeeff">
+         <div class="col-md-12" align=center>
+            <div id="viz">
+              <canvas id="analyser" width="525" height="100" style="display: inline-block;
+                                                                     background: #202020;
+                                                                     box-shadow: 0px 0px 10px blue;" >
+              </canvas>
+
+              <canvas id="wavedisplay" width="525" height="100" style="display: inline-block;
+           		                                                       background: #202020;
+           		                                                       box-shadow: 0px 0px 10px blue;" >
+              </canvas>
+           	</div>
+           	<div id="controls">
+           		<span  id="record" class="btn badge btn-primary" style="font-size:16px" value=0>
+                 <span class="glyphicon glyphicon-record" style="color:#ee0000"></span>
+                 Gravar
+              </span>
+               <audio id="Rplayer" controls class="players" style="visibility:hidden;width:60%">
+                 <source  src="" type="audio/wave">
+               </audio>
+               <a id="save" class="btn badge btn-info" style="visibility:hidden;color:#ffffff" disabled>
+                 <span class="glyphicon glyphicon-download-alt" style="color:#00ee00" ></span>
+                 Download
+              </a>
+           	</div>
+         </div>
+
+         <div class="col-sm-4" id="cl1" align=center style="height:270px; overflow:auto; background-color:#ecdcbc">
+         </div>
+         <div class="col-sm-4" id="cl2" align=center style="height:270px; overflow:auto; background-color:#cdecbc">
+         </div>
+         <div class="col-sm-4" id="cl3" align=center style="height:270px; overflow:auto; background-color:#ecdcbc">
+         </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 <!--  -->
 </div>

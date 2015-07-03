@@ -3,7 +3,39 @@ window.QuestionsListNew = Backbone.View.extend({
     "submit":"validaSubmissao",
     "click #buttonCancelar":"cancelTest",
     "blur .preenche":"verificarCampos",
+    "click #lstGrava":"showEqualizer",
+    "click #record":"eGrava",
+  },
 
+  eGrava:function(e){
+    var self=this;
+    if($("#record").attr("value")==1){
+      $("#save").attr("style","color:#80ccee;font-size:16px");
+      $("#record").html('<span class="glyphicon glyphicon-record" style="color:#ee0000"></span> Gravar');
+      $("#record").attr("value",0);
+    }
+    else{
+      $("#save").attr("style","visibility:hidden");
+      $("#record").html('<span class="glyphicon glyphicon-stop" style="color:#ee0000"></span> Parar');
+      $("#record").attr("value",1);
+      $("#Rplayer").attr("style","visibility:hidden;width:60%");
+      $("#Rplayer").stop();
+    }
+
+    toggleRecording(e.target);
+  },
+
+  showEqualizer:function(){
+    var self=this;
+
+    //getColunas.
+    $("#cl1").html(self.getPalavras($("#col1").val(),1));
+    $("#cl2").html(self.getPalavras($("#col2").val(),2));
+    $("#cl3").html(self.getPalavras($("#col3").val(),3));
+
+    $("#myModalListRecord").modal("show");
+
+    initAudio();
   },
 
   cancelTest:function(){
@@ -78,6 +110,49 @@ window.QuestionsListNew = Backbone.View.extend({
       document.getElementById("subList").disabled = true;
     }
   },
+
+
+  //Função para devolver uma lista de Palavras
+  getPalavras: function(texto,nColuna){
+    var self=this;
+    var listaPalavras= new Array();
+    var palavra='';
+
+    var isCaracter=false;
+    for(i=0;i<texto.length;i++){
+      //de acordo com a tabela ascii 1º caracter possivel '!' CODE 33
+      if(texto.charCodeAt(i)<33){
+        //se o caracter anterior for válido
+        if(isCaracter){
+          //enterga a palavra à lista
+          listaPalavras.push(palavra);
+          //limpa a palavra
+          palavra='';
+          //não e um caracter válido (ex: "enter", "space", "tab")
+          isCaracter=false;
+        }
+      }
+      else{
+        //adiciona o caracter à palavra
+        palavra+=texto.charAt(i);
+        //confirma que era uma caracter
+        isCaracter=true;
+      }
+    }
+
+    //entregar o resto
+    if(palavra.length>0){
+      listaPalavras.push(palavra);
+    }
+
+    var oHtml= '<span class="badge btn-success">Coluna '+nColuna+'</span>';
+    for (var i = 0; i < listaPalavras.length; i++) {
+      oHtml += '<br>'+listaPalavras[i];
+    }
+
+    return oHtml;
+  },
+
 
 
 });

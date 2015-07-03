@@ -64,7 +64,7 @@ window.TestsView = Backbone.View.extend({
   criarInterpr:function(){
     var sefl=this;
     sefl.tipoTeste="interpr";
-    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffff00');
+    $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
     $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -369,6 +369,7 @@ window.TestsView = Backbone.View.extend({
             +'"  type="button" style="height:60px; text-align:left; background-color:'+cor+'; color: #ffffff;"'
             +' class="btn btn-lg btn-block testSelect" '
             +' data="'+data[i].doc.data+'"'
+            +' ano="'+data[i].doc.anoEscolar+'"'
             +' disciplina="'+data[i].doc.disciplina+'"'
             +' professor="'+data[i].doc.professorId+'"'
             +' tipo="'+data[i].doc.tipo+'">'

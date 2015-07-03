@@ -4,11 +4,32 @@ window.QuestionsTextNew = Backbone.View.extend({
     "click #buttonCancelar":"cancelTest",
     "blur .preenche":"verificarCampos",
     "click #txtGrava":"showEqualizer",
+    "click #record":"eGrava",
+  },
+
+  eGrava:function(e){
+    var self=this;
+    if($("#record").attr("value")==1){
+      $("#save").attr("style","color:#80ccee;font-size:16px");
+      $("#record").html('<span class="glyphicon glyphicon-record" style="color:#ee0000"></span> Gravar');
+      $("#record").attr("value",0);
+    }
+    else{
+      $("#save").attr("style","visibility:hidden");
+      $("#record").html('<span class="glyphicon glyphicon-stop" style="color:#ee0000"></span> Parar');
+      $("#record").attr("value",1);
+      $("#Rplayer").attr("style","visibility:hidden;width:60%");
+      $("#Rplayer").stop();
+    }
+
+    toggleRecording(e.target);
   },
 
   showEqualizer:function(){
+    $("#rTexto").text($("#InputTexto").val());
     $("#myModaltextRecord").modal("show");
 
+    initAudio();
   },
 
 

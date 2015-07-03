@@ -19,7 +19,7 @@ DEALINGS IN THE SOFTWARE.
 
 (function(window){
 
-  var WORKER_PATH = 'js/recorderjs/recorderWorker.js';
+  var WORKER_PATH = '../assets/js/recorderjs/recorderWorker.js';
 
   var Recorder = function(source, cfg){
     var config = cfg || {};
@@ -111,6 +111,12 @@ DEALINGS IN THE SOFTWARE.
     var link = document.getElementById("save");
     link.href = url;
     link.download = filename || 'output.wav';
+    $(link).attr("disabled",false);
+
+    //var tmppath = URL.createObjectURL(e.target.files[0]);
+    var player = document.getElementById("Rplayer");
+    $(player).attr('src',url);
+    $(player).attr("style","width:60%");
   }
 
   window.Recorder = Recorder;
