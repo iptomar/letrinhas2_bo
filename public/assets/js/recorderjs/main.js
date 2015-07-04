@@ -179,7 +179,7 @@ function initAudio() {
                 "optional": []
             },
         }, gotStream, function(e) {
-            alert('Error getting audio');
+            alert('Ocorreu um erro a aceder ao dispositivo de entrada');
             console.log(e);
         });
 }

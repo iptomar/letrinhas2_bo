@@ -7,6 +7,38 @@ window.QuestionsInterpNew = Backbone.View.extend({
     "click .picavel":"picaPalavra",
     "change .preenche":"verificarCampos",
     "submit":"contarMarcados",
+    "click #intGrava":"showEqualizer",
+    "click #record":"eGrava",
+
+  },
+
+  eGrava:function(e){
+    var self=this;
+    if($("#record").attr("value")==1){
+      $("#save").attr("style","color:#80ccee;font-size:16px");
+      $("#record").html('<span class="glyphicon glyphicon-record" style="color:#ee0000"></span> Gravar');
+      $("#record").attr("value",0);
+    }
+    else{
+      $("#save").attr("style","visibility:hidden");
+      $("#record").html('<span class="glyphicon glyphicon-stop" style="color:#ee0000"></span> Parar');
+      $("#record").attr("value",1);
+      $("#Rplayer").attr("style","visibility:hidden;width:60%");
+      $("#Rplayer").stop();
+    }
+
+    toggleRecording(e.target);
+  },
+
+  showEqualizer:function(e){
+    e.preventDefault();
+    var self=this;
+
+    //getColunas.
+    $("#rTexto").html($("#InputTexto").val());
+    $("#myModalInterRecord").modal("show");
+
+    initAudio();
   },
 
   contarMarcados:function(){
@@ -96,7 +128,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
   mostraMarcador:function(e){
     e.preventDefault();
     var self=this;
-    var posicao=0;
+    var posicao=1;
     var linha="<p>";
     var s='<span class="picavel" value=0 val=';
     var s1=' style="cursor:pointer">';

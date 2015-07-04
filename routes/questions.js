@@ -320,7 +320,7 @@ exports.new = function (req, res) {
           "disciplina":req.body.disciplina,
           "pergunta":req.body.pergunta,
           "conteudo":{
-            "text":req.body.texto,
+            "texto":req.body.texto,
             "posicaoResposta":posicoes,
           },
           "tipoTeste":req.body.tipo,

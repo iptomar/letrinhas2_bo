@@ -402,7 +402,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
                 +'<span class="btn-lg btn-block" id="r0'+(i+1)+'"style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
                   +data.conteudo.opcoes[i].conteudo
                 +'</span>'
-              +'</div>'
+              +'</div>';
             $("#prvRespostas").append(s);
             break;
           case 'imagem':
@@ -411,7 +411,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
                 +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
                   +'<img id="r0'+(i+1)+'" src="'+self.site+'/'+self.bd+'/'+data._id+'/op'+(i+1)+'.jpg" style=" height:45px">'
                 +'</span>'
-              +'</div>'
+              +'</div>';
             $("#prvRespostas").append(s);
             break;
           default:
@@ -742,7 +742,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
             var date = new Date(data[i].doc.dataCri);
             var day = date.getDate().toString();
-            var month = date.getMonth().toString();
+            var month = (date.getMonth()+1).toString();
             var year = date.getFullYear().toString();
             var hours = date.getHours().toString();
             var minutes = date.getMinutes().toString();

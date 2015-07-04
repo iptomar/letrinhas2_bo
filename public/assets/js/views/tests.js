@@ -103,6 +103,12 @@ window.TestsView = Backbone.View.extend({
     $('#myModalTest').modal("show");
   },
 
+  deleteTest:function(){
+    app.navigate('man', {
+        trigger: true
+      });
+  },
+
   editTest:function(){
     app.navigate('man', {
         trigger: true
@@ -123,6 +129,7 @@ window.TestsView = Backbone.View.extend({
 
   encheTestPreview:function(documnt){
     var self = this;
+    self.professor = documnt.professorId;
     var f = documnt.tipo;
     switch(f){
       case 'Texto':
@@ -143,7 +150,7 @@ window.TestsView = Backbone.View.extend({
   enchePreviewTexto: function(documnt){
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
-      var d='<span class="badge btn-info">Pré-visualização</span><hr>'
+      var d='<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
@@ -154,7 +161,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="'+self.site+'/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'
@@ -176,16 +183,13 @@ window.TestsView = Backbone.View.extend({
       console.log('Error getting questions\n');
       console.log(error2);
     });
-
-
   },
 
   //Em construção
   enchePreviewLista: function(documnt){
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas, function(item) {
-
-      var d='<span class="badge btn-info">Pré-visualização</span><hr>'
+      var d='<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
@@ -221,7 +225,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="'+self.site+'/dev_perguntas/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>'
            +'<div class="col-md-12 "  align=right >'
@@ -243,24 +247,210 @@ window.TestsView = Backbone.View.extend({
 
   //Em construção
   enchePreviewMultim: function(documnt){
-    var d="Preview<br><label>Descrição multimédia:</label> "+documnt.descricao
-        +'<br>'
-        +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
+    var self=this;
+    $('#testsPreview').html('');
 
-        $('#testsPreview').html(d);
-        self.validaUser();
+    var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
+          +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+          +'<span class="glyphicon glyphicon-cog"></span>'
+          +'<span class="sr-only">Toggle Dropdown</span>'
+          +'</span>'
+          +'<ul class="dropdown-menu" role="menu">'
+            +'<li>'
+              +'<a><label id="btnTestClonar" class="btn badge btn-warning">'
+                +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                 +'Clonar Teste'
+              +'</label></a>'
+            +'</li>'
+            +'<li class="divider"></li>'
+            +'<li>'
+            +'<a><label id="btnTestElimina" class="btn badge btn-danger">'
+              +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+               +'Apagar Teste'
+            +'</label></a>'
+            +'</li>'
+          +'</ul>'
+        +'</div>'
+        +'<span class="badge btn-info" >Pré-visualização de "'+documnt.titulo+'"</span>'
+         +'<hr>'
+         +'<div align=left>'
+          +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
+         +'</div>'
+         +'<hr>'
+         +'<div id="paginas" style="height:475px; overflow:auto">'
+         +'</div>';
+         $('#testsPreview').append(d);
+         var indicador=1;
+         for (var i = 0; i < documnt.perguntas.length; i++) {
+           modem('GET', 'questions/'+documnt.perguntas[i], function(item) {
+
+             var corpo='';
+             switch (item.conteudo.tipoDoCorpo) {
+               case 'texto':
+                 corpo= '<label style="position:relative;top:20px; max-height:175px">'+item.conteudo.corpo+'</label>';
+                 break;
+               case 'imagem':
+                 corpo='<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/corpo.jpg" style="position:relative;top:20px; width:150px; max-height:175px">';
+                 break;
+               case 'audio':
+                 corpo= '<div style="position:relative;top:20px;"><img src="../img/paly_off.png" style=" width:130px">'
+                      + '<br>'
+                      +'<audio controls style="width:100%">'
+                        +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/corpo.mp3" type="audio/mpeg">'
+                        +'</audio>'
+                      +'</div>';
+                 break;
+               default:
+             }
+             var opcoes='<div>';
+             var size = 12/item.conteudo.opcoes.length;
+             for (var j = 0; j < item.conteudo.opcoes.length; j++) {
+               switch (item.conteudo.opcoes[j].tipo) {
+                 case 'texto':
+                   opcoes+=' <div class="col-sm-'+size+'">'
+                            +'<span class="btn-sm btn-block" style="position:relative;top:20px;background-color:#53BDDC; color:#ffffff; height:70px;">'
+                              +item.conteudo.opcoes[j].conteudo
+                            +'</span>'
+                          +'</div> ';
+                   break;
+                 case 'imagem':
+                   opcoes+= ' <div class="col-sm-'+size+'">'
+                            +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
+                              +'<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/op'+(j+1)+'.jpg" style=" height:45px">'
+                            +'</span>'
+                          +'</div> ';
+                   break;
+                 default:
+
+               }
+             }
+             opcoes+='</div>';
+             var g='<div align=left><label class="badge btn-success">Página '+indicador+': '+item.titulo+' </label><br>'
+                  +'<label>Pergunta:</label><span> '+item.pergunta+'</span></div><br>'
+                  +'<div class="panel panel-default" align=center style=" height:200px; width:100%; color:#ffffff; background-color:#80c0ff;">'
+                    +corpo
+                  +'</div>'
+                  +'<div align=center style="height:140px; width:100%;">'
+                    +opcoes
+                  +'</div>'
+                  +'<hr>';
+             indicador++;
+             $("#paginas").append(g);
+           }, function(error2) {
+             console.log('Error getting questions\n');
+             console.log(error2);
+           });
+         }
+
+         myEl = document.getElementById('btnTestClonar');
+         myEl.addEventListener('click', function() {
+                       self.editTest();
+                     }, false);
+
+         myEl = document.getElementById('btnTestElimina');
+         myEl.addEventListener('click', function() {
+                       self.deleteTest();
+                     }, false);
+
+
+    self.validaUser();
 
   },
 
   //Em construção
   enchePreviewInterp: function(documnt){
-    var d="Preview<br><label>Descrição Interpretação:</label> "+documnt.descricao
-        +'<br>'
-        +'<img src="../img/inConstruction.jpg"  style="height:220px;">';
+    var self=this;
+    modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
+      var d='<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
+           +'<div align=left>'
+            +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
+            +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
+           +'</div>'
+           +'<div class="panel panel-default col-md-12 " style="height:300px; overflow:auto; text-align:justify">'
+            +' <br>'+self.marcaTexto(item.conteudo.texto, item.conteudo.posicaoResposta)
+           +'</div>'
+           +'<div class="col-md-12 " align=left>'
+            +'<label>Demo:</label>'
+            +'<audio id="vozProf" controls style="width:100%">'
+              +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
+            +'</audio><hr> '
+           +'</div>'
+           +'<div class="col-md-12 "  align=right >'
+              +'<button id="btnTestEdit" class="btn btn-warning" style="font-size:10px">'
+                +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
+                +' Editar dados'
+              +'</button>'
+           +'</div>';
 
-        $('#testsPreview').html(d);
-        self.validaUser();
+           $('#testsPreview').html(d);
 
+           myEl = document.getElementById('btnTestEditar');
+           myEl.addEventListener('click', function() {
+                         self.editTest();
+                       }, false);
+           self.validaUser();
+
+    }, function(error2) {
+      console.log('Error getting questions\n');
+      console.log(error2);
+    });
+
+
+  },
+
+  marcaTexto:function(texto, posicoes){
+    var self=this;
+    var text="";
+    var s='<span ';
+    var s1=' class="badge">';
+    var palavra= s;
+    var isCaracter=true;
+    var posicao=1;
+    var index=0;
+    if(posicoes[index]==posicao){
+      palavra+=s1;
+      index++;
+    }
+
+    if(texto.length!=0){
+      for (var i = 0; i < texto.length; i++) {
+        //de acordo com a tabela ascii 1º caracter possivel '!' CODE 33
+        if(texto.charCodeAt(i)<33){
+          //se o caracter anterior for válido
+          if(isCaracter){
+            //fecha a palavra
+            palavra+=' </span>';
+            posicao++;
+            //adiciona a palavra à linha
+            text+=palavra;
+            //reinicia a palavra
+            palavra= s;
+
+            if(posicoes[index]==posicao){
+              palavra+=s1;
+              index++;
+            }
+            else{
+              palavra+='>';
+            }
+            //não e um caracter válido (ex: "enter", "space", "tab")
+            isCaracter=false;
+          }
+        }
+        else{
+          //adiciona o caracter à palavra
+          palavra+=texto.charAt(i);
+          //confirma que era uma caracter
+          isCaracter=true;
+        }
+      }
+      //entregar o resto
+      if(palavra.length>0){
+        palavra+=' </span>';
+        text+= palavra;
+      }
+    }
+    return text;
   },
 
   getColunas:function(lista){
@@ -276,9 +466,9 @@ window.TestsView = Backbone.View.extend({
   validaUser:function(){
     var self=this;
     //esconder os botões de inserir e editar a todos excepto o Administrador
-    var role = ''+window.localStorage.getItem('Role');
-
-    if( role != "Professor"){
+    var role = window.localStorage.getItem('Role');
+    var pId = window.localStorage.getItem('ProfID');
+    if( role != "Professor" || self.professor != pId){
       $("#btnTestEdit").attr("style","visibility:hidden");
       $("#btnTestNew").attr("style","visibility:hidden");
     }
@@ -287,6 +477,7 @@ window.TestsView = Backbone.View.extend({
   initialize: function() {
     var self=this;
     self.bd='dev_testes';
+    self.bd2='dev_perguntas';
     self.site='http://127.0.0.1:5984';
   },
 
@@ -355,7 +546,7 @@ window.TestsView = Backbone.View.extend({
 
           var date = new Date(data[i].doc.data);
           var day = date.getDate().toString();
-          var month = date.getMonth().toString();
+          var month = (date.getMonth()+1).toString();
           var year = date.getFullYear().toString();
           var hours = date.getHours().toString();
           var minutes = date.getMinutes().toString();
@@ -373,14 +564,14 @@ window.TestsView = Backbone.View.extend({
             +' disciplina="'+data[i].doc.disciplina+'"'
             +' professor="'+data[i].doc.professorId+'"'
             +' tipo="'+data[i].doc.tipo+'">'
-            +' <img src="'+img+'"  style="height:30px;" > '
-            +' <img src="'+img2+'"  style="height:30px;" > '
+            +' <img src="'+img+'"  style="height:30px;" title="'+data[i].doc.tipo+'"> '
+            +' <img src="'+img2+'"  style="height:30px;" title="'+data[i].doc.disciplina+'"> '
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
 
-          if(first){
+          /*if(first){
             self.encheTestPreview(data[i].doc);
             first=false;
-          }
+          }*/
         }
 
       }
@@ -403,26 +594,26 @@ window.TestsView = Backbone.View.extend({
   },
 
   destacaOsMeus:function(){
-
+    var self=this;
     //subir os meus para cima!
     var btns = document.getElementsByClassName('testSelect');
 
     for (var i = 0; i < btns.length; i++) {
       $('#testsContent').prepend($(btns[i]));
     }
-
     //enchePreviewTexto
-    btns[0].focus();
-
+    self.mudaTest(btns[0]);
   },
 
   soOsMeus:function(e){
-    console.log("cenas");
-    var btns = document.getElementsByClassName('testSelect');
+    var self=this;
 
+    var btns = document.getElementsByClassName('testSelect');
+    var conta=0;
       for (var i = 0; i < btns.length; i++) {
         if(window.localStorage.getItem('ProfID')== $(btns[i]).attr('professor') ){
           $(btns[i]).attr("style","height:60px; text-align:left; background-color:#60cc60; color: #ffffff;");
+          conta++;
         }
         else{
           if($(e.toElement).attr("val")==0){
@@ -430,14 +621,19 @@ window.TestsView = Backbone.View.extend({
           }
           else{
             $(btns[i]).attr("style","height:60px; text-align:left; background-color:#53BDDC; color: #ffffff;");
+            conta++;
           }
         }
       }
 
-      if($(e.toElement).attr("val")==0)
+      if($(e.toElement).attr("val")==0){
         $(e.toElement).attr("val",1);
+        $("#testBadge").text(conta+" / "+btns.length);
+      }
       else {
         $(e.toElement).attr("val",0);
+        $("#testBadge").text(conta);
+
       }
 
 
