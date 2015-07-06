@@ -41,6 +41,7 @@ exports.new = function (req, res) {
     "estado":true,
     "professorId":req.body.profID,
     "tipo":req.body.tipo,
+    "nRepeticoes":req.body.nRepeticoes,
   };
 
   console.log(teste);

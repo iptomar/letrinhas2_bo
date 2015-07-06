@@ -69,20 +69,19 @@
       <span>
         <span class="glyphicon glyphicon-filter"></span>
         Filtrar por:
-        <img src="../img/inConstruction.jpg" style='height:25px;'>
       </span>
       <br>
 
       <!-- Split button Tipo-->
       <div class="btn-group" >
-        <button id="testFiltTipo" type="button" class="btn btn-sm" style="width:100px">Tipo</button>
+        <button id="testFiltTipo" type="button" class="btn btn-sm btn-primary" style="width:100px" flag="0">Tipo</button>
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
           <li>
-            <a id="tipText">
+            <a id="tipText" class="filtroT" campo="Texto" >
               <span>
                 <img src="../img/testeTexto.png" style='height:32px;'>
               </span>
@@ -90,7 +89,7 @@
             </a>
           </li>
           <li>
-            <a id="tipList">
+            <a id="tipList" class="filtroT" campo="L. Palavras" flag="0">
               <span>
                 <img src="../img/testLista.png" style='height:32px;'>
               </span>
@@ -98,7 +97,7 @@
             </a>
           </li>
           <li>
-            <a id="tipMultim">
+            <a id="tipMultim" class="filtroT" campo="Multimédia" flag="0">
               <span>
                 <img src="../img/testMul.png" style='height:32px;'>
               </span>
@@ -106,7 +105,7 @@
             </a>
           </li>
           <li>
-            <a id="tipInterp">
+            <a id="tipInterp" class="filtroT" campo="Interpretação" flag="0">
               <span>
                 <img src="../img/testInterpretacao.png" style='height:32px;'>
               </span>
@@ -114,7 +113,7 @@
             </a>
           </li>
           <li class="divider"></li>
-          <li><a id="tipTudo">Todos</a></li>
+          <li><a id="tipTudo" class="filtroT" campo="todos">Todos</a></li>
         </ul>
       </div>
       <br>
@@ -122,25 +121,25 @@
 
       <!-- Split button Ano escolar-->
       <div class="btn-group">
-        <button type="button" class="btn btn-sm" style="width:100px">Ano Escolar</button>
-        <button id="testFiltAno" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <button id="testFiltAno" type="button" class="btn btn-primary btn-sm" style="width:100px" flag="0">Ano Escolar</button>
+        <button  type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a id="ano01">1º ano</a></li>
-          <li><a id="ano02">2º ano</a></li>
-          <li><a id="ano03">3º ano</a></li>
-          <li><a id="ano04">4º ano</a></li>
-          <li><a id="ano05">5º ano</a></li>
-          <li><a id="ano06">6º ano</a></li>
-          <li><a id="ano07">7º ano</a></li>
-          <li><a id="ano08">8º ano</a></li>
-          <li><a id="ano09">9º ano</a></li>
-          <li><a id="ano10">10º ano</a></li>
-          <li><a id="ano11">11º ano</a></li>
-          <li><a id="ano12">12º ano</a></li>
-          <li><a id="anoAll">Todos</a></li>
+          <li><a id="ano01" class="filtroA" campo="1º">1º ano</a></li>
+          <li><a id="ano02" class="filtroA" campo="2º">2º ano</a></li>
+          <li><a id="ano03" class="filtroA" campo="3º">3º ano</a></li>
+          <li><a id="ano04" class="filtroA" campo="4º">4º ano</a></li>
+          <li><a id="ano05" class="filtroA" campo="5º">5º ano</a></li>
+          <li><a id="ano06" class="filtroA" campo="6º">6º ano</a></li>
+          <li><a id="ano07" class="filtroA" campo="7º">7º ano</a></li>
+          <li><a id="ano08" class="filtroA" campo="8º">8º ano</a></li>
+          <li><a id="ano09" class="filtroA" campo="9º">9º ano</a></li>
+          <li><a id="ano10" class="filtroA" campo="10º">10º ano</a></li>
+          <li><a id="ano11" class="filtroA" campo="11º">11º ano</a></li>
+          <li><a id="ano12" class="filtroA" campo="12º">12º ano</a></li>
+          <li><a id="anoAll" class="filtroA" campo="todos">Todos</a></li>
         </ul>
       </div>
       <br>
@@ -148,14 +147,14 @@
 
       <!-- Split button Disciplna-->
       <div class="btn-group" >
-        <button type="button" class="btn btn-sm" style="width:100px">Disciplina</button>
+        <button id="testFiltDiscip" type="button" class="btn btn-sm btn-primary" style="width:100px" flag="0">Disciplina</button>
         <button id="testFiltDiscip" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
           <li>
-            <a id="disPortugues" >
+            <a id="disPortugues" class="filtroD" campo="Português">
               <span>
                 <img src="../img/portugues.png" style='height:32px;'>
               </span>
@@ -163,15 +162,15 @@
             </a>
           </li>
           <li>
-            <a id="disInges" >
+            <a id="disInges" class="filtroD" campo="Inglês">
               <span>
                 <img src="../img/ingles.png" style='height:32px;'>
               </span>
-              Ingês
+              Inglês
             </a>
           </li>
           <li>
-            <a id="disInges" >
+            <a id="disInges" class="filtroD" campo="Outra Língua">
               <span>
                 <img src="../img/outroLinguas2.png" style='height:32px;'>
               </span>
@@ -179,7 +178,7 @@
             </a>
           </li>
           <li>
-            <a id="disEstMeio" >
+            <a id="disEstMeio" class="filtroD" campo="Estudo do Meio">
               <span>
                 <img src="../img/estudoMeio.png" style='height:32px;'>
               </span>
@@ -187,7 +186,7 @@
             </a>
           </li>
           <li>
-            <a id="disMat" >
+            <a id="disMat" class="filtroD" campo="Matemática">
               <span>
                 <img src="../img/mate.png" style='height:32px;'>
               </span>
@@ -195,7 +194,7 @@
             </a>
           </li>
           <li>
-            <a id="disOutra" >
+            <a id="disOutra" class="filtroD" campo="Outra">
               <span>
                 <img src="../img/outro.png" style='height:32px;'>
               </span>
@@ -203,31 +202,18 @@
             </a>
           </li>
 
-          <li class="divider"></li>
-          <li><a id="disTudo">Todos</a></li>
+          <li class="divider" ></li>
+          <li><a id="disTudo" class="filtroD" campo="todos">Todos</a></li>
         </ul>
       </div>
       <br>
       <br>
-
-      <!-- Split button Cronologia-->
-      <div class="btn-group">
-        <button type="button" class="btn btn-sm" style="width:100px">Cronologia</button>
-        <button id="testFiltCrono" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a id="cronoD">Hoje</a></li>
-          <li><a id="cronoS">Ultima Semana</a></li>
-          <li><a id="cronoM">Ultimo Mês</a></li>
-          <li class="divider"></li>
-          <li><a id="cronoAll">Todos</a></li>
-        </ul>
-      </div>
       <br>
       <br>
-      <label class="btn btn-info" style="color:#aaeeaa">Só os meus: <input type="checkbox" id="myne" val="0"></label>
+      <br><br>
+      <br><br>
+      <br>
+      <label class="btn btn-info" style="color:#aaeeaa">Só os meus: <input type="checkbox" id="myne" val=0></label>
       <hr>
       <button id="btnTestNew" class="btn btn-success" style="font-size:12px"><span class="glyphicon glyphicon-plus" style="color:#00ff00;"></span>
         Criar novo teste

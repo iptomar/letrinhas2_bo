@@ -6,27 +6,331 @@ window.TestsView = Backbone.View.extend({
     "click #btnLista":"criarLista",
     "click #btnMult":"criarMultimedia",
     "click #btnInterp":"criarInterpr",
+    "click .filtroT":"filtarTipo",
+    "click .filtroD":"filtarDisciplina",
+    "click .filtroA":"filtarAno",
     "click #myne":"soOsMeus",
 
     "keyup #testProcurar":"searchTeste",
+   },
+
+   filtarAno:function(e){
+     var self=this;
+     var selec=true;
+     var btn = e.toElement;
+     if($(btn).attr('campo')!='todos'){
+       if($("#testFiltAno").attr('flag')!=1){
+         self.flagFiltro+=2;
+         //seleciona
+         selec=true;
+         $("#testFiltAno").attr('flag',1);
+         $("#testFiltAno").removeClass('btn-primary');
+         $("#testFiltAno").addClass('btn-success');
+         $("#testFiltAno").text($(btn).attr('campo')+' ano');
+         self.campoD=$(btn).attr('campo');
+
+       }else{
+         if(self.campoD==$(btn).attr('campo')){
+           //desseleciona
+           selec=false;
+           self.campoD='';
+           self.flagFiltro-=2;
+           $("#testFiltAno").addClass('btn-primary');
+           $("#testFiltAno").removeClass('btn-success');
+           $("#testFiltAno").attr('flag',0);
+           $("#testFiltAno").text("Ano Escolar");
+
+         }
+         else{
+           //seleciona
+           selec=true;
+           $("#testFiltAno").attr('flag',1);
+           $("#testFiltAno").removeClass('btn-primary');
+           $("#testFiltAno").addClass('btn-success');
+           $("#testFiltAno").text($(btn).attr('campo')+' ano');
+           self.campoD=$(btn).attr('campo');
+         }
+       }
+
+     }else{
+       if($("#testFiltAno").attr('flag')==1){
+       //desseleciona
+       selec=false;
+       self.flagFiltro-=2;
+       self.campoD='';
+       $("#testFiltAno").addClass('btn-primary');
+       $("#testFiltAno").removeClass('btn-success');
+       $("#testFiltAno").attr('flag',0);
+       $("#testFiltAno").text("Ano Escolar");
+       }
+     }
+
+     var myBotoes = document.getElementsByClassName('testSelect');
+     for (var i = 0; i < myBotoes.length; i++) {
+      var position = $(myBotoes[i]).attr('ano').toLowerCase().search($(btn).attr('campo').toLowerCase() );
+       if($(myBotoes[i]).attr('ano')==$(btn).attr('campo') && selec){
+        $(myBotoes[i]).attr('fa',1);
+       }
+       else{
+         $(myBotoes[i]).attr('fa',0);
+       }
+     }
+     self.filtra();
+   },
+
+   filtarDisciplina:function(e){
+     var self=this;
+     var selec=true;
+     var btn = e.toElement;
+     if($(btn).attr('campo')!='todos'){
+       if($("#testFiltDiscip").attr('flag')!=1){
+         self.flagFiltro+=4;
+         //seleciona
+         selec=true;
+         $("#testFiltDiscip").attr('flag',1);
+         $("#testFiltDiscip").removeClass('btn-primary');
+         $("#testFiltDiscip").addClass('btn-success');
+         $("#testFiltDiscip").text($(btn).attr('campo'));
+         self.campoD=$(btn).attr('campo');
+
+       }else{
+         if(self.campoD==$(btn).attr('campo')){
+           //desseleciona
+           selec=false;
+           self.campoD='';
+           self.flagFiltro-=4;
+           $("#testFiltDiscip").addClass('btn-primary');
+           $("#testFiltDiscip").removeClass('btn-success');
+           $("#testFiltDiscip").attr('flag',0);
+           $("#testFiltDiscip").text("Disciplina");
+
+         }
+         else{
+           //seleciona
+           selec=true;
+           $("#testFiltDiscip").attr('flag',1);
+           $("#testFiltDiscip").removeClass('btn-primary');
+           $("#testFiltDiscip").addClass('btn-success');
+           $("#testFiltDiscip").text($(btn).attr('campo'));
+           self.campoD=$(btn).attr('campo');
+         }
+       }
+
+     }else{
+       if($("#testFiltDiscip").attr('flag')==1){
+       //desseleciona
+       selec=false;
+       self.flagFiltro-=4;
+       self.campoD='';
+       $("#testFiltDiscip").addClass('btn-primary');
+       $("#testFiltDiscip").removeClass('btn-success');
+       $("#testFiltDiscip").attr('flag',0);
+       $("#testFiltDiscip").text("Disciplina");
+       }
+     }
+
+     var myBotoes = document.getElementsByClassName('testSelect');
+     for (var i = 0; i < myBotoes.length; i++) {
+      var position = $(btn).attr('campo').toLowerCase().search( $(myBotoes[i]).attr('disciplina').toLowerCase());
+       if(position!=-1 && selec){
+        $(myBotoes[i]).attr('fd',1);
+       }
+       else{
+         $(myBotoes[i]).attr('fd',0);
+       }
+     }
+     self.filtra();
+   },
+
+   filtarTipo:function(e){
+     var self=this;
+     var selec=true;
+     var btn = e.toElement;
+     if($(btn).attr('campo')!='todos'){
+       if($("#testFiltTipo").attr('flag')!=1){
+         self.flagFiltro+=8;
+         //seleciona
+         selec=true;
+         $("#testFiltTipo").attr('flag',1);
+         $("#testFiltTipo").removeClass('btn-primary');
+         $("#testFiltTipo").addClass('btn-success');
+         $("#testFiltTipo").text($(btn).attr('campo'));
+         self.campoT=$(btn).attr('campo');
+
+       }else{
+         if(self.campoT==$(btn).attr('campo')){
+           //desseleciona
+           selec=false;
+           self.campoT='';
+           self.flagFiltro-=8;
+           $("#testFiltTipo").addClass('btn-primary');
+           $("#testFiltTipo").removeClass('btn-success');
+           $("#testFiltTipo").attr('flag',0);
+           $("#testFiltTipo").text("Tipo");
+
+         }
+         else{
+           //self.flagFiltro+=8;
+           //seleciona
+           selec=true;
+           $("#testFiltTipo").attr('flag',1);
+           $("#testFiltTipo").removeClass('btn-primary');
+           $("#testFiltTipo").addClass('btn-success');
+           $("#testFiltTipo").text($(btn).attr('campo'));
+           self.campoT=$(btn).attr('campo');
+         }
+       }
+
+     }else{
+       if($("#testFiltTipo").attr('flag')==1){
+       //desseleciona
+       selec=false;
+       self.flagFiltro-=8;
+       self.campoT='';
+       $("#testFiltTipo").addClass('btn-primary');
+       $("#testFiltTipo").removeClass('btn-success');
+       $("#testFiltTipo").attr('flag',0);
+       $("#testFiltTipo").text("Tipo");
+       }
+     }
+
+     var myBotoes = document.getElementsByClassName('testSelect');
+     for (var i = 0; i < myBotoes.length; i++) {
+      var position = $(myBotoes[i]).attr('tipo').toLowerCase().search($(btn).attr('campo').toLowerCase() );
+       if(position!=-1 && selec){
+        $(myBotoes[i]).attr('ft',1);
+       }
+       else{
+         $(myBotoes[i]).attr('ft',0);
+       }
+     }
+     self.filtra();
+   },
+
+   filtra:function(){
+     var self=this;
+     $("#testProcurar").val('');
+     var cor="#53BDDC";
+     var num=0;
+     var conta=0;
+     var myBotoes = document.getElementsByClassName('testSelect');
+     for (var i = 0; i < myBotoes.length; i++) {
+       var  flagObj=0;
+       //buscar as flags e consturir um número considerando o esquema binário
+       //só para este botão:
+       //Ex: fT,fD,fA,fP = 1010, que dizer que os filtros estão ativos no tipo e disciplina
+       //ao fazer AND com a flagFiltro, tenho de obter a mesma chave, se sim este botõ irá aparecer!
+       if($(myBotoes[i]).attr('ft')==1) flagObj+=8; //tipo
+       if($(myBotoes[i]).attr('fd')==1) flagObj+=4; //disciplina
+       if($(myBotoes[i]).attr('fa')==1) flagObj+=2; //ano
+       if($(myBotoes[i]).attr('fp')==1) flagObj+=1; //professor
+       num = (flagObj & self.flagFiltro);
+
+       if(self.flagFiltro == num){//coincidem
+         conta++;
+         if($(myBotoes[i]).attr('fp')==1){
+           cor="#60cc60";
+         }else{
+           cor="#53BDDC";
+         }
+         $(myBotoes[i]).attr("style","height:60px; text-align:left; background-color:"+cor+"; color: #ffffff;");
+       }
+       else{//não coincide
+         $(myBotoes[i]).attr("style","display:none");
+       }
+
+     }
+     if(conta<myBotoes.length){
+       $("#testBadge").text(conta+" / "+myBotoes.length);
+     }
+     else{
+       $("#testBadge").text(conta);
+     }
+   },
+
+   destacaOsMeus:function(){
+     var self=this;
+
+     //subir os meus para cima!
+     var btns = document.getElementsByClassName('testSelect');
+     var aux;
+     for (var i = 0; i < btns.length; i++) {
+       if(1==$(btns[i]).attr("fp")){
+         $('#testsContent').prepend($(btns[i]));
+       }
+     }
+     //enchePreviewTexto
+     self.mudaTest(btns[0]);
+   },
+
+   soOsMeus:function(e){
+     var self=this;
+     $("#testProcurar").val('');
+     var btns = document.getElementsByClassName('testSelect');
+     var conta=0;
+       if($("#myne").attr("val")==0){
+         self.flagFiltro+=1;
+         $("#myne").attr("val",1);
+       }
+       else{
+         self.flagFiltro-=1;
+         $("#myne").attr("val",0);
+       }
+       self.filtra();
    },
 
    searchTeste: function(){
      var self=this;
      var str1= $("#testProcurar").val();
      var myBotoes = document.getElementsByClassName('testSelect');
+     var cor="#53BDDC";
      var cont=0;
+     $("#myne").attr("val",0);
+     $("#myne").attr("checked",false);
+     self.flagFiltro=0;
+     //Tipo
+     $("#testFiltTipo").addClass('btn-primary');
+     $("#testFiltTipo").removeClass('btn-success');
+     $("#testFiltTipo").attr('flag',0);
+     $("#testFiltTipo").text("Tipo");
+     //ano escolar
+     $("#testFiltAno").addClass('btn-primary');
+     $("#testFiltAno").removeClass('btn-success');
+     $("#testFiltAno").attr('flag',0);
+     $("#testFiltAno").text("Ano Escolar");
+     //disciplina
+     $("#testFiltDiscip").addClass('btn-primary');
+     $("#testFiltDiscip").removeClass('btn-success');
+     $("#testFiltDiscip").attr('flag',0);
+     $("#testFiltDiscip").text("Dsiciplina");
+
      for(i=0; i< myBotoes.length; i++){
+       $(myBotoes[i]).attr('ft',0);
+       $(myBotoes[i]).attr('fd',0);
+       $(myBotoes[i]).attr('fa',0);
+       $(myBotoes[i]).attr('fp',0);
+       self.campoT='';
+
+       if(window.localStorage.getItem('ProfID')== $(myBotoes[i]).attr('professor')){
+         cor="#60cc60";
+       }else{
+         cor="#53BDDC";
+       }
        var position = $(myBotoes[i]).text().toLowerCase().search( str1.toLowerCase() );
        if(position == -1){
          $(myBotoes[i]).attr("style","display:none");
        }
        else{
          cont++;
-         $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+         $(myBotoes[i]).attr("style","text-align:left; height:60px; background-color:"+cor+"; color: #ffffff;");
 
        }
-       $('#testBadge').text(cont);
+       if(cont<myBotoes.length){
+         $("#testBadge").text(cont+" / "+myBotoes.length);
+       }
+       else{
+         $("#testBadge").text(cont);
+       }
      }
 
    },
@@ -103,13 +407,13 @@ window.TestsView = Backbone.View.extend({
     $('#myModalTest').modal("show");
   },
 
-  deleteTest:function(){
+  deleteTest:function(obj){
     app.navigate('man', {
         trigger: true
       });
   },
 
-  editTest:function(){
+  editTest:function(obj){
     app.navigate('man', {
         trigger: true
       });
@@ -150,7 +454,28 @@ window.TestsView = Backbone.View.extend({
   enchePreviewTexto: function(documnt){
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
-      var d='<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
+      var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
+            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+            +'<span class="glyphicon glyphicon-cog"></span>'
+            +'<span class="sr-only">Toggle Dropdown</span>'
+            +'</span>'
+            +'<ul class="dropdown-menu" role="menu">'
+              +'<li>'
+                +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+                  +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                   +'Clonar Teste'
+                +'</label></a>'
+              +'</li>'
+              +'<li class="divider"></li>'
+              +'<li>'
+              +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+                +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+                 +'Apagar Teste'
+              +'</label></a>'
+              +'</li>'
+            +'</ul>'
+          +'</div>'
+          +'<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
@@ -163,20 +488,20 @@ window.TestsView = Backbone.View.extend({
             +'<audio id="vozProf" controls style="width:100%">'
               +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
-           +'</div>'
-           +'<div class="col-md-12 "  align=right >'
-              +'<button id="btnTestEdit" class="btn btn-warning" style="font-size:10px">'
-                +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
-                +' Editar dados'
-              +'</button>'
            +'</div>';
 
            $('#testsPreview').html(d);
 
-           myEl = document.getElementById('btnTestEdit');
+           myEl = document.getElementById('btnTestClonar');
            myEl.addEventListener('click', function() {
-                         self.editTest();
+                         self.editTest(this);
                        }, false);
+
+           myEl = document.getElementById('btnTestElimina');
+           myEl.addEventListener('click', function() {
+                         self.deleteTest(this);
+                       }, false);
+
            self.validaUser();
 
     }, function(error2) {
@@ -185,11 +510,31 @@ window.TestsView = Backbone.View.extend({
     });
   },
 
-  //Em construção
   enchePreviewLista: function(documnt){
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas, function(item) {
-      var d='<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
+      var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
+            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+            +'<span class="glyphicon glyphicon-cog"></span>'
+            +'<span class="sr-only">Toggle Dropdown</span>'
+            +'</span>'
+            +'<ul class="dropdown-menu" role="menu">'
+              +'<li>'
+                +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+                  +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                   +'Clonar Teste'
+                +'</label></a>'
+              +'</li>'
+              +'<li class="divider"></li>'
+              +'<li>'
+              +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+                +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+                 +'Apagar Teste'
+              +'</label></a>'
+              +'</li>'
+            +'</ul>'
+          +'</div>'
+           +'<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
@@ -220,22 +565,26 @@ window.TestsView = Backbone.View.extend({
               ){
                 d+='<span class="badge btn-warning">Este item não tem conteúdo</span>';
            }
-
            d+='</div>'
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
               +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
-           +'</div>'
-           +'<div class="col-md-12 "  align=right >'
-              +'<button id="btnTestEdit" class="btn btn-warning" style="font-size:10px">'
-                +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
-                +' Editar dados'
-              +'</button>'
            +'</div>';
 
            $('#testsPreview').html(d);
+
+           myEl = document.getElementById('btnTestClonar');
+           myEl.addEventListener('click', function() {
+                         self.editTest(this);
+                       }, false);
+
+           myEl = document.getElementById('btnTestElimina');
+           myEl.addEventListener('click', function() {
+                         self.deleteTest(this);
+                       }, false);
+
            self.validaUser();
 
 
@@ -257,14 +606,14 @@ window.TestsView = Backbone.View.extend({
           +'</span>'
           +'<ul class="dropdown-menu" role="menu">'
             +'<li>'
-              +'<a><label id="btnTestClonar" class="btn badge btn-warning">'
+              +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
                 +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
                  +'Clonar Teste'
               +'</label></a>'
             +'</li>'
             +'<li class="divider"></li>'
             +'<li>'
-            +'<a><label id="btnTestElimina" class="btn badge btn-danger">'
+            +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
               +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
                +'Apagar Teste'
             +'</label></a>'
@@ -277,7 +626,7 @@ window.TestsView = Backbone.View.extend({
           +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
          +'</div>'
          +'<hr>'
-         +'<div id="paginas" style="height:475px; overflow:auto">'
+         +'<div id="paginas" style="height:474px; overflow:auto">'
          +'</div>';
          $('#testsPreview').append(d);
          var indicador=1;
@@ -344,12 +693,12 @@ window.TestsView = Backbone.View.extend({
 
          myEl = document.getElementById('btnTestClonar');
          myEl.addEventListener('click', function() {
-                       self.editTest();
+                       self.editTest(this);
                      }, false);
 
          myEl = document.getElementById('btnTestElimina');
          myEl.addEventListener('click', function() {
-                       self.deleteTest();
+                       self.deleteTest(this);
                      }, false);
 
 
@@ -357,11 +706,31 @@ window.TestsView = Backbone.View.extend({
 
   },
 
-  //Em construção
   enchePreviewInterp: function(documnt){
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
-      var d='<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
+      var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
+            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+            +'<span class="glyphicon glyphicon-cog"></span>'
+            +'<span class="sr-only">Toggle Dropdown</span>'
+            +'</span>'
+            +'<ul class="dropdown-menu" role="menu">'
+              +'<li>'
+                +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+                  +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                   +'Clonar Teste'
+                +'</label></a>'
+              +'</li>'
+              +'<li class="divider"></li>'
+              +'<li>'
+              +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+                +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+                 +'Apagar Teste'
+              +'</label></a>'
+              +'</li>'
+            +'</ul>'
+          +'</div>'
+           +'<span class="badge btn-info">Pré-visualização de "'+documnt.titulo+'"</span><hr>'
            +'<div align=left>'
             +'<label>Descrição:</label><span> '+documnt.descricao+'</span>'
             +'<br><label>Pergunta:</label><span> '+item.pergunta+'</span>'
@@ -374,20 +743,20 @@ window.TestsView = Backbone.View.extend({
             +'<audio id="vozProf" controls style="width:100%">'
               +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
-           +'</div>'
-           +'<div class="col-md-12 "  align=right >'
-              +'<button id="btnTestEdit" class="btn btn-warning" style="font-size:10px">'
-                +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
-                +' Editar dados'
-              +'</button>'
            +'</div>';
 
            $('#testsPreview').html(d);
 
-           myEl = document.getElementById('btnTestEditar');
+           myEl = document.getElementById('btnTestClonar');
            myEl.addEventListener('click', function() {
-                         self.editTest();
+                         self.editTest(this);
                        }, false);
+
+           myEl = document.getElementById('btnTestElimina');
+           myEl.addEventListener('click', function() {
+                         self.deleteTest(this);
+                       }, false);
+
            self.validaUser();
 
     }, function(error2) {
@@ -411,6 +780,9 @@ window.TestsView = Backbone.View.extend({
       palavra+=s1;
       index++;
     }
+    else{
+      palavra+='>';
+    }
 
     if(texto.length!=0){
       for (var i = 0; i < texto.length; i++) {
@@ -419,7 +791,7 @@ window.TestsView = Backbone.View.extend({
           //se o caracter anterior for válido
           if(isCaracter){
             //fecha a palavra
-            palavra+=' </span>';
+            palavra+='</span> ';
             posicao++;
             //adiciona a palavra à linha
             text+=palavra;
@@ -446,7 +818,7 @@ window.TestsView = Backbone.View.extend({
       }
       //entregar o resto
       if(palavra.length>0){
-        palavra+=' </span>';
+        palavra+='</span> ';
         text+= palavra;
       }
     }
@@ -468,10 +840,16 @@ window.TestsView = Backbone.View.extend({
     //esconder os botões de inserir e editar a todos excepto o Administrador
     var role = window.localStorage.getItem('Role');
     var pId = window.localStorage.getItem('ProfID');
-    if( role != "Professor" || self.professor != pId){
+    if( role != "Professor"){
       $("#btnTestEdit").attr("style","visibility:hidden");
       $("#btnTestNew").attr("style","visibility:hidden");
     }
+    else{
+      if(self.professor != pId){
+        $("#btnTestEdit").attr("style","visibility:hidden");
+      }
+    }
+
   },
 
   initialize: function() {
@@ -479,12 +857,15 @@ window.TestsView = Backbone.View.extend({
     self.bd='dev_testes';
     self.bd2='dev_perguntas';
     self.site='http://127.0.0.1:5984';
+    self.flagFiltro=0;
+    self.campoT='';
+    self.campoA='';
+    self.campoD='';
   },
 
   render: function() {
     $(this.el).html(this.template());
     var self=this;
-
     //verificar se está logado
     var controlo=window.localStorage.getItem("Logged");
     if(!controlo){
@@ -506,16 +887,20 @@ window.TestsView = Backbone.View.extend({
       else{
         var first=true;
         for(i=0;i<data.length;i++){
-          var img, img2;
+          var img, img2, tips;
 
           switch(data[i].doc.tipo){
             case 'Texto': img="../img/testeTexto.png";
+              tips='Texto'
               break;
             case 'Lista': img="../img/testLista.png";
+            tips='L. Palavras';
               break;
             case 'Multimédia': img="../img/testMul.png";
+              tips='Multimédia'
               break;
             case 'Interpretação': img="../img/testInterpretacao.png";
+              tips='Interpretação'
               break;
             default:  img="../img/page-loader.gif";
               break;
@@ -539,9 +924,11 @@ window.TestsView = Backbone.View.extend({
           };
 
           var cor='#53BDDC';
+          var fp=0;
 
           if(window.localStorage.getItem('ProfID')==data[i].doc.professorId){
             cor='#60cc60';
+            fp=1;
           }
 
           var date = new Date(data[i].doc.data);
@@ -560,18 +947,13 @@ window.TestsView = Backbone.View.extend({
             +'"  type="button" style="height:60px; text-align:left; background-color:'+cor+'; color: #ffffff;"'
             +' class="btn btn-lg btn-block testSelect" '
             +' data="'+data[i].doc.data+'"'
-            +' ano="'+data[i].doc.anoEscolar+'"'
-            +' disciplina="'+data[i].doc.disciplina+'"'
-            +' professor="'+data[i].doc.professorId+'"'
-            +' tipo="'+data[i].doc.tipo+'">'
+            +' ano="'+data[i].doc.anoEscolar+'" fa=0'
+            +' disciplina="'+data[i].doc.disciplina+'" fd=0'
+            +' professor="'+data[i].doc.professorId+'" fp='+fp
+            +' tipo="'+tips+'" ft=0>'
             +' <img src="'+img+'"  style="height:30px;" title="'+data[i].doc.tipo+'"> '
             +' <img src="'+img2+'"  style="height:30px;" title="'+data[i].doc.disciplina+'"> '
-            + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+' </button>';
-
-          /*if(first){
-            self.encheTestPreview(data[i].doc);
-            first=false;
-          }*/
+            + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+'</button>';
         }
 
       }
@@ -593,49 +975,4 @@ window.TestsView = Backbone.View.extend({
     return this;
   },
 
-  destacaOsMeus:function(){
-    var self=this;
-    //subir os meus para cima!
-    var btns = document.getElementsByClassName('testSelect');
-
-    for (var i = 0; i < btns.length; i++) {
-      $('#testsContent').prepend($(btns[i]));
-    }
-    //enchePreviewTexto
-    self.mudaTest(btns[0]);
-  },
-
-  soOsMeus:function(e){
-    var self=this;
-
-    var btns = document.getElementsByClassName('testSelect');
-    var conta=0;
-      for (var i = 0; i < btns.length; i++) {
-        if(window.localStorage.getItem('ProfID')== $(btns[i]).attr('professor') ){
-          $(btns[i]).attr("style","height:60px; text-align:left; background-color:#60cc60; color: #ffffff;");
-          conta++;
-        }
-        else{
-          if($(e.toElement).attr("val")==0){
-            $(btns[i]).attr("style","display:none");
-          }
-          else{
-            $(btns[i]).attr("style","height:60px; text-align:left; background-color:#53BDDC; color: #ffffff;");
-            conta++;
-          }
-        }
-      }
-
-      if($(e.toElement).attr("val")==0){
-        $(e.toElement).attr("val",1);
-        $("#testBadge").text(conta+" / "+btns.length);
-      }
-      else {
-        $(e.toElement).attr("val",0);
-        $("#testBadge").text(conta);
-
-      }
-
-
-  },
 });

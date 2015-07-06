@@ -87,6 +87,7 @@ exports.new = function (req, res) {
         "estado":true,
         "professorId":req.body.profID,
         "tipo":req.body.tipo,
+        "nRepeticoes":0,
       };
 
       var file;
@@ -152,6 +153,7 @@ exports.new = function (req, res) {
         "estado":true,
         "professorId":req.body.profID,
         "tipo":req.body.tipo,
+        "nRepeticoes":0,
       };
 
       var file;
@@ -298,17 +300,6 @@ exports.new = function (req, res) {
       //Terminar
       break;
     case "Interpretação":
-      console.log("ano: "+req.body.ano_escolar);
-      console.log("titulo: "+req.body.titulo);
-      console.log("disciplina: "+req.body.disciplina);
-      console.log("pergunta: "+req.body.pergunta);
-      console.log("text: "+req.body.texto);
-      console.log("tipoTeste: "+req.body.tipo);
-      console.log("dataCri: "+dati);
-      console.log("professorId: "+req.body.profID);
-      console.log("nMarcadas: "+req.body.nMarcas);
-      console.log("pos0: "+req.body['pos0']);
-
       var posicoes=new Array();
       for (var i = 0; i < req.body.nMarcas; i++) {
         posicoes[i]=req.body['pos'+i];
@@ -339,6 +330,7 @@ exports.new = function (req, res) {
           "estado":true,
           "professorId":req.body.profID,
           "tipo":req.body.tipo,
+          "nRepeticoes":0,
         };
 
         var file;
@@ -377,24 +369,6 @@ exports.new = function (req, res) {
         }
         console.log('teste added'.green);
       });
-
-
-
-    /*  pergunta={
-        "anoEscolar":req.body.ano_escolar,
-        "titulo":req.body.titulo,
-        "disciplina":req.body.disciplina,
-        "pergunta":req.body.pergunta,
-        "conteudo":{
-          "text":req.body.texto,
-          "posicaoResposta":getPositions(req.body.),
-        },
-        "tipoTeste":req.body.tipo,
-        "dataCri":dati,
-        "professorId":req.body.profID,
-
-      };*/
-      //Terminar
       break;
   };
 

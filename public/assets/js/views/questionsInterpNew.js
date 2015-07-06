@@ -26,18 +26,15 @@ window.QuestionsInterpNew = Backbone.View.extend({
       $("#Rplayer").attr("style","visibility:hidden;width:60%");
       $("#Rplayer").stop();
     }
-
     toggleRecording(e.target);
   },
 
   showEqualizer:function(e){
     e.preventDefault();
     var self=this;
-
-    //getColunas.
+    //getTexto.
     $("#rTexto").html($("#InputTexto").val());
-    $("#myModalInterRecord").modal("show");
-
+    $("#myModalRecord").modal("show");
     initAudio();
   },
 
@@ -196,7 +193,6 @@ window.QuestionsInterpNew = Backbone.View.extend({
     var self = this;
     var obj=e.toElement;
 
-    console.log("picou! na "+(parseInt($(obj).attr("val"))+1)+"ª posição. value:"+$(obj).attr("value"));
     if($(obj).attr("value")==0){
       $(obj).attr("class","picavel badge");
       $(obj).attr("value",1);

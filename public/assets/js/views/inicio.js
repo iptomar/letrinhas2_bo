@@ -6,8 +6,6 @@ window.Inicio = Backbone.View.extend({
     "click #cena":"teste",
     "keypress .form-control": "keyApaga",
     "click .btn-info":"fezDownload",
-
-
   },
 
   fezDownload:function(){

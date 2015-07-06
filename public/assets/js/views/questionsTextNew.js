@@ -27,10 +27,8 @@ window.QuestionsTextNew = Backbone.View.extend({
 
   showEqualizer:function(){
     $("#rTexto").text($("#InputTexto").val());
-    $("#myModaltextRecord").modal("show");
-
+    $("#myModalRecord").modal("show");
     initAudio();
-
   },
 
 

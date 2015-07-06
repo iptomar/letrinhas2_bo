@@ -27,14 +27,11 @@ window.QuestionsListNew = Backbone.View.extend({
 
   showEqualizer:function(){
     var self=this;
-
     //getColunas.
     $("#cl1").html(self.getPalavras($("#col1").val(),1));
     $("#cl2").html(self.getPalavras($("#col2").val(),2));
     $("#cl3").html(self.getPalavras($("#col3").val(),3));
-
-    $("#myModalListRecord").modal("show");
-
+    $("#myModalRecord").modal("show");
     initAudio();
   },
 

@@ -181,7 +181,9 @@ function initAudio() {
         }, gotStream, function(e) {
             alert('Ocorreu um erro a aceder ao dispositivo de entrada');
             console.log(e);
+            $("#myModalRecord").modal("hide");
         });
+
 }
 
 //window.addEventListener('load', initAudio );

@@ -21,8 +21,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     "click #btnPergCriar":"subNPerg",
     "click #subMultim":"submitTeste",
 
-
-
     "change #InputPerguntaImg":"verpergImg",
     "change #InputPerguntaAudio":"verpergAudio",
     "change .imags":"verRespImg",
@@ -40,25 +38,37 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     e.preventDefault();
     var self=this;
 
-    var myElems = document.getElementsByClassName('inptsH');
-    for (var i = 0; i < myElems.length; i++) {
-      $(myElems).remove();
+    var op = prompt("Quantas vezes é que o aluno poderá repetir este teste?");
+    var r= ''+parseInt(op);
+    if(r == 'NaN' || op<0){
+      alert("Digite um número válido! S.f.f.");
+    }
+    else{
+      var myElems = document.getElementsByClassName('inptsH');
+      for (var i = 0; i < myElems.length; i++) {
+        $(myElems).remove();
+      }
+
+      //construir o inputs de perguntas
+      var lista2 = document.getElementById("newlistMultQuestions");
+      var s= '<input type="number" class="inptsH" name="nPrg" value='+lista2.length+'> ';
+      for(i=0; i< lista2.length; i++ ){
+        s+='<input type="text" class="inptsH" name="p'+i+'" value='+lista2[i].value+'> ';
+      }
+      $("#painelInvisivel").append(s);
+
+      var input = $("<input>").attr("type", "hidden")
+                              .attr("name", "profID")
+                              .val(window.localStorage.getItem("ProfID"));
+      $("#painelInvisivel").append($(input));
+      input = $("<input>").attr("type", "hidden")
+                              .attr("name", "nRepeticoes")
+                              .val(parseInt(op));
+      $("#painelInvisivel").append($(input));
+
+      $("#multimNewForm").submit();
     }
 
-    //construir o inputs de perguntas
-    var lista2 = document.getElementById("newlistMultQuestions");
-    var s= '<input type="number" class="inptsH" name="nPrg" value='+lista2.length+'> ';
-    for(i=0; i< lista2.length; i++ ){
-      s+='<input type="text" class="inptsH" name="p'+i+'" value='+lista2[i].value+'> ';
-    }
-    $("#painelInvisivel").append(s);
-
-    var input = $("<input>").attr("type", "hidden")
-                            .attr("name", "profID")
-                            .val(window.localStorage.getItem("ProfID"));
-    $("#painelInvisivel").append($(input));
-
-    $("#multimNewForm").submit();
   },
 
   verCamposTeste:function(){
@@ -736,7 +746,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         //por tipo, ano e disciplina
         if( data[i].doc.estado &&
           data[i].doc.tipoTeste == "Multimédia" &&
-          parseInt(data[i].doc.anoEscolar) <= parseInt(selAno.item(ind).text) &&
+          parseInt(data[i].doc.anoEscolar) == parseInt(selAno.item(ind).text) &&
           data[i].doc.disciplina == selDiscip.item(ind2).text){
             var opt='';
 
