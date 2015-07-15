@@ -16,6 +16,10 @@ window.MenuPrincipalView = Backbone.View.extend({
     window.localStorage.removeItem("ProfID");
     window.localStorage.removeItem("Roll");
     window.history.back();
+    app.navigate('/#', {
+        trigger: true
+      });
+      return null;
 
   },
 
@@ -36,9 +40,15 @@ window.MenuPrincipalView = Backbone.View.extend({
     if(role == "Administrador do Sistema"){
       setTimeout(function(){
         $("#opDef").attr("style","display:show");
+        $("#sepProf").attr("style","display:show");
       },1);
 
     }
+    setTimeout(function(){
+      $("#user").text(window.localStorage.getItem("ProfID"));
+    },2);
+
+
 
     return this;
   },

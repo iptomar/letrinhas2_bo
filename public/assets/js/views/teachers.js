@@ -16,9 +16,15 @@ window.TeachersView = Backbone.View.extend({
      }
      else{
        cont++;
-       $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+       $(myBotoes[i]).attr("style","text-align:left; height:60px; background-color: #53BDDC; color: #ffffff;");
      }
-     $('#teachersBadge').text(cont);
+
+   }
+   if(cont<myBotoes.length){
+     $("#teachersBadge").text(cont+" / "+myBotoes.length);
+   }
+   else{
+     $("#teachersBadge").text(cont);
    }
   },
 
@@ -63,6 +69,19 @@ window.TeachersView = Backbone.View.extend({
         });
         return null;
     }
+
+    var role = ''+window.localStorage.getItem('Role');
+    //criar restrições a opções consoante as permissões do utiizador.
+    if(role == "Administrador do Sistema"){
+      setTimeout(function(){
+        $("#opDef").attr("style","display:show");
+        $("#sepProf").attr("style","display:show");
+      },1);
+
+    }
+    setTimeout(function(){
+      $("#user").text(window.localStorage.getItem("ProfID"));
+    },2);
 
     var self=this;
     modem('GET', 'teachers', function(data) {

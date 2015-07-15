@@ -16,10 +16,16 @@ window.StudentsView = Backbone.View.extend({
       }
       else{
         cont++;
-        $(myBotoes[i]).attr("style","display:show; height:50px; background-color: #53BDDC; color: #ffffff;");
+        $(myBotoes[i]).attr("style","text-align:left; height:60px; background-color: #53BDDC; color: #ffffff;");
       }
-      $('#studentsBadge').text(cont);
     }
+    if(cont<myBotoes.length){
+      $("#studentsBadge").text(cont+" / "+myBotoes.length);
+    }
+    else{
+      $("#studentsBadge").text(cont);
+    }
+
    },
 
    newAluno: function(e) {
@@ -54,6 +60,19 @@ window.StudentsView = Backbone.View.extend({
         });
         return null;
     }
+
+    var role = ''+window.localStorage.getItem('Role');
+    //criar restrições a opções consoante as permissões do utiizador.
+    if(role == "Administrador do Sistema"){
+      setTimeout(function(){
+        $("#opDef").attr("style","display:show");
+        $("#sepProf").attr("style","display:show");
+      },1);
+
+    }
+    setTimeout(function(){
+      $("#user").text(window.localStorage.getItem("ProfID"));
+    },2);
 
     var self=this;
     modem('GET', 'students', function(data) {

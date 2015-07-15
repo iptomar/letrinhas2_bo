@@ -876,6 +876,19 @@ window.TestsView = Backbone.View.extend({
         return null;
     }
 
+    var role = ''+window.localStorage.getItem('Role');
+    //criar restrições a opções consoante as permissões do utiizador.
+    if(role == "Administrador do Sistema"){
+      setTimeout(function(){
+        $("#opDef").attr("style","display:show");
+        $("#sepProf").attr("style","display:show");
+      },1);
+
+    }
+    setTimeout(function(){
+      $("#user").text(window.localStorage.getItem("ProfID"));
+    },2);
+
     //Constrir os botões
     modem('GET', 'tests', function(data) {
       $('#testBadge').text(data.length);
