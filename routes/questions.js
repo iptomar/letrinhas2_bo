@@ -229,6 +229,7 @@ exports.new = function (req, res) {
                       "tipoDoCorpo":req.body.MtipoPerg,
                       "corpo":req.body.corpo,
                       "opcoes":opcoes,
+                      "opcaoCerta":1,
                     };
           break;
         case 'imagem':

@@ -1,7 +1,6 @@
 window.QuestionsInterpNew = Backbone.View.extend({
   events: {
     "click #buttonCancelar":"cancelar",
-    "click #txtGrava":"showEqualizador",
     "click #txtMarca":"mostraMarcador",
     "click #txtEdita":"mostraTextArea",
     "click .picavel":"picaPalavra",
@@ -13,6 +12,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
   },
 
   eGrava:function(e){
+    e.preventDefault();
     var self=this;
     if($("#record").attr("value")==1){
       $("#save").attr("style","color:#80ccee;font-size:16px");
@@ -185,6 +185,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
   },
 
   cancelar:function(e){
+    e.preventDefault();
     window.history.back();
   },
 
@@ -203,10 +204,6 @@ window.QuestionsInterpNew = Backbone.View.extend({
     }
 
     self.verificarCampos();
-  },
-
-  showEqualizador:function(e){
-    e.preventDefault();
   },
 
   initialize: function() {

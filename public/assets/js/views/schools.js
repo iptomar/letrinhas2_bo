@@ -120,6 +120,15 @@ window.SchoolsView = Backbone.View.extend({
     });
   },
 
+  deleteEscola: function (obj) {
+    //Variavel a enviar, para depois poder buscar os dados da escola a editar
+    window.localStorage.setItem("EscolaEditar", obj.name);
+    app.navigate('/man', {
+      trigger: true
+    });
+  },
+
+
   initialize: function() {
     var self=this;
     //para fazer update às escolas selecionadas e respetivas turmas,
@@ -135,8 +144,8 @@ window.SchoolsView = Backbone.View.extend({
     var role = ''+window.localStorage.getItem('Role');
 
     if( role != "Administrador do Sistema"){
-      $("#btnSchoolsEdit").attr("style","visibility:hidden");
-      $("#btnSchoolNew").attr("style","visibility:hidden");
+      $("#btnSchoolsDrop").remove();
+      $("#btnSchoolNew").remove();
     }
   },
 
@@ -199,10 +208,18 @@ window.SchoolsView = Backbone.View.extend({
                       self.mudaEscola(this);
                     }, false);
       };
-      myEl = document.getElementById('btnSchoolsEdit');
-      myEl.addEventListener('click', function() {
-                    self.editEscola(this);
-                  }, false);
+      try{
+        myEl = document.getElementById('btnSchoolsEdit');
+        myEl.addEventListener('click', function() {
+                      self.editEscola(this);
+                    }, false);
+        myEl = document.getElementById('btnSchoolsElimina');
+        myEl.addEventListener('click', function() {
+                      self.deleteEscola(this);
+                    }, false);
+      }
+      catch (er2){
+      }
     }, function(error) {
       console.log('Error getting schools list!');
     });
@@ -217,10 +234,18 @@ window.SchoolsView = Backbone.View.extend({
     modem('GET','schools/'+obj.id, function(json){
       $('#schoolsPreview').html(self.encheEscPreview(json));
       self.validaUser();
-      var myEl = document.getElementById('btnSchoolsEdit');
-      myEl.addEventListener('click', function() {
-                    self.editEscola(this);
-                  }, false);
+      try{
+        myEl = document.getElementById('btnSchoolsEdit');
+        myEl.addEventListener('click', function() {
+                      self.editEscola(this);
+                    }, false);
+        myEl = document.getElementById('btnSchoolsElimina');
+        myEl.addEventListener('click', function() {
+                      self.deleteEscola(this);
+                    }, false);}
+
+      catch (er2){
+      }
     },
     function(error) {
       console.log('Error getting schools list!');
@@ -229,18 +254,31 @@ window.SchoolsView = Backbone.View.extend({
 
   encheEscPreview: function(documnt){
     var self=this;
-    var html='';
+    var html='<div class="btn-group" id="btnSchoolsDrop" style="position:absolute; left:15px">'
+          +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+          +'<span class="glyphicon glyphicon-cog"></span>'
+          +'<span class="sr-only">Toggle Dropdown</span>'
+          +'</span>'
+          +'<ul class="dropdown-menu" role="menu">'
+            +'<li>'
+              +'<a><label id="btnSchoolsEdit" class="btn badge btn-warning" val="'+documnt._id+'">'
+                +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                 +'Editar dados'
+              +'</label></a>'
+            +'</li>'
+            +'<li class="divider"></li>'
+            +'<li>'
+            +'<a><label id="btnSchoolsElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+              +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+               +'Apagar Escola'
+            +'</label></a>'
+            +'</li>'
+          +'</ul>'
+        +'</div>';
     html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/escola.jpg"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="EscolaNome" value="'
         + documnt._id+'">'+documnt.nome+'</label></span>';
     html+= '<br><span>Morada: <label>'+documnt.morada+' </label></span></div>';
-
-    //Botão para Editar
-    html+='<div align=right class="col-md-2"><br><br><br>'
-        +'<button id="btnSchoolsEdit" class="btn btn-warning" style="font-size:10px">'
-        +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
-        +' Editar dados'
-        +'</button></div>';
 
 
     // ciclo for para ir buscar as turmas

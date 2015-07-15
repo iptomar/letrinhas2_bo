@@ -36,8 +36,8 @@ window.TeachersView = Backbone.View.extend({
 
     //se não é administrador nem o próprio, esconde os botões
     if( role != "Administrador do Sistema" && prof._id != profID){
-      $("#btnTeachersEdit").attr("style","visibility:hidden");
-      $("#btnTeachersNew").attr("style","visibility:hidden");
+      $("#btnTeacherstDrop").remove();
+      $("#btnTeachersNew").remove();
     }
     else{
       //se não é administrador, mas é o próprio, esconde apenas a criação de prof.
@@ -133,16 +133,21 @@ window.TeachersView = Backbone.View.extend({
                       self.mudaProf(this);
                     }, false);
       };
-      myEl = document.getElementById('btnTeachersEdit');
-      myEl.addEventListener('click', function() {
-                    self.editTeacher(this);
-                  }, false);
+      try{
+        myEl = document.getElementById('btnTeachersEdit');
+        myEl.addEventListener('click', function() {
+                      self.editTeacher(this);
+                    }, false);
 
+        myEl = document.getElementById('btnTeacherElimina');
+        myEl.addEventListener('click', function() {
+                      self.deleteTeacher(this);
+                    }, false);
+      }
+      catch (er2){}
     }, function(error) {
       console.log('Error getting teachers list!');
     });
-
-
 
     return this;
   },
@@ -183,9 +188,6 @@ window.TeachersView = Backbone.View.extend({
     function(error) {
       console.log('Error getting schools list!');
     });
-
-
-
   },
 
   mudaProf:function(obj){
@@ -195,9 +197,17 @@ window.TeachersView = Backbone.View.extend({
       $('#teachersPreview').html(self.enchePreview(json));
       self.validaUser(json);
       var myEl = document.getElementById('btnTeachersEdit');
-      myEl.addEventListener('click', function() {
-                    self.editTeacher(this);
-                  }, false);
+      try{
+        myEl.addEventListener('click', function() {
+                      self.editTeacher(this);
+                    }, false);
+
+        myEl = document.getElementById('btnTeacherElimina');
+        myEl.addEventListener('click', function() {
+                      self.deleteTeacher(this);
+                    }, false);
+      }
+      catch (er2){}
       self.getTurmas();
     },
     function(error) {
@@ -207,19 +217,33 @@ window.TeachersView = Backbone.View.extend({
 
   enchePreview: function(documnt){
     var self=this;
-    var html='';
+    var html='<div class="btn-group" id="btnTeacherstDrop" style="position:absolute; left:10px">'
+          +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+          +'<span class="glyphicon glyphicon-cog"></span>'
+          +'<span class="sr-only">Toggle Dropdown</span>'
+          +'</span>'
+          +'<ul class="dropdown-menu" role="menu">'
+            +'<li>'
+              +'<a><label id="btnTeachersEdit" class="btn badge btn-warning" val="'+documnt._id+'">'
+                +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                 +'Editar Dados'
+              +'</label></a>'
+            +'</li>'
+            +'<li class="divider"></li>'
+            +'<li>'
+            +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+              +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+               +'Apagar Utilizador'
+            +'</label></a>'
+            +'</li>'
+          +'</ul>'
+        +'</div>';
     html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/prof.jpg"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="profNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>E-mail: <label id="profEmail">'+documnt._id+'</label></span>';
     html+= '<br><span>Telefone: <label>'+documnt.telefone+' </label></span>';
     html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipoFuncionario+' </label></span></div>';
-    //Botão para Editar
-    html+='<div align=right class="col-md-2"><br><br><br>'
-        +'<button id="btnTeachersEdit" class="btn btn-warning" style="font-size:10px" value="'+documnt._id+'">'
-        +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
-        +' Editar dados'
-        +'</button>'
-        +'</div><br><br><br><br><hr>';
+    html+='<br><br><br><br><hr>';
     html+= '<div id="prfSchool" class="col-md-12" align=left>'+documnt.nome+', não tem turmas associadas.</div><br><br>';
     html+= '<div id="SchoolTable" class="col-md-12" align="center" style="max-height:220px; overflow:auto"></div>';
 
@@ -236,8 +260,14 @@ window.TeachersView = Backbone.View.extend({
 
   editTeacher: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados do professor a editar
-    window.sessionStorage.setItem("ProfEditar", obj.value);
+    window.sessionStorage.setItem("ProfEditar", $(obj).attr("val"));
     app.navigate('teachers/edit', {
+      trigger: true
+    });
+  },
+
+  deleteTeacher: function (obj) {
+    app.navigate('/man', {
       trigger: true
     });
   },

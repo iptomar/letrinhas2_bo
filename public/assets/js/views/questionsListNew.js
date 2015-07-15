@@ -8,6 +8,7 @@ window.QuestionsListNew = Backbone.View.extend({
   },
 
   eGrava:function(e){
+    e.preventDefault();
     var self=this;
     if($("#record").attr("value")==1){
       $("#save").attr("style","color:#80ccee;font-size:16px");
@@ -25,7 +26,8 @@ window.QuestionsListNew = Backbone.View.extend({
     toggleRecording(e.target);
   },
 
-  showEqualizer:function(){
+  showEqualizer:function(e){
+    e.preventDefault();
     var self=this;
     //getColunas.
     $("#cl1").html(self.getPalavras($("#col1").val(),1));
@@ -35,7 +37,8 @@ window.QuestionsListNew = Backbone.View.extend({
     initAudio();
   },
 
-  cancelTest:function(){
+  cancelTest:function(e){
+    e.preventDefault();
     window.history.back();
   },
 

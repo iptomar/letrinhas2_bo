@@ -8,6 +8,7 @@ window.QuestionsTextNew = Backbone.View.extend({
   },
 
   eGrava:function(e){
+    e.preventDefault();
     var self=this;
     if($("#record").attr("value")==1){
       $("#save").attr("style","color:#80ccee;font-size:16px");
@@ -25,14 +26,16 @@ window.QuestionsTextNew = Backbone.View.extend({
     toggleRecording(e.target);
   },
 
-  showEqualizer:function(){
+  showEqualizer:function(e){
+    e.preventDefault();
     $("#rTexto").text($("#InputTexto").val());
     $("#myModalRecord").modal("show");
     initAudio();
   },
 
 
-  cancelTest:function(){
+  cancelTest:function(e){
+    e.preventDefault();
     window.history.back();
   },
 

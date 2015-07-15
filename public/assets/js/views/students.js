@@ -35,6 +35,12 @@ window.StudentsView = Backbone.View.extend({
     });
   },
 
+  deleteAluno: function (obj) {
+    app.navigate('man', {
+      trigger: true
+    });
+  },
+
   editAluno: function (obj) {
     //Variavel a enviar, para depois poder buscar os dados do aluno a editar
     window.localStorage.setItem("AlunoEditar", obj.name);
@@ -107,10 +113,20 @@ window.StudentsView = Backbone.View.extend({
                     self.mudaAluno(this);
                   }, false);
     };
-    myEl = document.getElementById('btnStudentsEdit');
-    myEl.addEventListener('click', function() {
+    try{
+      myEl = document.getElementById('btnStudentsEdit');
+      myEl.addEventListener('click', function() {
                     self.editAluno(this);
                   }, false);
+
+      myEl = document.getElementById('btnStudentElimina');
+      myEl.addEventListener('click', function() {
+                    self.deleteAluno(this);
+                  }, false);
+    }
+    catch(er2){
+
+    }
     }, function(error) {
       console.log('Error getting students list!');
     });
@@ -123,10 +139,17 @@ window.StudentsView = Backbone.View.extend({
     modem('GET','students/'+obj.id, function(json){
       $('#studentsPreview').html(self.encheStudPreview(json));
       self.validaUser();
-      var myEl = document.getElementById('btnStudentsEdit');
-      myEl.addEventListener('click', function() {
-                    self.editAluno(this);
-                  }, false);
+      try{
+        var myEl = document.getElementById('btnStudentsEdit');
+        myEl.addEventListener('click', function() {
+                      self.editAluno(this);
+                    }, false);
+        myEl = document.getElementById('btnStudentElimina');
+        myEl.addEventListener('click', function() {
+                      self.deleteAluno(this);
+                    }, false);
+      }
+      catch (er2){}
       self.getTurma(json.turma);
 
     },
@@ -154,18 +177,33 @@ window.StudentsView = Backbone.View.extend({
 
   encheStudPreview: function(documnt){
     var self=this;
-    var html='';
+    var html='<div class="btn-group" id="btnStudentDrop" style="position:absolute; left:15px">'
+          +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+          +'<span class="glyphicon glyphicon-cog"></span>'
+          +'<span class="sr-only">Toggle Dropdown</span>'
+          +'</span>'
+          +'<ul class="dropdown-menu" role="menu">'
+            +'<li>'
+              +'<a><label id="btnStudentsEdit" class="btn badge btn-warning" val="'+documnt._id+'">'
+                +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
+                 +'Editar dados'
+              +'</label></a>'
+            +'</li>'
+            +'<li class="divider"></li>'
+            +'<li>'
+            +'<a><label id="btnStudentElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+              +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
+               +'Eliminar Aluno'
+            +'</label></a>'
+            +'</li>'
+          +'</ul>'
+        +'</div>'
     html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/aluno.jpg"  style="height:220px;">';
     html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="alunoNome">'+documnt.nome+'</label></span>';
     html+= '<br><span>Numero de Aluno: <label>'+documnt.numero+' </label></span>';
     html+= '<br><span >Turma: <label id="turmaAluno">Sem Turma...</label></span></div>';
-    //Botão para Editar
-    html+='<div align=right class="col-md-2"><br><br><br>'
-        +'<button id="btnStudentsEdit" class="btn btn-warning" style="font-size:10px">'
-        +'<span class="glyphicon glyphicon-pencil" style="color:#ffff00;"></span>'
-        +' Editar dados'
-        +'</button>'
-        +'</div><br><br><br><br><hr>'
+
+    html+='<br><br><br><br><hr>'
         +'Apresentar nível de evolução...<img src="../img/inConstruction.jpg"  style="height:40px;"><br><hr>'
         +'Listar Resoluções feitas (Corrigidas ou  não)...<img src="../img/inConstruction.jpg"  style="height:40px;"><br><hr>';
 
@@ -179,8 +217,8 @@ window.StudentsView = Backbone.View.extend({
     var role = ''+window.localStorage.getItem('Role');
 
     if( role != "Professor" && role != "Administrador do Sistema"){
-      $("#btnStudentsEdit").attr("style","visibility:hidden");
-      $("#btnStudentsNew").attr("style","visibility:hidden");
+      $("#btnStudentDrop").remove();
+      $("#btnStudentsNew").remove();
     }
   },
 

@@ -1,4 +1,5 @@
 window.Inicio = Backbone.View.extend({
+
   events: {
     "click #irSite":"irsite",
     "click #app":"app",
