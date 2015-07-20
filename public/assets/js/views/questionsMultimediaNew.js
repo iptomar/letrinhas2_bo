@@ -125,15 +125,17 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
       //adicioinar parametros invisíveis ao form, para tratamento na inserção
       var input = $("<input>").attr("type", "hidden")
-                              .attr("name", "profID")
+                              .attr("id","hablitSub")
+                              .attr("name", "profIDs")
                               .val(window.localStorage.getItem("ProfID"));
       $('#criarPergHidden').append($(input));
     }
     else{
       //senão desabilitar o botão de submeter
       $("#btnPergCriar").attr("disabled",true);
+      $("#hablitSub").remove();
     }
-
+    console.log("Botão: "+ $("#hablitSub").attr("name"));
 
   },
 

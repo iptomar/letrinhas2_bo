@@ -280,7 +280,7 @@ exports.new = function (req, res) {
         "tipoTeste":req.body.tipo,
         "dataCri":dati,
         "estado":true,
-        "professorId":req.body.profID,
+        "professorId":req.body.profIDs,
 
       };
 
