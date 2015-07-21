@@ -51,8 +51,6 @@ exports.upDate = function(rep, res){
     }
   });
 
-
-
 };
 
 exports.new = function (req, res) {
@@ -73,7 +71,7 @@ exports.new = function (req, res) {
         "conteudo":{
           "texto":req.body.texto,
         },
-        "tipo":req.body.tipo,
+        "tipoTeste":req.body.tipo,
         "dataCri":dati,
         "profID":req.body.profID,
       };
