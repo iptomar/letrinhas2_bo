@@ -408,9 +408,21 @@ window.TestsView = Backbone.View.extend({
   },
 
   deleteTest:function(obj){
-    app.navigate('man', {
-        trigger: true
-      });
+    console.log($(obj).attr("val"));
+
+    var self = this;
+    if(confirm("Tem a certeza que quer eliminar este teste?") == 1){
+      var form = $("<form>").attr("role", "form")
+                            .attr("method", "POST")
+                            .attr("method", "POST")
+                            .attr("action", "/tests/"+$(obj).attr("val"));
+      var input = $("<input>").attr("type", "hidden")
+                              .attr("name", "ordem")
+                              .val("desabilita");
+      $(form).append($(input));
+      $(form).submit();
+    }
+
   },
 
   editTest:function(obj){
@@ -639,7 +651,7 @@ window.TestsView = Backbone.View.extend({
                  corpo= '<label style="position:relative;top:20px; max-height:175px">'+item.conteudo.corpo+'</label>';
                  break;
                case 'imagem':
-                 corpo='<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/corpo.jpg" style="position:relative;top:20px; width:150px; max-height:175px">';
+                 corpo='<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/corpo.jpg" style="position:relative;top:20px; max-width:400px; max-height:160px">';
                  break;
                case 'audio':
                  corpo= '<div style="position:relative;top:20px;"><img src="../img/paly_off.png" style=" width:130px">'
@@ -665,7 +677,7 @@ window.TestsView = Backbone.View.extend({
                  case 'imagem':
                    opcoes+= ' <div class="col-sm-'+size+'">'
                             +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
-                              +'<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/op'+(j+1)+'.jpg" style=" height:45px">'
+                              +'<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/op'+(j+1)+'.jpg" style=" max-height:50px; max-width:50px">'
                             +'</span>'
                           +'</div> ';
                    break;
@@ -900,6 +912,7 @@ window.TestsView = Backbone.View.extend({
       else{
         var first=true;
         for(i=0;i<data.length;i++){
+          if(data[i].doc.estado){
           var img, img2, tips;
 
           switch(data[i].doc.tipo){
@@ -967,6 +980,7 @@ window.TestsView = Backbone.View.extend({
             +' <img src="'+img+'"  style="height:30px;" title="'+data[i].doc.tipo+'"> '
             +' <img src="'+img2+'"  style="height:30px;" title="'+data[i].doc.disciplina+'"> '
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+'</button>';
+          }
         }
 
       }

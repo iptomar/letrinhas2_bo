@@ -4,19 +4,18 @@ require('colors');
 var nano = require('nano')('http://127.0.0.1:5984');
 //var db = nano.use('testes');
 var db = nano.use('dev_testes');
+var db2 = nano.use('dev_perguntas');
 
-exports.upDate = function(rep, res){
-  console.log('tests upDate, NotAvaliable yet'.blue);
-
-  console.log('teachers upDate'.cyan);
-  var estado=false;
-  if(req.body.estado=="Ativo"){
-      estado=true;
+exports.upDate = function(req, res){
+  var id = req.params.id;
+  console.log('tests upDate, '.cyan + "id teste: "+id);
+  switch (req.body.ordem){
+    case "desabilita":
+        desabilitaTeste(id);
+    break;
+    default: console.log("Nada a executar!");
   }
-
-  console.log(req.body);
-
-
+  res.redirect('/#tests');
 };
 
 exports.new = function (req, res) {
@@ -91,3 +90,58 @@ exports.get = function (req, res) {
     res.json(body);
   });
 };
+
+function desabilitaTeste(id){
+  console.log("a desabilitar teste".yellow);
+  db.get(id, function(err, body) {
+    if (err) {
+      console.log("Não foi possivel aceder a "+id+'\n'
+                 +"erro: "+err);
+    }
+
+    db.update = function(obj, key, callback) {
+     db.get(key, function (error, existing) {
+       if(!error) obj._rev = existing._rev;
+       db.insert(obj, key, callback);
+     });
+    };
+
+    //body.estado=false;
+
+    db.update(body, body._id, function(err1, res) {
+      if (err1) return console.log(id+" wasn't disabled!".red +'\n'+ err1);
+      console.log("The data of "+id+' was disabled!'.yellow);
+      if(body.tipo != "Multimédia"){
+        console.log("não é multimédia");
+          desabiltaPergunta(body.perguntas[0]);
+      }
+    });
+
+
+  });
+};
+
+function desabiltaPergunta(id){
+  console.log("a desabilitar pergunta".yellow);
+  db2.get(id, function(err, body) {
+    if (err) {
+      console.log("Não foi possivel aceder a "+id+'\n'
+                 +"erro: "+err);
+    }
+
+    db2.update = function(obj, key, callback) {
+     db.get(key, function (error, existing) {
+       if(!error) obj._rev = existing._rev;
+       db.insert(obj, key, callback);
+     });
+    };
+
+    console.log(body);
+    //body.estado=false;
+
+    db2.update(body, body._id, function(err1, res) {
+      if (err1) return console.log(id+" wasn't disabled!".red +'\n'+ err1);
+      console.log("The data of "+id+' was disabled!'.yellow);
+    });
+  });
+}

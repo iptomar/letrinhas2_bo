@@ -9,10 +9,9 @@ var db2 = nano.use('dev_testes');
 //Como as perguntas nuca se poderão alterar
 //usa-se o upDate apenas para desabilitar a pergunta
 exports.upDate = function(rep, res){
-  console.log('questions upDate, NotAvaliable yet'.blue);
+  console.log('questions upDate,'.blue);
   console.log(rep.params['id']);
   var estado=false;
-
 
   db.get(rep.params['id'], function(err, body) {
     if (err) {
@@ -28,6 +27,7 @@ exports.upDate = function(rep, res){
     };
 
     body.estado=estado;
+    console.log(body);
 
     db.update(body, body._id, function(err1, res) {
       if (err1) return console.log(rep.params['id']+" wasn't update!".red +'\n'+ err1);
@@ -50,7 +50,6 @@ exports.upDate = function(rep, res){
         res.redirect('/#tests');
     }
   });
-
 };
 
 exports.new = function (req, res) {
@@ -73,6 +72,7 @@ exports.new = function (req, res) {
         },
         "tipoTeste":req.body.tipo,
         "dataCri":dati,
+        "estado":true,
         "profID":req.body.profID,
       };
       var teste={
@@ -138,6 +138,7 @@ exports.new = function (req, res) {
         },
         "tipoTeste":req.body.tipo,
         "dataCri":dati,
+        "estado":true,
         "professorId":req.body.profID,
 
       };
@@ -315,6 +316,7 @@ exports.new = function (req, res) {
           },
           "tipoTeste":req.body.tipo,
           "dataCri":dati,
+          "estado":true,
           "professorId":req.body.profID,
 
         };

@@ -382,7 +382,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           break;
         case 'imagem':
           $("#pTipoCrp").val("imagem");
-          s='<img id="pCorpo" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.jpg" style=" width:100px">';
+          s='<img id="pCorpo" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.jpg" style=" max-width:450px; max-height:120px">';
           $("#prvCorpo").append(s);
           break;
         case 'audio':
@@ -421,7 +421,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
             $("#pTipoResp").val("imagem");
             s= '<div id="pR0'+(i+1)+'" class="col-sm-'+size+'">'
                 +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
-                  +'<img id="r0'+(i+1)+'" src="'+self.site+'/'+self.bd+'/'+data._id+'/op'+(i+1)+'.jpg" style=" height:45px">'
+                  +'<img id="r0'+(i+1)+'" src="'+self.site+'/'+self.bd+'/'+data._id+'/op'+(i+1)+'.jpg" style="max-height:50px; max-width:50px">'
                 +'</span>'
               +'</div>';
             $("#prvRespostas").append(s);
