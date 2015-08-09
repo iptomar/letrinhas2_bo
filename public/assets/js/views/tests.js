@@ -337,7 +337,7 @@ window.TestsView = Backbone.View.extend({
 
   criarTexto:function(){
     var sefl=this;
-    sefl.tipoTeste="texto";
+    sefl.tipoTeste="Texto";
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -347,7 +347,7 @@ window.TestsView = Backbone.View.extend({
 
   criarLista:function(){
     var sefl=this;
-    sefl.tipoTeste="lista";
+    sefl.tipoTeste="Lista";
     $("#btnLista").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -357,7 +357,7 @@ window.TestsView = Backbone.View.extend({
 
   criarMultimedia:function(){
     var sefl=this;
-    sefl.tipoTeste="Multimedia";
+    sefl.tipoTeste="Multimédia";
     $("#btnMult").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -367,7 +367,7 @@ window.TestsView = Backbone.View.extend({
 
   criarInterpr:function(){
     var sefl=this;
-    sefl.tipoTeste="interpr";
+    sefl.tipoTeste="Interpretação";
     $("#btnInterp").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#00ff00');
     $("#btnTesteCriar").attr('style','visibility:initial');
     $("#btnTexto").attr('style','height:50px; width:200px; background-color: #53BDDC; color:#ffffff');
@@ -378,22 +378,22 @@ window.TestsView = Backbone.View.extend({
   criarTeste:function(){
     var sefl=this;
     switch(sefl.tipoTeste){
-      case 'texto':
+      case 'Texto':
         app.navigate('/questionsText/new', {
             trigger: true
           });
         break;
-      case 'lista':
+      case 'Lista':
         app.navigate('/questionsList/new', {
             trigger: true
           });
         break;
-      case 'Multimedia':
+      case 'Multimédia':
         app.navigate('questionsMultimedia/new', {
             trigger: true
           });
         break;
-      case 'interpr':
+      case 'Interpretação':
         app.navigate('questionsInterp/new', {
             trigger: true
           });
@@ -408,8 +408,6 @@ window.TestsView = Backbone.View.extend({
   },
 
   deleteTest:function(obj){
-    console.log($(obj).attr("val"));
-
     var self = this;
     if(confirm("Tem a certeza que quer eliminar este teste?") == 1){
       var form = $("<form>").attr("role", "form")
@@ -422,13 +420,13 @@ window.TestsView = Backbone.View.extend({
       $(form).append($(input));
       $(form).submit();
     }
-
   },
 
   editTest:function(obj){
-    app.navigate('man', {
-        trigger: true
-      });
+    var self = this;
+    window.sessionStorage.setItem("ClonarTeste",$(obj).attr("val"));
+    self.tipoTeste=$('#'+$(obj).attr("val")).attr("tipo");
+    self.criarTeste();
   },
 
   mudaTest:function(obj){
@@ -467,20 +465,20 @@ window.TestsView = Backbone.View.extend({
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
       var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
-            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Opções de edição">'
             +'<span class="glyphicon glyphicon-cog"></span>'
             +'<span class="sr-only">Toggle Dropdown</span>'
             +'</span>'
             +'<ul class="dropdown-menu" role="menu">'
               +'<li>'
-                +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+                +'<a title="Criar um novo teste com o mesmo conteúdo."><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
                   +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
                    +'Clonar Teste'
                 +'</label></a>'
               +'</li>'
               +'<li class="divider"></li>'
               +'<li>'
-              +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+              +'<a title="Apagar este teste"><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
                 +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
                  +'Apagar Teste'
               +'</label></a>'
@@ -526,20 +524,20 @@ window.TestsView = Backbone.View.extend({
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas, function(item) {
       var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
-            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Opções de edição">'
             +'<span class="glyphicon glyphicon-cog"></span>'
             +'<span class="sr-only">Toggle Dropdown</span>'
             +'</span>'
             +'<ul class="dropdown-menu" role="menu">'
               +'<li>'
-                +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+                +'<a title="Criar um novo teste com o mesmo conteúdo."><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
                   +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
                    +'Clonar Teste'
                 +'</label></a>'
               +'</li>'
               +'<li class="divider"></li>'
               +'<li>'
-              +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+              +'<a title="Apagar este teste"><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
                 +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
                  +'Apagar Teste'
               +'</label></a>'
@@ -606,26 +604,25 @@ window.TestsView = Backbone.View.extend({
     });
   },
 
-  //Em construção
   enchePreviewMultim: function(documnt){
     var self=this;
     $('#testsPreview').html('');
 
     var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
-          +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+          +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false"  title="Opções de edição">'
           +'<span class="glyphicon glyphicon-cog"></span>'
           +'<span class="sr-only">Toggle Dropdown</span>'
           +'</span>'
           +'<ul class="dropdown-menu" role="menu">'
             +'<li>'
-              +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+              +'<a title="Criar um novo teste com o mesmo conteúdo."><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
                 +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
                  +'Clonar Teste'
               +'</label></a>'
             +'</li>'
             +'<li class="divider"></li>'
             +'<li>'
-            +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+            +'<a title="Apagar este teste"><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
               +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
                +'Apagar Teste'
             +'</label></a>'
@@ -722,20 +719,20 @@ window.TestsView = Backbone.View.extend({
     var self=this;
     modem('GET', 'questions/'+documnt.perguntas[0], function(item) {
       var d='<div class="btn-group" id="btnTestEdit" style="position:absolute; left:10px">'
-            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'
+            +'<span type="button" class="btn badge btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false"  title="Opções de edição">'
             +'<span class="glyphicon glyphicon-cog"></span>'
             +'<span class="sr-only">Toggle Dropdown</span>'
             +'</span>'
             +'<ul class="dropdown-menu" role="menu">'
               +'<li>'
-                +'<a><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
+                +'<a title="Criar um novo teste com o mesmo conteúdo."><label id="btnTestClonar" class="btn badge btn-warning" val="'+documnt._id+'">'
                   +'<span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span> '
                    +'Clonar Teste'
                 +'</label></a>'
               +'</li>'
               +'<li class="divider"></li>'
               +'<li>'
-              +'<a><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
+              +'<a title="Apagar este teste"><label id="btnTestElimina" class="btn badge btn-danger" val="'+documnt._id+'">'
                 +'<span class="glyphicon glyphicon-trash" style="color:#cccccc"></span> '
                  +'Apagar Teste'
               +'</label></a>'
@@ -913,25 +910,20 @@ window.TestsView = Backbone.View.extend({
         var first=true;
         for(i=0;i<data.length;i++){
           if(data[i].doc.estado){
-          var img, img2, tips;
+          var img, img2;
 
           switch(data[i].doc.tipo){
             case 'Texto': img="../img/testeTexto.png";
-              tips='Texto'
               break;
             case 'Lista': img="../img/testLista.png";
-            tips='L. Palavras';
               break;
             case 'Multimédia': img="../img/testMul.png";
-              tips='Multimédia'
               break;
             case 'Interpretação': img="../img/testInterpretacao.png";
-              tips='Interpretação'
               break;
             default:  img="../img/page-loader.gif";
               break;
           };
-
           switch(data[i].doc.disciplina){
             case 'Português': img2="../img/portugues.png";
               break;
@@ -976,7 +968,7 @@ window.TestsView = Backbone.View.extend({
             +' ano="'+data[i].doc.anoEscolar+'" fa=0'
             +' disciplina="'+data[i].doc.disciplina+'" fd=0'
             +' professor="'+data[i].doc.professorId+'" fp='+fp
-            +' tipo="'+tips+'" ft=0>'
+            +' tipo="'+ data[i].doc.tipo +'" ft=0>'
             +' <img src="'+img+'"  style="height:30px;" title="'+data[i].doc.tipo+'"> '
             +' <img src="'+img2+'"  style="height:30px;" title="'+data[i].doc.disciplina+'"> '
             + data[i].doc.titulo + ' - '+day+'.'+month+'.'+year+'</button>';

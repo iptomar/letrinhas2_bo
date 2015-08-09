@@ -143,7 +143,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     e.preventDefault();
     window.history.go(parseInt(window.sessionStorage.getItem("nPG")));
     window.sessionStorage.removeItem("nPG");
-
   },
 
   verRespImg: function(e){
@@ -665,8 +664,6 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
   render: function() {
     var self=this;
-
-
     $(this.el).html(this.template());
     //verificar se está logado
     var controlo=window.localStorage.getItem("Logged");
@@ -685,6 +682,25 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
         return null;
     }
 
+    setTimeout(function(){
+      //verificar se está a Clonar
+      if(window.sessionStorage.getItem("ClonarTeste")){
+        console.log("está a clonar!!");
+
+        self.vaiClonar(window.sessionStorage.getItem("ClonarTeste"));
+      }else{
+        //desbloquear os inputs
+        $("#inputTitulo").attr("disabled",false);
+        $("#inputDescricao").attr("disabled",false);
+        $("#listMultQuestions").attr("disabled",false);
+        $("#newlistMultQuestions").attr("disabled",false);
+        $("#criarPerg").attr("disabled",false);
+      }
+
+      console.log(window.sessionStorage.getItem("ClonarTeste"));
+      window.sessionStorage.removeItem("ClonarTeste");
+    },50);
+
     //para usar no botão voltar.
     if(!window.sessionStorage.getItem("nPG")){
       window.sessionStorage.setItem("nPG",-1);
@@ -692,20 +708,22 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
 
     setTimeout(function(){
       //titulo
-      $("#inputTitulo").val(window.sessionStorage.getItem("titulo"));
-      //descricao
-      $("#inputDescricao").val(window.sessionStorage.getItem("descricao"));
-      //indexAno
-      var obj = document.getElementById("selectAno");
-      obj.selectedIndex = window.sessionStorage.getItem("indexAno");
-      //indexDiscipl
-      obj = document.getElementById("selectDiscip");
-      obj.selectedIndex = window.sessionStorage.getItem("indexDiscipl");
-      window.sessionStorage.removeItem("titulo");
-      window.sessionStorage.removeItem("descricao");
-      window.sessionStorage.removeItem("indexAno");
-      window.sessionStorage.removeItem("indexDiscipl");
-      self.getPerguntas();
+      if(window.sessionStorage.getItem("titulo")){
+        $("#inputTitulo").val(window.sessionStorage.getItem("titulo"));
+        //descricao
+        $("#inputDescricao").val(window.sessionStorage.getItem("descricao"));
+        //indexAno
+        var obj = document.getElementById("selectAno");
+        obj.selectedIndex = window.sessionStorage.getItem("indexAno");
+        //indexDiscipl
+        obj = document.getElementById("selectDiscip");
+        obj.selectedIndex = window.sessionStorage.getItem("indexDiscipl");
+        window.sessionStorage.removeItem("titulo");
+        window.sessionStorage.removeItem("descricao");
+        window.sessionStorage.removeItem("indexAno");
+        window.sessionStorage.removeItem("indexDiscipl");
+        self.getPerguntas();
+      }
 
       //parar os players quando se fecham os modal's
       var modals = document.getElementsByClassName('modal');
@@ -726,8 +744,82 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
     return this;
   },
 
-  getPerguntas:function(){
+  vaiClonar: function(teste){
+    var self=this;
+    modem('GET', 'tests/'+teste, function(item) {
+      $("#inputTitulo").val("Colne de "+item.titulo);
+      $("#inputDescricao").val(item.descricao);
+        //disciplina
+        switch (item.disciplina) {
+          case "Português":
+              document.getElementById("selectDiscip").selectedIndex=0;
+            break;
+          case "Inglês":
+              document.getElementById("selectDiscip").selectedIndex=1;
+            break;
 
+          case "Outra língua":
+              document.getElementById("selectDiscip").selectedIndex=2;
+            break;
+
+          case "Matemática":
+              document.getElementById("selectDiscip").selectedIndex=3;
+            break;
+
+          case "Estudo do Meio":
+              document.getElementById("selectDiscip").selectedIndex=4;
+            break;
+          default:
+              document.getElementById("selectDiscip").selectedIndex=5;
+        }
+        //ano escolar
+        document.getElementById("selectAno").selectedIndex=(parseInt(item.anoEscolar) - 1 );
+
+        //perguntas
+        for (var i = 0; i < item.perguntas.length; i++) {
+          modem('GET', 'questions/'+item.perguntas[i], function(perg) {
+            var opt='';
+            var date = new Date(perg.dataCri);
+            var day = date.getDate().toString();
+            var month = (date.getMonth()+1).toString();
+            var year = date.getFullYear().toString();
+            var hours = date.getHours().toString();
+            var minutes = date.getMinutes().toString();
+            day = day.length === 2 ? day : '0' + day;
+            month = month.length === 2 ? month : '0' + month;
+            hours = hours.length === 2 ? hours : '0' + hours;
+            minutes = minutes.length === 2 ? minutes : '0' + minutes;
+
+            opt='<option value="'+perg._id+'" class="pergunta"> -> '
+                +perg.titulo+' - '+day+'.'+month+'.'+year+'</option>';
+
+            $("#newlistMultQuestions").append(opt);
+            self.verCamposTeste();
+
+          }, function(errQ) {
+            console.log('Error getting question '+item.perguntas[i]);
+            console.log(errQ);
+          });
+
+        }
+        $("#multBadge2").text(item.perguntas.length);
+
+        //desbloquear os inputs
+        $("#inputTitulo").attr("disabled",false);
+        $("#inputDescricao").attr("disabled",false);
+        $("#listMultQuestions").attr("disabled",false);
+        $("#newlistMultQuestions").attr("disabled",false);
+        $("#criarPerg").attr("disabled",false);
+        self.getPerguntas();
+
+
+    }, function(erro) {
+      console.log('Error getting test '+teste);
+      console.log(erro);
+    });
+  },
+
+  getPerguntas:function(){
     //Modem para consultar as questões do tipo multimédia da disciplina seleccionada e ano escolar
     //Constrir as opções
     modem('GET', '/questions', function(data) {

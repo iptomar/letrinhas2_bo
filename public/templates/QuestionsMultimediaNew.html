@@ -16,7 +16,7 @@
     <div class="form-group" >
       <div class="col-sm-4" >
         <label for="inputTitulo" >Título:</label>
-        <input type="text" class="form-control preenche" id="inputTitulo" placeholder="Ex: Anita vai às compras" name="titulo" style="background-color:#e9e9ff;">
+        <input type="text" class="form-control preenche" id="inputTitulo" placeholder="Ex: Anita vai às compras" name="titulo" style="background-color:#e9e9ff;" disabled>
       </div>
       <div class="col-sm-2">
         <label for="selectDiscip">Disciplina:</label>
@@ -56,18 +56,18 @@
       <div class="col-sm-12">
         <br>
         <label for="inputDescricao" >Descrição:</label>
-        <input type="text" class="form-control preenche" id="inputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao" style="background-color:#e9e9ff;">
+        <input type="text" class="form-control preenche" id="inputDescricao" placeholder="Ex: Teste de apoio para quantificar a aprendizagem do aluno" name="descricao" style="background-color:#e9e9ff;" disabled>
         <hr>
       </div>
 
       <div class="col-sm-5" >
         <label>Lista de perguntas existentes na BD: <span id="multBadge" class="badge">0</span></label>
         <div style="height:350px; overflow:auto">
-          <select class="form-control" id="listMultQuestions" size=19 MULTIPLE style="background-color:#e9e9ff;">
+          <select class="form-control" id="listMultQuestions" size=19 MULTIPLE style="background-color:#e9e9ff;" disabled>
 
           </select>
         </div>
-        <button id="criarPerg" class="btn btn-success ">
+        <button id="criarPerg" class="btn btn-success " disabled>
           <span class="glyphicon glyphicon-plus-sign" style="color:#20ee20"></span>
           Criar pergunta
         </button>

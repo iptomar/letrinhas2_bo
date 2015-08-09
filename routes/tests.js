@@ -106,42 +106,14 @@ function desabilitaTeste(id){
      });
     };
 
-    //body.estado=false;
+    body.estado=false;
 
     db.update(body, body._id, function(err1, res) {
       if (err1) return console.log(id+" wasn't disabled!".red +'\n'+ err1);
       console.log("The data of "+id+' was disabled!'.yellow);
-      if(body.tipo != "Multimédia"){
-        console.log("não é multimédia");
-          desabiltaPergunta(body.perguntas[0]);
-      }
+      
     });
 
 
   });
 };
-
-function desabiltaPergunta(id){
-  console.log("a desabilitar pergunta".yellow);
-  db2.get(id, function(err, body) {
-    if (err) {
-      console.log("Não foi possivel aceder a "+id+'\n'
-                 +"erro: "+err);
-    }
-
-    db2.update = function(obj, key, callback) {
-     db.get(key, function (error, existing) {
-       if(!error) obj._rev = existing._rev;
-       db.insert(obj, key, callback);
-     });
-    };
-
-    console.log(body);
-    //body.estado=false;
-
-    db2.update(body, body._id, function(err1, res) {
-      if (err1) return console.log(id+" wasn't disabled!".red +'\n'+ err1);
-      console.log("The data of "+id+' was disabled!'.yellow);
-    });
-  });
-}
