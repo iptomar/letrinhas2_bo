@@ -78,46 +78,28 @@
       <span>
         <span class="glyphicon glyphicon-filter"></span>
         Filtrar por:
-        <img src="../img/inConstruction.jpg" style='height:25px;'>
       </span>
 
       <!-- Split button -->
       <div class="btn-group" >
-        <button type="button" class="btn btn" style="width:100px">Escola</button>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <button id="alFiltEscola" type="button" class="btn btn-sm btn-primary" style="width:100px" flag="0">
+          Escola
+        </button>
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
         </button>
-        <ul class="dropdown-menu" role="menu">
-
-          <li><a href="#">Escola xpto</a></li>
-
+        <ul class="dropdown-menu" role="menu" id="listaEscola">
         </ul>
+        <span id="lblEscola" style="font-size:10px; color:#aaaaaa;"></span>
       </div>
       <br>
-        <br>
-        <div class="btn-group" >
-        <button type="button" class="btn btn" style="width:100px">Turma</button>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-
-          <li><a href="#">Turma xpto</a></li>
-
-        </ul>
-
+      <br>
+      <div class="btn-group" id="dropTurma">
       </div>
-
-
-      <div>
-      </div>
-
-
       <hr>
 
-      <button id="btnStudentsNew" class="btn btn-success" style="font-size:12px">
+      <button id="btnStudentsNew" class="btn btn-success" style="position:relative; top:210px; font-size:12px">
         <span class="glyphicon glyphicon-plus" style="color:#00ff00;"></span>
         Novo Aluno
       </button>

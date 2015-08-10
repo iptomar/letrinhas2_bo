@@ -219,7 +219,7 @@ window.TestsView = Backbone.View.extend({
        //buscar as flags e consturir um número considerando o esquema binário
        //só para este botão:
        //Ex: fT,fD,fA,fP = 1010, que dizer que os filtros estão ativos no tipo e disciplina
-       //ao fazer AND com a flagFiltro, tenho de obter a mesma chave, se sim este botõ irá aparecer!
+       //ao fazer AND com a flagFiltro, tenho de obter a mesma chave, se sim este botão irá aparecer!
        if($(myBotoes[i]).attr('ft')==1) flagObj+=8; //tipo
        if($(myBotoes[i]).attr('fd')==1) flagObj+=4; //disciplina
        if($(myBotoes[i]).attr('fa')==1) flagObj+=2; //ano
