@@ -179,10 +179,17 @@ window.TeachersEditView = Backbone.View.extend({
         });
         return null;
     }
-
-
-
     $(this.el).html(this.template());
+
+    setTimeout(function(){
+      //esconder campos sensíveis do user, só o admin pode alterar.
+      if(role != "Administrador do Sistema"){
+        $("#panelEstado").attr("style","display:none");
+        $("#panelTipo").attr("style","display:none");
+      }
+    },1);
+
+
 
     modem('GET', 'teachers/'+window.sessionStorage.getItem("ProfEditar"), function(professor) {
       self.nome=professor.nome;

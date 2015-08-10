@@ -19,7 +19,7 @@ exports.upDate = function(req, res){
    if (err) {
      console.log("(L-20) - Não foi possivel aceder a "+req.body.email+'\n'
                 +"erro: "+err);
-     res.redirect('/#teachers');
+     res.redirect('/#user');
    }
 
    db.update = function(obj, key, callback) {
@@ -50,7 +50,7 @@ exports.upDate = function(req, res){
              if (err2) {
                console.log("(L-51) - Não foi possivel aceder a "+req.body.email+'\n'
                           +"erro: "+err2);
-               res.redirect('/#teachers');
+               res.redirect('/#user');
              }
             //destroy foto
             db.attachment.destroy(body._id, 'prof.jpg', {rev: bodi._rev}, function(err3, bode) {
@@ -63,7 +63,7 @@ exports.upDate = function(req, res){
                   if (err4) {
                     console.log("(L-64) - Não foi possivel aceder a "+req.body.email+'\n'
                                +"erro: "+err2);
-                    res.redirect('/#teachers');
+                    res.redirect('/#user');
                   }
                   //e insert new foto
                   var file;
@@ -94,7 +94,7 @@ exports.upDate = function(req, res){
       }
      });
 
-   res.redirect('/#teachers');
+   res.redirect('/#user');
  });
 
 

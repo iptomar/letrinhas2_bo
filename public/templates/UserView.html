@@ -30,13 +30,13 @@
               </a>
           </li>
           <li>
-              <a href="#students" style="color: #80FF80;" aria-expanded="false">
+              <a href="#students" aria-expanded="false" title="Ver alunos">
                 <img src="../img/alunos.png" style='height:32px;'>
                 Alunos
               </a>
           </li>
-          <li id="sepProf" style="display:none">
-              <a href="#teachers" aria-expanded="false" title="Ver funcionários">
+          <li id="sepProf" style="display:none" >
+              <a href="#teachers" aria-expanded="false" >
                 <img src="../img/docentes.png" style='height:32px;'>
                 Professor/es
               </a>
@@ -44,7 +44,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li id="opUser">
-            <a href="#user" aria-expanded="false">
+            <a href="#user" style="color: #80FF80;" aria-expanded="false">
               <span class="glyphicon glyphicon-user" style="font-size:20px; color:#ddddee"></span>
               <label id="user">User</label>,
             </a>
@@ -66,52 +66,42 @@
 
     </div>
   </nav>
-  <div id="studentPanel" class="panel panel-default col-md-2" align="center">
-    <div class="panel-body " text-align="center" style="height:600px;">
-      <div >Alunos: <span id="studentsBadge"class="badge">0</span>
-      </div>
-      <hr>
-      <div >
-        <input id="alunoProcurar" type="texto" class="form-control" placeholder="Procurar">
-      </div>
-      <hr>
-      <span>
-        <span class="glyphicon glyphicon-filter"></span>
-        Filtrar por:
-      </span>
+    <div class="badge alert-info form-control" >
+      <h4 id="dados" >Dados de ...</h4>
+    </div>
+    <br>
+    <br>
 
-      <!-- Split button -->
-      <div class="btn-group" >
-        <button id="alFiltEscola" type="button" class="btn btn-sm btn-primary" style="width:100px" flag="0">
-          Escola
-        </button>
-        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu" id="listaEscola">
-        </ul>
-        <span id="lblEscola" style="font-size:10px; color:#aaaaaa;"></span>
-      </div>
+
+    <div id="teachersPanel" class="panel panel-default col-md-4" >
+    <div class="panel-body " style="height:530px;">
+      <img id="userFoto" src="../img/page-loader.gif" style='height:250px;max-width:320px'>
       <br>
       <br>
-      <div class="btn-group" id="dropTurma">
-      </div>
+      <label class="badge">Nome:</label> <span id="nome">...</span><br>
+      <label class="badge">Telefone:</label> <span id="telefone">999999999</span><br>
+      <label class="badge">Função:</label> <span id="tipoFunc">...</span><br>
+
       <hr>
 
-      <button id="btnStudentsNew" class="btn btn-success" style="position:relative; top:210px; font-size:12px">
-        <span class="glyphicon glyphicon-plus" style="color:#00ff00;"></span>
-        Novo Aluno
+      <button id="btnUserEdit" class="btn btn-warning btn-block" style="position:relative; top:80px;font-size:12px">
+        <span class="glyphicon glyphicon-refresh" style="color:#80ee80"></span>
+        Editar Dados
       </button>
     </div>
   </div>
-  <div id="studentsContent" class=" panel-body col-md-5" align=center style="max-height:600px; overflow:auto">
-    <img src="../img/page-loader.gif" style='height:200px;'>
+  <div id="panelTurmas" class=" panel-body col-md-8" align=center style="max-height:530px; overflow:auto">
+    <div  class="badge alert-info col-md-12">
+      <h4>Tem <span id="numTurmas">0</span> turmas associadas.</h4>
+    </div>
+    <div id="asMinhasTurmas" class="col-md-12" style="max-height:470px; overflow:auto">
+      <hr>
+      <img src="../img/inConstruction.jpg" style='height:200px;'>
+    </div>
+
 
   </div>
-  <div id="studentsPreview" class="col-md-5" align="center" style="">
 
-  </div>
   <div class="col-sm-1" style="position:fixed; left:0px; top:15px;">
     <img src="../img/ipt0.jpg" style="height:40px">
   </div>

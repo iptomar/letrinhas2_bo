@@ -53,7 +53,7 @@ window.SchoolsView = Backbone.View.extend({
              for(p=0; p< escola.turmas[i].professores.length; p++){
                modem('GET','teachers/'+escola.turmas[i].professores[p].id,function(professor){
                  var prof = '<div class="col-md-6 ">'
-                            +'<img src="'+self.site+'/dev_professores/'+professor._id+'/prof.jpg" style="height:80px;" > '
+                            +'<img src="'+self.site+'/'+self.bd2+'/'+professor._id+'/prof.jpg" style="height:80px;" > '
                             +'<br><label>'+professor.nome+'</label>'
                             +'</div>';
                  $("#classProfessor").append(prof);
@@ -134,6 +134,7 @@ window.SchoolsView = Backbone.View.extend({
     //para fazer update às escolas selecionadas e respetivas turmas,
     //caso seja submetido o formulário
     self.bd='dev_escolas';
+    self.bd2='dev_professores'
     self.site='http://127.0.0.1:5984';
 
   },

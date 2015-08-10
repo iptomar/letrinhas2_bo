@@ -8,11 +8,9 @@ var Router = Backbone.Router.extend({
   currentView: undefined,
   showView: function(view, elem, sub) {
     elem.show();
-
     if (sub == false) {
       if (this.currentView)
         this.currentView.close();
-
       this.currentView = view;
       this.currentView.delegateEvents();
     }
@@ -23,6 +21,7 @@ var Router = Backbone.Router.extend({
     "teachers": "teachers",
     "teachers/new": "teachersNew",
     "teachers/edit": "teachersEdit",
+    "user":"user",
   //  "teachers/:id": "teachersInfo",
 
     "students": "students",
@@ -61,7 +60,6 @@ var Router = Backbone.Router.extend({
 
   //Resoluções:
     "submissions": "submissions",
-
 
   //Menu Principal
     "MenuPrincipal": "MenuPrincipal",
@@ -120,12 +118,20 @@ var Router = Backbone.Router.extend({
         self.showView(v, $('#content'));
       }
     );
+  },
 
+  user: function(){
+    var self = this;
+    templateLoader.load(["UserView"],
+      function() {
+        var v = new UserView({});
+        self.showView(v, $('#content'));
+      }
+    );
   },
 
   students: function() {
     var self = this;
-
     templateLoader.load(["StudentsView"],
       function() {
         var v = new StudentsView({});
@@ -136,7 +142,6 @@ var Router = Backbone.Router.extend({
 
   studentsNew: function() {
     var self = this;
-
     templateLoader.load(["StudentsNewView"],
       function() {
         var v = new StudentsNewView({});
@@ -147,7 +152,6 @@ var Router = Backbone.Router.extend({
 
   studentsEdit: function() {
     var self = this;
-
     templateLoader.load(["StudentsEdit"],
       function() {
         var v = new StudentsEdit({});
@@ -158,7 +162,6 @@ var Router = Backbone.Router.extend({
 
   schools: function() {
     var self = this;
-
     templateLoader.load(["SchoolsView"],
       function() {
         var v = new SchoolsView({});
@@ -169,7 +172,6 @@ var Router = Backbone.Router.extend({
 
   schoolsNew: function() {
     var self = this;
-
     templateLoader.load(["SchoolsNew"],
       function() {
         var v = new SchoolsNew({});
@@ -180,7 +182,6 @@ var Router = Backbone.Router.extend({
 
   schoolsEdit: function() {
     var self = this;
-
     templateLoader.load(["SchoolsEdit"],
       function() {
         var v = new SchoolsEdit({});
@@ -191,7 +192,6 @@ var Router = Backbone.Router.extend({
 
   tests: function() {
     var self = this;
-
     templateLoader.load(["TestsView"],
       function() {
         var v = new TestsView({});
@@ -202,7 +202,6 @@ var Router = Backbone.Router.extend({
 
   questionsText: function() {
     var self = this;
-
     templateLoader.load(["QuestionsText"],
       function() {
         var v = new QuestionsText({});
@@ -213,7 +212,6 @@ var Router = Backbone.Router.extend({
 
   questionsTextNew: function() {
     var self = this;
-
     templateLoader.load(["QuestionsTextNew"],
       function() {
         var v = new QuestionsTextNew({});
@@ -224,7 +222,6 @@ var Router = Backbone.Router.extend({
 
   questionsTextEdit: function() {
     var self = this;
-
     templateLoader.load(["QuestionsTextEdit"],
       function() {
         var v = new QuestionsTextEdit({});
@@ -235,7 +232,6 @@ var Router = Backbone.Router.extend({
 
   questionsList: function() {
     var self = this;
-
     templateLoader.load(["QuestionsList"],
       function() {
         var v = new QuestionsList({});
@@ -246,7 +242,6 @@ var Router = Backbone.Router.extend({
 
   questionsListNew: function() {
     var self = this;
-
     templateLoader.load(["QuestionsListNew"],
       function() {
         var v = new QuestionsListNew({});
@@ -257,7 +252,6 @@ var Router = Backbone.Router.extend({
 
   questionsListEdit: function() {
     var self = this;
-
     templateLoader.load(["QuestionsListEdit"],
       function() {
         var v = new QuestionsListEdit({});
@@ -268,7 +262,6 @@ var Router = Backbone.Router.extend({
 
   questionsMultimedia: function() {
     var self = this;
-
     templateLoader.load(["QuestionsMultimedia"],
       function() {
         var v = new QuestionsMultimedia({});
@@ -279,7 +272,6 @@ var Router = Backbone.Router.extend({
 
   questionsMultimediaNew: function() {
     var self = this;
-
     templateLoader.load(["QuestionsMultimediaNew"],
       function() {
         var v = new QuestionsMultimediaNew({});
@@ -290,7 +282,6 @@ var Router = Backbone.Router.extend({
 
   questionsMultimediaEdit: function() {
     var self = this;
-
     templateLoader.load(["QuestionsMultimediaEdit"],
       function() {
         var v = new QuestionsMultimediaEdit({});
@@ -301,7 +292,6 @@ var Router = Backbone.Router.extend({
 
   questionsInterp: function() {
     var self = this;
-
     templateLoader.load(["QuestionsInterp"],
       function() {
         var v = new QuestionsInterp({});
@@ -312,7 +302,6 @@ var Router = Backbone.Router.extend({
 
   questionsInterpNew: function() {
     var self = this;
-
     templateLoader.load(["QuestionsInterpNew"],
       function() {
         var v = new QuestionsInterpNew({});
@@ -323,7 +312,6 @@ var Router = Backbone.Router.extend({
 
   questionsInterpEdit: function() {
     var self = this;
-
     templateLoader.load(["QuestionsInterpEdit"],
       function() {
         var v = new QuestionsInterpEdit({});
@@ -334,7 +322,6 @@ var Router = Backbone.Router.extend({
 
   submissions: function() {
     var self = this;
-
     templateLoader.load(["SubmissionsView"],
       function() {
         var v = new SubmissionsView({});
@@ -345,7 +332,6 @@ var Router = Backbone.Router.extend({
 
   answersText: function() {
     var self = this;
-
     templateLoader.load(["AnswersText"],
       function() {
         var v = new AnswersText({});
@@ -356,7 +342,6 @@ var Router = Backbone.Router.extend({
 
   answersTextCorr: function() {
     var self = this;
-
     templateLoader.load(["AnswersTextCorr"],
       function() {
         var v = new AnswersTextCorr({});
@@ -367,7 +352,6 @@ var Router = Backbone.Router.extend({
 
   answersList: function() {
     var self = this;
-
     templateLoader.load(["AnswersList"],
       function() {
         var v = new AnswersList({});
@@ -378,7 +362,6 @@ var Router = Backbone.Router.extend({
 
   answersListCorr: function() {
     var self = this;
-
     templateLoader.load(["AnswerListtCorr"],
       function() {
         var v = new AnswersListCorr({});
@@ -389,7 +372,6 @@ var Router = Backbone.Router.extend({
 
   answersMultimedia: function() {
     var self = this;
-
     templateLoader.load(["AnswersMultimedia"],
       function() {
         var v = new AnswersMultimedia({});
@@ -400,7 +382,6 @@ var Router = Backbone.Router.extend({
 
   answersInterp: function() {
     var self = this;
-
     templateLoader.load(["AnswersInterp"],
       function() {
         var v = new AnswersInterp({});
@@ -412,7 +393,6 @@ var Router = Backbone.Router.extend({
   // Manutenção
   man: function() {
     var self = this;
-
     templateLoader.load(["manView"],
       function() {
         var v = new manView({});
@@ -424,7 +404,6 @@ var Router = Backbone.Router.extend({
   //Menu Principal
   MenuPrincipal: function() {
     var self = this;
-
     templateLoader.load(["MenuPrincipalView"],
       function() {
         var v = new MenuPrincipalView({});
@@ -432,7 +411,6 @@ var Router = Backbone.Router.extend({
       }
     );
   },
-
 });
 
 templateLoader.load(["Inicio"],
