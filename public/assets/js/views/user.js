@@ -2,6 +2,81 @@
 window.UserView = Backbone.View.extend({
   events:{
     "click #btnUserEdit": "editUser",
+    "click .SelTurma":"mostraTurma",
+  },
+
+  mostraTurma:function(e){
+    var self=this;
+
+    //preencher um modal...
+    var btn = e.toElement;
+
+    $("#classProfessor").html('');
+    $("#classAlunos").html('');
+    var tID = $(btn).attr("turma");
+    var eID = $(btn).attr("escola");
+
+    modem('GET','schools/'+eID, function(escola){
+      $("#myModalLabel").html('<img src="../img/letrinhas2.png" style="height:40px">'
+                         +'<img src="../img/escola1.png"  style="height:40px;" >'////////Continua!!!!
+                         +$(btn).text()+' - '+ escola.nome);
+
+      for(i=0;i< escola.turmas.length; i++ ){
+        if(escola.turmas[i]._id == tID){
+          //preencher professores
+          if(escola.turmas[i].professores.length>0){
+            for(p=0; p< escola.turmas[i].professores.length; p++){
+              modem('GET','teachers/'+escola.turmas[i].professores[p].id,function(professor){
+                var prof = '<div class="col-md-6 ">'
+                           +'<img src="'+self.site+'/'+self.bd+'/'+professor._id+'/prof.jpg" style="height:80px;" > '
+                           +'<br><label>'+professor.nome+'</label>'
+                           +'</div>';
+                $("#classProfessor").append(prof);
+              },
+              function(error) {
+                console.log('Error getting the teacher id:'+escola.turmas[i].professores[p].id);
+              });
+            }
+           }
+           else{
+             $("#classProfessor").append("<label>Esta turma ainda não tem professores.</label>");
+           }
+
+          //preencher alunos
+          modem('GET','students', function(alunos){
+            var contAl=0;
+            for(a=0;a<alunos.length;a++){
+              if(alunos[a].doc.escola == eID &&
+                alunos[a].doc.turma == tID){
+                var alun;
+                alun= '<div class="col-md-4 "><br>'
+                           +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
+                           +';base64,'
+                           + alunos[a].doc._attachments['aluno.jpg'].data
+                           +'" style="height:80px;" > '
+                           +'<br><label>'+alunos[a].doc.nome+'</label><br>'
+                           +'</div>';
+
+                $("#classAlunos").append(alun);
+                contAl++;
+             }
+
+           }
+            if(contAl==0) $("#classAlunos").append("<label>Esta turma ainda não tem alunos.</label>");
+          },
+          function(error) {
+            console.log('Error getting the students list');
+          });
+        }
+      }
+    },
+    function(error) {
+      console.log('Error getting the school id:'+eID);
+    });
+    //apresenta o Modal
+    $("#myModalTurma").modal("show");
+
+
   },
 
   editUser: function (obj) {
@@ -48,6 +123,7 @@ window.UserView = Backbone.View.extend({
     var self=this;
 
     modem('GET', 'teachers/'+window.localStorage.getItem("ProfID"), function(user) {
+      //mostrar os dados do utilizadores
       $("#userFoto").attr('src',self.site+'/'+self.bd+'/'+window.localStorage.getItem("ProfID")+'/prof.jpg');
       $("#tipoFunc").text(user.tipoFuncionario);
       $("#nome").text(user.nome);
@@ -55,15 +131,17 @@ window.UserView = Backbone.View.extend({
       $("#telefone").text(user.telefone);
 
       modem('GET', 'schools', function(escolas) {
+        //Montar as turmas que o utilizador pertence
         var userr = window.localStorage.getItem("ProfID");
         var conta=0;
         var estaEscola=false;
         var estaTurma=false;
-        var btnTurma='';
-        var linhaEscola='';
+        var linhaEscola, btnTurma;
 
         console.log(escolas[0].doc.nome);
         for (var i = 0; i < escolas.length; i++) {
+          btnTurma='<div class="col-md-8" style="height:160px;overflow:auto">';
+          linhaEscola='<div class="col-md-4" style="height:160px;" >';
           for (var j = 0; j < escolas[i].doc.turmas.length; j++) {
             for (var k = 0; k < escolas[i].doc.turmas[j].professores.length; k++) {
               console.log(escolas[i].doc.turmas[j].professores[k].id);
@@ -78,9 +156,25 @@ window.UserView = Backbone.View.extend({
                 break;
               }
             }
-            //cria botão de turma
+            //construir o botão de turma
+            if(estaTurma){
+              btnTurma+='<div class="col-md-4"><button class="btn-sm btn-info btn-block SelTurma"'
+                        +' escola="'+escolas[i].doc._id+'" turma="'+escolas[i].doc.turmas[j]._id+'">'+escolas[i].doc.turmas[j].ano
+                      +'º '+escolas[i].doc.turmas[j].nome+'</button><br></div> ';
+              estaTurma=false;
+            }
           }
           //cria linha de escola e insere os botões de turmas
+          if(estaEscola){
+            linhaEscola+='<img src="data:'+escolas[i].doc._attachments['escola.jpg'].content_type+';base64,'
+                                    +escolas[i].doc._attachments['escola.jpg'].data
+                                    +'"style="height:100px; max-width:200px"><br>'
+                          +'<label class="badge">'+escolas[i].doc.nome+'</label><hr></div>';
+            btnTurma+='</div>';
+            $("#asMinhasTurmas").append(linhaEscola);
+            $("#asMinhasTurmas").append(btnTurma);
+            estaEscola=false;
+          }
         }
 
         $("#numTurmas").text(conta);
