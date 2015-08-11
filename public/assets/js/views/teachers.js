@@ -79,9 +79,12 @@ window.TeachersView = Backbone.View.extend({
       },1);
 
     }
-    setTimeout(function(){
-      $("#user").text(window.localStorage.getItem("ProfID"));
-    },2);
+
+    modem('GET', 'teachers/'+window.localStorage.getItem("ProfID"), function(data) {
+      $("#user").text(data.nome);
+    }, function(error) {
+      console.log('Error getting user '+window.localStorage.getItem("ProfID"));
+    });
 
     var self=this;
     modem('GET', 'teachers', function(data) {
@@ -238,11 +241,11 @@ window.TeachersView = Backbone.View.extend({
             +'</li>'
           +'</ul>'
         +'</div>';
-    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/prof.jpg"  style="height:220px;">';
-    html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="profNome">'+documnt.nome+'</label></span>';
-    html+= '<br><span>E-mail: <label id="profEmail">'+documnt._id+'</label></span>';
-    html+= '<br><span>Telefone: <label>'+documnt.telefone+' </label></span>';
-    html+= '<br><span>Tipo de utilizador: <label>'+documnt.tipoFuncionario+' </label></span></div>';
+    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/prof.jpg"  style="height:220px;max-width:430px">';
+    html+= '<br><div align=left class="col-md-9"><span><label class="badge">Nome:</label> <label id="profNome">'+documnt.nome+'</label></span>';
+    html+= '<br><span><label class="badge">E-mail:</label> <span id="profEmail">'+documnt._id+'</span></span>';
+    html+= '<br><span><label class="badge">Telefone:</label> <span>'+documnt.telefone+' </span></span>';
+    html+= '<br><span><label class="badge">Tipo de utilizador:</label> <span>'+documnt.tipoFuncionario+' </span></span></div>';
     html+='<br><br><br><br><hr>';
     html+= '<div id="prfSchool" class="col-md-12" align=left>'+documnt.nome+', não tem turmas associadas.</div><br><br>';
     html+= '<div id="SchoolTable" class="col-md-12" align="center" style="max-height:220px; overflow:auto"></div>';

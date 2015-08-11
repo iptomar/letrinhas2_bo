@@ -188,10 +188,12 @@ window.SchoolsView = Backbone.View.extend({
       },1);
 
     }
-    setTimeout(function(){
-      $("#user").text(window.localStorage.getItem("ProfID"));
-    },2);
 
+    modem('GET', 'teachers/'+window.localStorage.getItem("ProfID"), function(data) {
+      $("#user").text(data.nome);
+    }, function(error) {
+      console.log('Error getting user '+window.localStorage.getItem("ProfID"));
+    });
 
     modem('GET', 'schools', function(data) {
       $('#schoolsBadge').text(data.length);

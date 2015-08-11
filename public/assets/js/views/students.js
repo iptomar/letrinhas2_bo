@@ -252,9 +252,11 @@ window.StudentsView = Backbone.View.extend({
       },1);
     }
 
-    setTimeout(function(){
-      $("#user").text(window.localStorage.getItem("ProfID"));
-    },2);
+    modem('GET', 'teachers/'+window.localStorage.getItem("ProfID"), function(data) {
+      $("#user").text(data.nome);
+    }, function(error) {
+      console.log('Error getting user '+window.localStorage.getItem("ProfID"));
+    });
 
     //preencher painel de filtro por escola
     modem('GET', 'schools', function(escolas) {
@@ -398,10 +400,10 @@ window.StudentsView = Backbone.View.extend({
             +'</li>'
           +'</ul>'
         +'</div>'
-    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/aluno.jpg"  style="height:220px;">';
-    html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="alunoNome">'+documnt.nome+'</label></span>';
-    html+= '<br><span>Numero de Aluno: <label>'+documnt.numero+' </label></span>';
-    html+= '<br><span >Turma: <label id="turmaAluno">Sem Turma...</label></span></div>';
+    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/aluno.jpg"  style="height:220px; max-width:430px">';
+    html+= '<br><div align=left class="col-md-12"><span><label class="badge">Nome:</label> <label id="alunoNome">'+documnt.nome+'</label></span>';
+    html+= '<br><span><label class="badge">Numero de Aluno:</label> <span>'+documnt.numero+' </span></span>';
+    html+= '<br><span><label class="badge">Turma:</label> <span id="turmaAluno">Sem Turma...</span></span></div>';
 
     html+='<br><br><br><br><hr>'
         +'Apresentar nível de evolução...<img src="../img/inConstruction.jpg"  style="height:40px;"><br><hr>'

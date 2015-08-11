@@ -141,10 +141,12 @@ window.UserView = Backbone.View.extend({
     var self=this;
 
     modem('GET', 'teachers/'+window.localStorage.getItem("ProfID"), function(user) {
+      $("#user").text(user.nome);
       //mostrar os dados do utilizadores
       $("#userFoto").attr('src',self.site+'/'+self.bd+'/'+window.localStorage.getItem("ProfID")+'/prof.jpg');
       $("#tipoFunc").text(user.tipoFuncionario);
       $("#nome").text(user.nome);
+      $("#email").text(user._id);
       $("#dados").text("Dados de "+user._id);
       $("#telefone").text(user.telefone);
 
