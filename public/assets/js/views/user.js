@@ -5,9 +5,16 @@ window.UserView = Backbone.View.extend({
     "click .SelTurma":"mostraTurma",
   },
 
+  verAluno:function (btn) {
+    //Variavel a enviar, para depois poder buscar os dados do aluno a consultar
+    window.sessionStorage.setItem("Aluno", $(btn).attr("val"));
+    app.navigate('student/view', {
+      trigger: true
+    });
+  },
+
   mostraTurma:function(e){
     var self=this;
-
     //preencher um modal...
     var btn = e.toElement;
 
@@ -49,13 +56,15 @@ window.UserView = Backbone.View.extend({
               if(alunos[a].doc.escola == eID &&
                 alunos[a].doc.turma == tID){
                 var alun;
-                alun= '<div class="col-md-4 "><br>'
-                           +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
-                           +';base64,'
-                           + alunos[a].doc._attachments['aluno.jpg'].data
-                           +'" style="height:80px;" > '
-                           +'<br><label>'+alunos[a].doc.nome+'</label><br>'
-                           +'</div>';
+                alun='<div class="col-md-4"><br>'
+                      +'<div class="btn-block btn btn-default alunos" val="'+alunos[a].doc._id+'">'
+                        +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
+                        +';base64,'
+                        + alunos[a].doc._attachments['aluno.jpg'].data
+                        +'" style="height:80px;" > '
+                        +'<br><label>'+alunos[a].doc.nome+'</label><br>'
+                      +'</div>'
+                    +'</div>';
 
                 $("#classAlunos").append(alun);
                 contAl++;
@@ -63,6 +72,15 @@ window.UserView = Backbone.View.extend({
 
            }
             if(contAl==0) $("#classAlunos").append("<label>Esta turma ainda não tem alunos.</label>");
+            else{
+              //criar eventos
+              var myBotoes = document.getElementsByClassName("alunos");
+              for (var i = 0; i < myBotoes.length; i++) {
+                myBotoes[i].addEventListener('click', function() {
+                              self.verAluno(this);
+                            }, false);
+              }
+            }
           },
           function(error) {
             console.log('Error getting the students list');
@@ -138,18 +156,12 @@ window.UserView = Backbone.View.extend({
         var estaTurma=false;
         var linhaEscola, btnTurma;
 
-        console.log(escolas[0].doc.nome);
         for (var i = 0; i < escolas.length; i++) {
           btnTurma='<div class="col-md-8" style="height:160px;overflow:auto">';
           linhaEscola='<div class="col-md-4" style="height:160px;" >';
           for (var j = 0; j < escolas[i].doc.turmas.length; j++) {
             for (var k = 0; k < escolas[i].doc.turmas[j].professores.length; k++) {
-              console.log(escolas[i].doc.turmas[j].professores[k].id);
-              console.log(userr);
               if(escolas[i].doc.turmas[j].professores[k].id== userr){
-                console.log("iguais:");
-                console.log(escolas[i].doc.turmas[j].professores[k].id);
-                console.log(userr);
                 conta++;
                 estaTurma=true;
                 estaEscola=true;

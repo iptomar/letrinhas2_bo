@@ -27,7 +27,7 @@ var Router = Backbone.Router.extend({
     "students": "students",
     "students/new": "studentsNew",
     "students/edit": "studentsEdit",
-  //  "students/:id": "studentsInfo",
+    "student/view": "studentInfo",
 
     "schools": "schools",
     "schools/new": "schoolsNew",
@@ -155,6 +155,16 @@ var Router = Backbone.Router.extend({
     templateLoader.load(["StudentsEdit"],
       function() {
         var v = new StudentsEdit({});
+        self.showView(v, $('#content'));
+      }
+    );
+  },
+
+  studentInfo: function() {
+    var self = this;
+    templateLoader.load(["StudentInfo"],
+      function() {
+        var v = new StudentInfo({});
         self.showView(v, $('#content'));
       }
     );

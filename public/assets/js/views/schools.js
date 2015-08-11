@@ -5,6 +5,14 @@ window.SchoolsView = Backbone.View.extend({
     "keyup #escolaProcurar":"searchEscola",
    },
 
+   verAluno:function (btn) {
+     //Variavel a enviar, para depois poder buscar os dados do aluno a consultar
+     window.sessionStorage.setItem("Aluno", $(btn).attr("val"));
+     app.navigate('student/view', {
+       trigger: true
+     });
+   },
+
    searchEscola: function(){
      var self=this;
      var str1= $("#escolaProcurar").val();
@@ -26,14 +34,10 @@ window.SchoolsView = Backbone.View.extend({
      else{
        $("#schoolsBadge").text(cont);
      }
-
    },
-
-
 
    mostraTurma:function(e){
      var self=this;
-
      //preencher um modal...
      var s = '#'+e.toElement.id;
      $("#myModalLabel").html('<img src="../img/letrinhas2.png" style="height:40px">'
@@ -74,13 +78,15 @@ window.SchoolsView = Backbone.View.extend({
                if(alunos[a].doc.escola == eID &&
                  alunos[a].doc.turma == tID){
                  var alun;
-                 alun= '<div class="col-md-4 "><br>'
-                            +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
-                            +';base64,'
-                            + alunos[a].doc._attachments['aluno.jpg'].data
-                            +'" style="height:80px;" > '
-                            +'<br><label>'+alunos[a].doc.nome+'</label><br>'
-                            +'</div>';
+                 alun='<div class="col-md-4"><br>'
+                       +'<div class="btn-block btn btn-default alunos" val="'+alunos[a].doc._id+'">'
+                         +'<img src="data:'+alunos[a].doc._attachments['aluno.jpg'].content_type
+                         +';base64,'
+                         + alunos[a].doc._attachments['aluno.jpg'].data
+                         +'" style="height:80px;" > '
+                         +'<br><label>'+alunos[a].doc.nome+'</label><br>'
+                       +'</div>'
+                     +'</div>';
 
                  $("#classAlunos").append(alun);
                  contAl++;
@@ -88,6 +94,15 @@ window.SchoolsView = Backbone.View.extend({
 
             }
              if(contAl==0) $("#classAlunos").append("<label>Esta turma ainda não tem alunos.</label>");
+             else{
+               //criar eventos
+               var myBotoes = document.getElementsByClassName("alunos");
+               for (var i = 0; i < myBotoes.length; i++) {
+                 myBotoes[i].addEventListener('click', function() {
+                               self.verAluno(this);
+                             }, false);
+               }
+             }
            },
            function(error) {
              console.log('Error getting the students list');
@@ -276,16 +291,17 @@ window.SchoolsView = Backbone.View.extend({
             +'</li>'
           +'</ul>'
         +'</div>';
-    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/escola.jpg"  style="height:220px;">';
-    html+= '<br><div align=left class="col-md-9"><span>Nome: <label id="EscolaNome" value="'
-        + documnt._id+'">'+documnt.nome+'</label></span>';
-    html+= '<br><span>Morada: <label>'+documnt.morada+' </label></span></div>';
+    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/escola.jpg"  style="height:220px; max-width:430px">';
+    html+= '<br><div align=left class="col-md-12" >'
+                +'<br><span><label class="badge">Nome:</label> <label id="EscolaNome" value="'
+                + documnt._id+'">'+documnt.nome+'</label></span>';
+    html+= '<br><span><label class="badge">Morada: </label> <span>'+documnt.morada+' </span></span></div>';
 
 
     // ciclo for para ir buscar as turmas
       if(documnt.turmas.length > 0){
         html+='<div class="col-md-12" align=left><hr><label>Turmas:</label></div>'
-            + '<div class="col-md-12" style="max-height:225px; overflow:auto">';
+            + '<div class="col-md-12" style="max-height:235px; overflow:auto">';
         for(j=0; j< documnt.turmas.length; j++){
           html+='<div class="col-md-3"><br>'
               + '<button id="btnTurma'+[j]+'" class="btn btn-info mostraTurma" style="font-size:11px" '
