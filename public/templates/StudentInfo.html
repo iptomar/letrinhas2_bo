@@ -76,22 +76,32 @@
       <label class="badge">Numero de Aluno:</label> <span id="numAluno">9999</span><br>
       <label class="badge">Turma:</label> <span id="turma">...</span><br>
       <hr>
-      <button id="btnStudentEdit" class="btn btn-warning btn-block" style="position:relative; top:50px;font-size:12px">
+      <button id="btnStudentEdit" class="btn btn-warning btn-block" style="position:relative; top:150px;font-size:12px">
         <span class="glyphicon glyphicon-refresh" style="color:#eeee80"></span>
         Editar Dados
       </button>
-      <button id="btnStudentDelete" class="btn btn-danger btn-block" style="position:relative; top:50px;font-size:12px">
+      <!--button id="btnStudentDelete" class="btn btn-danger btn-block" style="position:relative; top:50px;font-size:12px">
         <span class="glyphicon glyphicon-trash" style="color:#eeaaaa"></span>
         Apagar aluno
-      </button>
+      </button-->
     </div>
   </div>
   <div id="evolucaoGeral" class=" panel-body col-md-9" align=center style="max-height:595px;">
     <div  class="badge alert-info col-md-12 form-control">
       <h4>Evolução geral.</h4>
     </div>
-    <div id="evoGrafico" class="col-md-9 badge" style="background-color:#ddcccc;height:450px;">
-
+    <div class="col-md-9 badge" style="background-color:#ddcccc;height:450px;">
+      <span id="lblGrafico">
+        <br>
+        <label id="lblGrInfo">Á procura de dados...</label>
+        <img id="pdLoad" src="../img/page-loader.gif" style="height:20px">
+      </span>
+      <br>
+      <div class="col-md-11" style="background-color:#ffffcc">
+        <canvas id="evoGrafico" width="100%" height="65%" style="background-color:#ccccff"></canvas>
+      </div>
+      <br>
+      <div class="col-md-4" id="evoLegend" style="height:50px;width:100px; background-color:#ccffcc"></div>
     </div>
     <div id="evoNota" class="col-md-3" style="background-color:#aaaaff;height:400px;">
       <br><span class="badge" style="font-size:16px">Nota Geral:</span> <label id="notaG" class="badge"style="font-size:16px"> 100,0% </label>
@@ -114,7 +124,7 @@
     </div>
 
 
-    <div id="panelResolucoes" class="col-md-12"  style="background-color:#ccddcc;height:90px;">
+    <div id="panelResolucoes" class="col-md-12"  style="display:none">
       <hr>
       <div class=" badge alert-warning col-md-9" align=right>
         <br>

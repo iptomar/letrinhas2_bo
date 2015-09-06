@@ -28,16 +28,14 @@ exports.upDate = function(rep, res){
                                    }]
                     }]
             }
-
-
-
-
-
-
   */
 
 };
 
+
+exports.delete = function (req, res){
+  console.log("Delete submissions, not avaliable yet!".red);
+};
 
 exports.getAll = function (req, res) {
   console.log('submissions getAll'.green);
