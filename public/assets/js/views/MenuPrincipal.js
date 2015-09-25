@@ -5,6 +5,8 @@ window.MenuPrincipalView = Backbone.View.extend({
     "click #menuSair": "Logout",
   },
 
+
+
   initialize: function () {
     var self=this;
 
