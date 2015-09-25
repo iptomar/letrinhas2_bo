@@ -150,7 +150,7 @@ window.SchoolsView = Backbone.View.extend({
     //caso seja submetido o formulário
     self.bd='dev_escolas';
     self.bd2='dev_professores'
-    self.site='http://127.0.0.1:5984';
+    self.site=process.env.COUCHDB;
 
   },
 

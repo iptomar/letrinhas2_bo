@@ -210,7 +210,7 @@ window.QuestionsInterpNew = Backbone.View.extend({
     self.isMarcado=false;
     self.bd='dev_testes';
     self.bd2='dev_perguntas';
-    self.site='http://127.0.0.1:5984';
+    self.site=process.env.COUCHDB;
   },
 
   render: function() {

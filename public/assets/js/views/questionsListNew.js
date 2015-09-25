@@ -63,7 +63,7 @@ window.QuestionsListNew = Backbone.View.extend({
     var self=this;
     self.bd='dev_testes';
     self.bd2='dev_perguntas';
-    self.site='http://127.0.0.1:5984';
+    self.site=process.env.COUCHDB;
   },
 
   render: function() {

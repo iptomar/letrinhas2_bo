@@ -18,7 +18,7 @@ window.StudentInfo = Backbone.View.extend({
 
     self.bd='dev_alunos';
     self.bd2='dev_escolas';
-    self.site='http://127.0.0.1:5984';
+    self.site=process.env.COUCHDB;
     self.aluno;
   },
 

@@ -53,7 +53,7 @@ window.TeachersView = Backbone.View.extend({
     var self=this;
 
     self.bd='dev_professores';
-    self.site='http://127.0.0.1:5984';
+    self.site=process.env.COUCHDB;
   },
 
 

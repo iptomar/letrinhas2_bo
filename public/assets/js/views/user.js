@@ -110,7 +110,7 @@ window.UserView = Backbone.View.extend({
 
     self.bd='dev_professores';
     self.bd2='dev_escolas';
-    self.site='http://127.0.0.1:5984';
+    self.site=process.env.COUCHDB;
   },
 
   render: function () {
