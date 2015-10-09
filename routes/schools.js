@@ -1,7 +1,8 @@
 require('colors');
 
 //var nano = require('nano')('http://ince.pt:5984');
-var nano = require('nano')(process.env.COUCHDB);
+//var nano = require('nano')(process.env.COUCHDB);
+var nano = require('nano')('http://185.15.22.235:5984');
 //var db = nano.use('escolas');
 var db = nano.use('dev_escolas');
 

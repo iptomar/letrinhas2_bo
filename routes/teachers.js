@@ -1,7 +1,8 @@
-require('colors');
+﻿require('colors');
 
 //var nano = require('nano')('http://ince.pt:5984');
-var nano = require('nano')(process.env.COUCHDB);
+//var nano = require('nano')(process.env.COUCHDB);
+var nano = require('nano')('http://185.15.22.235:5984');
 //var db = nano.use('professores');
 var db = nano.use('dev_professores');
 var db2 = nano.use('dev_escolas');
@@ -164,9 +165,11 @@ exports.getAll = function(req, res) {
 
 exports.get = function(req, res) {
   var id = req.params.id;
-
   db.get(id,function(err, body) {
-    if (err) {
+//dang
+//console.log(err);
+//console.log(body);
+  if (err) {
       return res.status(500).json({
         'result': 'nok',
         'message': err

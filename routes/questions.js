@@ -1,7 +1,8 @@
 require('colors');
 //l3tr1nh4sl3tr4s
 //var nano = require('nano')('http://ince.pt:5984');
-var nano = require('nano')(process.env.COUCHDB);
+//var nano = require('nano')(process.env.COUCHDB);
+var nano = require('nano')('http://185.15.22.235:5984');
 //var db = nano.use('perguntas');
 var db = nano.use('dev_perguntas');
 var db2 = nano.use('dev_testes');
@@ -378,7 +379,7 @@ exports.new = function (req, res) {
 };
 
 exports.getAll = function (req, res) {
-  console.log('questions getAll'.green);
+  console.log('all questions'.green);
 
   db.list({'include_docs': true, 'limit': undefined, 'descending': true}, function(err, body) {
     if (err) {
@@ -394,10 +395,12 @@ exports.getAll = function (req, res) {
 
 exports.get = function (req, res) {
   var id = req.params.id;
-  console.log('questions get'.green);
+  console.log('one question get'.green);
 
   db.get(id, function(err, body) {
     if (err) {
+	console.log('ERRO!:'.red);
+	console.log(err);
       return res.status(500).json({
         'result': 'nok',
         'message': err

@@ -1,7 +1,8 @@
 require('colors');
 
 //var nano = require('nano')('http://ince.pt:5984');
-var nano = require('nano')(process.env.COUCHDB);
+//var nano = require('nano')(process.env.COUCHDB);
+var nano = require('nano')('http://185.15.22.235:5984');
 //var db = nano.use('testes');
 var db = nano.use('dev_testes');
 var db2 = nano.use('dev_perguntas');
@@ -111,7 +112,7 @@ function desabilitaTeste(id){
     db.update(body, body._id, function(err1, res) {
       if (err1) return console.log(id+" wasn't disabled!".red +'\n'+ err1);
       console.log("The data of "+id+' was disabled!'.yellow);
-      
+
     });
 
 
