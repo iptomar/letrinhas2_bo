@@ -381,7 +381,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           break;
         case 'imagem':
           $("#pTipoCrp").val("imagem");
-          s='<img id="pCorpo" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.jpg" style=" max-width:450px; max-height:120px">';
+          s='<img id="pCorpo" src="photo/'+self.bd+'/'+data._id+'/corpo.jpg" style=" max-width:450px; max-height:120px">';
           $("#prvCorpo").append(s);
           break;
         case 'audio':
@@ -389,11 +389,11 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
           s= '<div id="pCorpo"><img src="../img/paly_off.png" style=" width:70px">'
             + '<br>'
             +'<audio controls class="players" style="width:100%">'
-            +'<source id="srcAudio" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.mp3" type="audio/mpeg">'
+            +'<source id="srcAudio" src="photo/'+self.bd+'/'+data._id+'/corpo.mp3" type="audio/mpeg">'
             +'</audio></div>';
             $("#prvCorpo").append(s);
             s= '<audio class="players" controls style="width:100%">'
-                +'<source id="srcAudio" src="'+self.site+'/'+self.bd+'/'+data._id+'/corpo.mp3" type="audio/mpeg">'
+                +'<source id="srcAudio" src="photo/'+self.bd+'/'+data._id+'/corpo.mp3" type="audio/mpeg">'
               +'</audio>';
             $("#putAudio").append(s);
           break;
@@ -420,7 +420,7 @@ window.QuestionsMultimediaNew = Backbone.View.extend({
             $("#pTipoResp").val("imagem");
             s= '<div id="pR0'+(i+1)+'" class="col-sm-'+size+'">'
                 +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
-                  +'<img id="r0'+(i+1)+'" src="'+self.site+'/'+self.bd+'/'+data._id+'/op'+(i+1)+'.jpg" style="max-height:50px; max-width:50px">'
+                  +'<img id="r0'+(i+1)+'" src="photo/'+self.bd+'/'+data._id+'/op'+(i+1)+'.jpg" style="max-height:50px; max-width:50px">'
                 +'</span>'
               +'</div>';
             $("#prvRespostas").append(s);

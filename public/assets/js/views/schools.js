@@ -57,7 +57,7 @@ window.SchoolsView = Backbone.View.extend({
              for(p=0; p< escola.turmas[i].professores.length; p++){
                modem('GET','teachers/'+escola.turmas[i].professores[p].id,function(professor){
                  var prof = '<div class="col-md-6 ">'
-                            +'<img src="'+self.site+'/'+self.bd2+'/'+professor._id+'/prof.jpg" style="height:80px;" > '
+                            +'<img src="photo/'+self.bd2+'/'+professor._id+'/prof.jpg" style="height:80px;" > '
                             +'<br><label>'+professor.nome+'</label>'
                             +'</div>';
                  $("#classProfessor").append(prof);
@@ -150,7 +150,7 @@ window.SchoolsView = Backbone.View.extend({
     //caso seja submetido o formulário
     self.bd='dev_escolas';
     self.bd2='dev_professores'
-    self.site='http://185.15.22.235:5984';//;
+    self.site='185.15.22.235:5984';//;
 
   },
 
@@ -293,7 +293,7 @@ window.SchoolsView = Backbone.View.extend({
             +'</li>'
           +'</ul>'
         +'</div>';
-    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/escola.jpg"  style="height:220px; max-width:430px">';
+    html+= '<img src="photo/'+self.bd+'/'+documnt._id+'/escola.jpg"  style="height:220px; max-width:430px">';
     html+= '<br><div align=left class="col-md-12" >'
                 +'<br><span><label class="badge">Nome:</label> <label id="EscolaNome" value="'
                 + documnt._id+'">'+documnt.nome+'</label></span>';

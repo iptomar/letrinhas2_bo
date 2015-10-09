@@ -496,7 +496,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="photo/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>';
 
@@ -580,7 +580,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="photo/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>';
 
@@ -649,13 +649,13 @@ window.TestsView = Backbone.View.extend({
                  corpo= '<label style="position:relative;top:20px; max-height:175px">'+item.conteudo.corpo+'</label>';
                  break;
                case 'imagem':
-                 corpo='<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/corpo.jpg" style="position:relative;top:20px; max-width:400px; max-height:160px">';
+                 corpo='<img src="photo/'+self.bd2+'/'+item._id+'/corpo.jpg" style="position:relative;top:20px; max-width:400px; max-height:160px">';
                  break;
                case 'audio':
                  corpo= '<div style="position:relative;top:20px;"><img src="../img/paly_off.png" style=" width:130px">'
                       + '<br>'
                       +'<audio controls style="width:100%">'
-                        +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/corpo.mp3" type="audio/mpeg">'
+                        +'<source src="photo/'+self.bd2+'/'+item._id+'/corpo.mp3" type="audio/mpeg">'
                         +'</audio>'
                       +'</div>';
                  break;
@@ -675,7 +675,7 @@ window.TestsView = Backbone.View.extend({
                  case 'imagem':
                    opcoes+= ' <div class="col-sm-'+size+'">'
                             +'<span class="btn-lg btn-block" style="background-color:#53BDDC; color:#ffffff; height:70px; ">'
-                              +'<img src="'+self.site+'/'+self.bd2+'/'+item._id+'/op'+(j+1)+'.jpg" style=" max-height:50px; max-width:50px">'
+                              +'<img src="photo/'+self.bd2+'/'+item._id+'/op'+(j+1)+'.jpg" style=" max-height:50px; max-width:50px">'
                             +'</span>'
                           +'</div> ';
                    break;
@@ -751,7 +751,7 @@ window.TestsView = Backbone.View.extend({
            +'<div class="col-md-12 " align=left>'
             +'<label>Demo:</label>'
             +'<audio id="vozProf" controls style="width:100%">'
-              +'<source src="'+self.site+'/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
+              +'<source src="photo/'+self.bd2+'/'+item._id+'/voz.mp3" type="audio/mpeg">'
             +'</audio><hr> '
            +'</div>';
 

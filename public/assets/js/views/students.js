@@ -400,7 +400,7 @@ window.StudentsView = Backbone.View.extend({
             +'</li>'
           +'</ul>'
         +'</div>'
-    html+= '<img src="'+self.site+'/'+self.bd+'/'+documnt._id+'/aluno.jpg"  style="height:220px; max-width:430px">';
+    html+= '<img src="photo/'+self.bd+'/'+documnt._id+'/aluno.jpg"  style="height:220px; max-width:430px">';
     html+= '<br><div align=left class="col-md-12"><span><label class="badge">Nome:</label> <label id="alunoNome">'+documnt.nome+'</label></span>';
     html+= '<br><span><label class="badge">Numero de Aluno:</label> <span>'+documnt.numero+' </span></span>';
     html+= '<br><span><label class="badge">Turma:</label> <span id="turmaAluno">Sem Turma...</span></span></div>';

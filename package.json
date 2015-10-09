@@ -6,7 +6,8 @@
   "dependencies": {
     "colors": "*",
     "express": "^3.21.2",
-    "nano": "^6.1.5"
+    "nano": "^6.1.5",
+    "request": "*"
   },
   "scripts": {
     "start": "node main.js"

@@ -1,10 +1,18 @@
 require('colors');
 
 //var nano = require('nano')('http://ince.pt:5984');
-//var nano = require('nano')(process.env.COUCHDB);
-var nano = require('nano')('http://185.15.22.235:5984');
+var nano = require('nano')(process.env.COUCHDB);
+//var nano = require('nano')('http://185.15.22.235:5984');
 //var db = nano.use('escolas');
 var db = nano.use('dev_escolas');
+
+nano.auth(process.env.USERNAME, process.env.PASSWORD, function(err, response, headers) {
+  nano = require('nano')({
+    url: process.env.COUCHDB,
+    cookie: headers['set-cookie']
+  });
+  db = nano.use('dev_escolas');
+});
 
 exports.upDate = function(rep, res){
   console.log('schools upDate, NotAvaliable yet'.blue);
@@ -94,7 +102,7 @@ exports.getAll = function (req, res) {
 
 exports.get = function (req, res) {
   var id = req.params.id;
-  console.log('schools get'.green);
+  console.log('school get: '.green +id);
 
   db.get(id, function(err, body) {
     if (err) {

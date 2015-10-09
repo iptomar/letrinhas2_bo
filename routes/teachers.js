@@ -1,12 +1,22 @@
 ﻿require('colors');
 
+var request = require('request');
+
 //var nano = require('nano')('http://ince.pt:5984');
-//var nano = require('nano')(process.env.COUCHDB);
-var nano = require('nano')('http://185.15.22.235:5984');
+var nano = require('nano')(process.env.COUCHDB);
+//var nano = require('nano')('http://185.15.22.235:5984');
 //var db = nano.use('professores');
 var db = nano.use('dev_professores');
 var db2 = nano.use('dev_escolas');
 
+nano.auth(process.env.USERNAME, process.env.PASSWORD, function(err, response, headers) {
+  nano = require('nano')({
+    url: process.env.COUCHDB,
+    cookie: headers['set-cookie']
+  });
+  db = nano.use('dev_professores');
+  db2 = nano.use('dev_escolas');
+});
 
 exports.upDate = function(req, res){
   console.log('teachers upDate'.cyan);
@@ -149,6 +159,17 @@ exports.new = function(req, res) {
   });
 };
 
+exports.photo = function(req, res) {
+var id = req.params.id;
+var db = req.params.db;
+var photo = req.params.photo;
+
+request({'url': process.env.COUCHDB + '/' + db +'/' + id + '/' + photo, headers : {
+            "Authorization" : "Basic " + new Buffer(process.env.USERNAME + ":" + process.env.PASSWORD).toString("base64")
+        }}).pipe(res);
+
+};
+
 exports.getAll = function(req, res) {
   console.log('teachers getAll'.yellow);
 
@@ -165,7 +186,10 @@ exports.getAll = function(req, res) {
 
 exports.get = function(req, res) {
   var id = req.params.id;
+  console.log('teacher get: '.green + id);
   db.get(id,function(err, body) {
+
+
 //dang
 //console.log(err);
 //console.log(body);

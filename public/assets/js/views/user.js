@@ -35,7 +35,7 @@ window.UserView = Backbone.View.extend({
             for(p=0; p< escola.turmas[i].professores.length; p++){
               modem('GET','teachers/'+escola.turmas[i].professores[p].id,function(professor){
                 var prof = '<div class="col-md-6 ">'
-                           +'<img src="'+self.site+'/'+self.bd+'/'+professor._id+'/prof.jpg" style="height:80px;" > '
+                           +'<img src="photo/'+self.bd+'/'+professor._id+'/prof.jpg" style="height:80px;" > '
                            +'<br><label>'+professor.nome+'</label>'
                            +'</div>';
                 $("#classProfessor").append(prof);
