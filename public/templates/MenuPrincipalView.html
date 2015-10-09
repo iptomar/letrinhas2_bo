@@ -1,0 +1,143 @@
+<!--
+Sugestão para o menu:
+Usar esta pàgina como uma MasterPage, e
+consoante as permissões do utilizador (rolls)
+apresenta para cosuta:
+
+
+>Testes: (Faz aparecer uma grid com os diversos testes ativos,
+          onde, além de um "preview" do teste (1ª pergunta) apresenta as
+          diversas opções)
+          >Editar / >Criar / >Apagar (Desabilitar???)
+
+         Seguindo a lógica da app.
+
+>Professores: (Apresentar uma grid com todos os professores na BD e apresentando
+               as respetivas opções)
+               >Editar / >Criar / >Apagar (Desabilitar???)
+
+>Escolas: (Apresentar uma grid com todas as escolas na BD e apresentando
+           as respetivas opções)
+           >Editar / >Criar / >Apagar (Desabilitar???)
+           Ao clicar numa escola, muda a grid para consulta de todas as turmas
+           da escola selecionada.
+
+>Turmas: (Apresentar uma grid com todas as turmas na BD e apresentando
+          as respetivas opções)
+          >Editar / >Criar / >Apagar (Desabilitar???)
+          Ao clicar numa turma, muda a grid para consulta de todos os Alunos
+          da Turma selecionada.
+
+
+>Alunos: (Apresentar uma grid com todos os alunos BD e apresentando
+            as respetivas opções)
+            >Editar / >Criar / >Apagar (Desabilitar???)
+
+-->
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" style="color: #80FF80;" href="/#"aria-expanded="false">
+        <span>
+          <img src="../img/letrinhas2.png" style='height:32px;'title="Projeto final de Engª Informática de:
+          Alexandre Carvalho, aluno nº14922
+          Artur Gomes, aluno nº17262
+          Tiago Fernandes, aluno nº17253
+
+          ESTT-IPT-Tomar 2014/2015">
+        </span>
+        <label title="Pagina inicial">Letrinhas</label>
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+            <a href="#tests" aria-expanded="false" title="Ver testes">
+              <img src="../img/testeTexto.png" style='height:32px;'>
+              Testes
+            </a>
+        </li>
+        <li>
+            <a href="#schools" aria-expanded="false" title="Ver escolas">
+              <img src="../img/escola1.png" style='height:32px;'>
+              Escolas
+            </a>
+        </li>
+        <li>
+            <a href="#students" aria-expanded="false" title="Ver alunos">
+              <img src="../img/alunos.png" style='height:32px;'>
+              Alunos
+            </a>
+        </li>
+        <li id="sepProf" style="display:none">
+            <a href="#teachers" aria-expanded="false" title="Ver funcionários">
+              <img src="../img/docentes.png" style='height:32px;'>
+              Professor/es
+            </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li id="opUser">
+          <a href="#user" aria-expanded="false">
+            <span class="glyphicon glyphicon-user" style="font-size:20px; color:#ddddee"></span>
+            <label id="user">User</label>,
+          </a>
+        </li>
+        <li id="opDef" style="display:none">
+          <a href="/#man" aria-expanded="false" title="Outras difenições do serviço">
+            <label>Definições</label>
+            <span class="glyphicon glyphicon-cog" style="font-size:20px; color:#ddddee"></span>
+          </a>
+        </li>
+        <li>
+          <a id="menuSair" aria-expanded="false" title="Sair do serviço">
+            <label>Logout</label>
+            <span class="glyphicon glyphicon-log-out" style="font-size:20px; color:#ee5555"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="text-center">
+  <img src="../img/ipt.jpg" style="height:200px">
+  <img src="../img/letrinhas2.png">
+  <img src="../img/ESAG.png"  style="height:200px">
+
+</div>
+
+<div class="col-sm-1" style="position:fixed; left:0px; top:15px;">
+  <img src="../img/ipt0.jpg" style="height:40px">
+</div>
+
+<div class="col-sm-1" style="position:fixed; left:0px; bottom:20px;">
+  <img src="../img/ESTT2.jpg" align=left style="height:60px">
+</div>
+
+<div class="col-sm-11" style="position:fixed; right:0px; bottom:15px; text-align:right">
+
+  <img src="../img/couch.png" style="height:50px">
+  <span class="glyphicon glyphicon-transfer" style="font-size:22px"></span>
+  <img src="../img/pouch.png" style="height:50px">
+  <span class="glyphicon glyphicon-circle-arrow-right" style="font-size:22px"></span>
+  <img src="../img/npm.png" style="height:50px">
+  <img src="../img/nodeJS.png" style="height:50px">
+  <img src="../img/backbone.png" style="height:50px">
+  <img src="../img/HTML5.png" style="height:50px">
+  <img src="../img/bootstrap.jpg" style="height:50px">
+
+  <span class="glyphicon glyphicon-circle-arrow-right" style="font-size:22px"></span>
+
+  <img src="../img/cordova_256.png" style="height:50px">
+  <span class="glyphicon glyphicon-circle-arrow-right" style="font-size:22px"></span>
+
+  <img src="../img/android_platform.png" style="height:50px">
+  <img src="../img/windows-10-start-menu-logo.png" style="height:50px">
+  <img src="../img/Apple-logo2.png" style="height:50px">
+  <img src="../img/blackberry.png" style="height:50px">
+  <span class="glyphicon glyphicon-option-horizontal" style="vertical-align:bottom; font-size:22px"></span>
+
+</div>
